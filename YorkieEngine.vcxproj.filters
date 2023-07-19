@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{8d36214e-bc2f-4301-992f-d9bf8f114e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{fa18b73f-9ef2-4fc2-a4f8-c05544c03e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application">
+      <UniqueIdentifier>{59261780-d237-4f73-9adc-8776e372c28a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application\Public">
+      <UniqueIdentifier>{90ee8475-744c-4562-89af-511ababeb926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application\Private">
+      <UniqueIdentifier>{0955284b-9a1e-4be0-8239-e9b44ffef956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Public">
+      <UniqueIdentifier>{884c6241-afcd-427e-a8dd-023d5addee87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Private">
+      <UniqueIdentifier>{21f3d488-dccf-49ed-a652-b56bc2eb8abd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shaders">
+      <UniqueIdentifier>{92c3e0a9-0963-42cc-acd8-63c61344d4d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shaders\Public">
+      <UniqueIdentifier>{e1385ec0-060d-4921-ae56-091dea12cfee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shaders\Private">
+      <UniqueIdentifier>{59ca16fa-e7a4-44d3-a655-a71d0be2e368}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\YorkieEngine\Rendering\RenderingSystem.cpp">
+      <Filter>Source\Rendering\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YorkieEngine\Rendering\RenderObject.cpp">
+      <Filter>Source\Rendering\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YorkieEngine\YorkieEngine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YorkieEngine\Application\YorkiEngineApp.cpp">
+      <Filter>Source\Application\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\YorkieEngine\Shaders\Shader.cpp">
+      <Filter>Source\Shaders\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Libraries\glad\src\glad.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\YorkieEngine\Rendering\RenderObject.h">
+      <Filter>Source\Rendering\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YorkieEngine\YorkieEngine.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YorkieEngine\Rendering\RenderingSystem.h">
+      <Filter>Source\Rendering\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YorkieEngine\Application\YorkiEngineApp.h">
+      <Filter>Source\Application\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\YorkieEngine\Shaders\Shader.h">
+      <Filter>Source\Shaders\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
