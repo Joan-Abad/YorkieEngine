@@ -1,11 +1,14 @@
-﻿  YorkiEngineApp.cpp
-c1xx : fatal  error C1083: Cannot open source file: '..\YorkieEngine\Application\YorkiEngineApp.cpp': No such file or directory
-  RenderingSystem.cpp
-c1xx : fatal  error C1083: Cannot open source file: '..\YorkieEngine\Rendering\RenderingSystem.cpp': No such file or directory
-  RenderObject.cpp
-c1xx : fatal  error C1083: Cannot open source file: '..\YorkieEngine\Rendering\RenderObject.cpp': No such file or directory
-  Shader.cpp
-c1xx : fatal  error C1083: Cannot open source file: '..\YorkieEngine\Shaders\Shader.cpp': No such file or directory
+﻿  Shader.cpp
+E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(326,1): warning C4005: 'GL_ALL_ATTRIB_BITS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(107,1): message : see previous definition of 'GL_ALL_ATTRIB_BITS'
+E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(414,1): warning C4005: 'GL_LOGIC_OP': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(1152,1): message : see previous definition of 'GL_LOGIC_OP'
+E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(498,1): warning C4005: 'GL_TEXTURE_COMPONENTS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(1153,1): message : see previous definition of 'GL_TEXTURE_COMPONENTS'
+E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(592,1): warning C4005: 'GL_CLIENT_ALL_ATTRIB_BITS': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(973,1): message : see previous definition of 'GL_CLIENT_ALL_ATTRIB_BITS'
   YorkieEngine.cpp
-c1xx : fatal  error C1083: Cannot open source file: '..\YorkieEngine\YorkieEngine.cpp': No such file or directory
   Generating Code...
+     Creating library E:\Projects\YorkieEngine\x64\Debug\YorkieEngine.lib and object E:\Projects\YorkieEngine\x64\Debug\YorkieEngine.exp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  YorkieEngine.vcxproj -> E:\Projects\YorkieEngine\x64\Debug\YorkieEngine.dll

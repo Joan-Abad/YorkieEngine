@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include <iostream>
 #include <vector>
+#include "glad/glad.h"
 
 Shader::Shader(const char* shaderSource, GLenum type) : shaderSource(shaderSource)
 {

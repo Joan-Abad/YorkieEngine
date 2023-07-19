@@ -19,19 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\YorkieEngine\Application\YorkiEngineApp.cpp" />
-    <ClCompile Include="..\YorkieEngine\Rendering\RenderingSystem.cpp" />
-    <ClCompile Include="..\YorkieEngine\Rendering\RenderObject.cpp" />
-    <ClCompile Include="..\YorkieEngine\Shaders\Shader.cpp" />
-    <ClCompile Include="..\YorkieEngine\YorkieEngine.cpp" />
     <ClCompile Include="Libraries\glad\src\glad.c" />
+    <ClCompile Include="YorkieEngine\Application\YorkiEngineApp.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\RenderingSystem.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\RenderObject.cpp" />
+    <ClCompile Include="YorkieEngine\Shaders\Shader.cpp" />
+    <ClCompile Include="YorkieEngine\YorkieEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\YorkieEngine\Application\YorkiEngineApp.h" />
-    <ClInclude Include="..\YorkieEngine\Rendering\RenderingSystem.h" />
-    <ClInclude Include="..\YorkieEngine\Rendering\RenderObject.h" />
-    <ClInclude Include="..\YorkieEngine\Shaders\Shader.h" />
-    <ClInclude Include="..\YorkieEngine\YorkieEngine.h" />
+    <ClInclude Include="YorkieEngine\Application\YorkiEngineApp.h" />
+    <ClInclude Include="YorkieEngine\Rendering\RenderingSystem.h" />
+    <ClInclude Include="YorkieEngine\Rendering\RenderObject.h" />
+    <ClInclude Include="YorkieEngine\Shaders\Shader.h" />
+    <ClInclude Include="YorkieEngine\YorkieEngine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -33,40 +33,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\YorkieEngine\Rendering\RenderingSystem.cpp">
-      <Filter>Source\Rendering\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\YorkieEngine\Rendering\RenderObject.cpp">
-      <Filter>Source\Rendering\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\YorkieEngine\YorkieEngine.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\YorkieEngine\Application\YorkiEngineApp.cpp">
-      <Filter>Source\Application\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\YorkieEngine\Shaders\Shader.cpp">
-      <Filter>Source\Shaders\Private</Filter>
-    </ClCompile>
     <ClCompile Include="Libraries\glad\src\glad.c">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="YorkieEngine\YorkieEngine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Shaders\Shader.cpp">
+      <Filter>Source\Shaders\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Rendering\RenderObject.cpp">
+      <Filter>Source\Rendering\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Rendering\RenderingSystem.cpp">
+      <Filter>Source\Rendering\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Application\YorkiEngineApp.cpp">
+      <Filter>Source\Application\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\YorkieEngine\Rendering\RenderObject.h">
-      <Filter>Source\Rendering\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="..\YorkieEngine\YorkieEngine.h">
+    <ClInclude Include="YorkieEngine\YorkieEngine.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\YorkieEngine\Rendering\RenderingSystem.h">
+    <ClInclude Include="YorkieEngine\Shaders\Shader.h">
+      <Filter>Source\Shaders\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="YorkieEngine\Rendering\RenderObject.h">
       <Filter>Source\Rendering\Public</Filter>
     </ClInclude>
-    <ClInclude Include="..\YorkieEngine\Application\YorkiEngineApp.h">
-      <Filter>Source\Application\Public</Filter>
+    <ClInclude Include="YorkieEngine\Rendering\RenderingSystem.h">
+      <Filter>Source\Rendering\Public</Filter>
     </ClInclude>
-    <ClInclude Include="..\YorkieEngine\Shaders\Shader.h">
-      <Filter>Source\Shaders\Public</Filter>
+    <ClInclude Include="YorkieEngine\Application\YorkiEngineApp.h">
+      <Filter>Source\Application\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
