@@ -8,6 +8,13 @@
 
 YorkiEngineApp::YorkiEngineApp()
 {
+
+}
+
+void YorkiEngineApp::Run()
+{
+    CreateApplication();
+    Update();
 }
 
 void YorkiEngineApp::CreateApplication()
@@ -18,6 +25,11 @@ void YorkiEngineApp::CreateApplication()
         std::cerr << "Failed to initialize GLFW" << std::endl;
     }
 
+    // Specify OpenGL version (in this case, 3.3)
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     // Create a GLFW window
     window = glfwCreateWindow(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title, nullptr, nullptr);
     if (!window)
@@ -26,80 +38,25 @@ void YorkiEngineApp::CreateApplication()
         glfwTerminate();
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    // Set the current context to the GLFW window
+    // Make the window's context current
     glfwMakeContextCurrent(window);
 
-    // After creating the GLFW window and making the context current
+    // Initialize GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         glfwTerminate();
     }
 
-    // Set the viewport
-    glViewport(0, 0, yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight);
+    // Set the viewport size and register the framebuffer_size_callback
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, width, height);
 
-    std::vector<float> vertices = {
-        // Front face
-        -0.5f, -0.5f,  0.5f,  // Bottom-left vertex
-         0.5f, -0.5f,  0.5f,  // Bottom-right vertex
-         0.5f,  0.5f,  0.5f,  // Top-right vertex
-        -0.5f,  0.5f,  0.5f,  // Top-left vertex
-        // Back face
-        -0.5f, -0.5f, -0.5f,  // Bottom-left vertex
-         0.5f, -0.5f, -0.5f,  // Bottom-right vertex
-         0.5f,  0.5f, -0.5f,  // Top-right vertex
-        -0.5f,  0.5f, -0.5f,  // Top-left vertex
-    };
+    // Set the callback for window resizing
+    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    std::vector<unsigned int> indices = {
-        // Front face
-        0, 1, 2,
-        2, 3, 0,
-        // Right face
-        1, 5, 6,
-        6, 2, 1,
-        // Back face
-        7, 6, 5,
-        5, 4, 7,
-        // Left face
-        4, 0, 3,
-        3, 7, 4,
-        // Bottom face
-        4, 5, 1,
-        1, 0, 4,
-        // Top face
-        3, 2, 6,
-        6, 7, 3
-    };
-    Shader vertexShader(R"(
-        #version 330 core
-        layout (location = 0) in vec3 aPos;
-        void main()
-        {
-            gl_Position = vec4(aPos, 1.0);
-        }
-    )", GL_VERTEX_SHADER);
-
-    Shader fragmentShader(R"(
-        #version 330 core
-        out vec4 FragColor;
-        void main()
-        {
-            FragColor = vec4(1.0, 1.0, 1.0, 1.0);  // White color
-        }
-    )"
-        , GL_FRAGMENT_SHADER);
-
-    RenderObject renderObject(vertices, indices); 
-    renderObject.AttachVertexShader(vertexShader);
-    renderObject.AttachFragmentShader(fragmentShader);
-    RenderingSystem::AddObjectToRender(renderObject);
-
+    OnCreateApplication();
 }
 
 void YorkiEngineApp::Update()
@@ -108,14 +65,17 @@ void YorkiEngineApp::Update()
     while (!glfwWindowShouldClose(window))
     {
         // Clear the screen to black
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        OnPreDraw();
         RenderingSystem::RenderObjects(window);
 
         // Swap buffers and poll events
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        OnPostDraw();
     }
 }
 
@@ -123,4 +83,25 @@ void YorkiEngineApp::TerminateApplication()
 {
     // Terminate GLFW and exit
     glfwTerminate();
+}
+
+void YorkiEngineApp::OnCreateApplication()
+{
+}
+
+void YorkiEngineApp::OnPreDraw()
+{
+}
+
+void YorkiEngineApp::OnPostDraw()
+{
+}
+
+void YorkiEngineApp::OnTerimateApplication()
+{
+}
+// Function called when the window is resized
+void YorkiEngineApp::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
 }
