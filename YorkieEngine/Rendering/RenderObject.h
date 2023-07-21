@@ -6,14 +6,16 @@
 class YENGINE RenderObject
 {
 public: 
-	RenderObject(const std::vector<float> vertices);
+	RenderObject(const char* meshPath, Shader shader);
+	RenderObject(const std::vector<float> vertices, Shader shader);
 	RenderObject(const std::vector<float> vertices, const std::vector<unsigned int> indices);
 	RenderObject(const std::vector<float> vertices, const std::vector<unsigned int> indices, Shader shader);
+	~RenderObject();
 
 	void Render();
 	void CreateRenderObject();
+	
 	void AttachShader(Shader shader);
-	void ExecuteShader();
 	inline int GetVerticesSize() { return vertices.size(); };
 	inline unsigned int GetIndicesSize() { return indices.size(); };
 
@@ -30,4 +32,8 @@ private:
 	unsigned int VAO;
 	unsigned int VBO;
 	unsigned int EBO;
+
+	void CreateShaderProgram();
+	void ExecuteShader();
+
 };

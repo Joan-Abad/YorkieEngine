@@ -17,24 +17,3 @@ void RenderingSystem::RenderObjects(GLFWwindow* window)
 		renderObject->Render();
 	}
 }
-
-unsigned int RenderingSystem::CreateProgram()
-{
-	GLuint shaderProgram = glCreateProgram();
-
-	return shaderProgram;
-}
-
-void RenderingSystem::AttachShaderToProgram(unsigned int Program, unsigned int Shader)
-{
-	glAttachShader(Program, Shader);
-
-}
-
-void RenderingSystem::UseProgram(unsigned int Program)
-{
-	glLinkProgram(Program);
-	glUseProgram(Program);
-}
-
-

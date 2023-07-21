@@ -41,7 +41,7 @@ void Shader::CheckShaderCompilationStatus(GLuint shader)
 
 void Shader::ParseShader(const std::string& path)
 {
-
+	auto a = GL_FRAGMENT_SHADER;
 	enum class ShaderType
 	{
 		NONE = -1, VERTEX = 0, FRAGMENT = 1
@@ -66,7 +66,7 @@ void Shader::ParseShader(const std::string& path)
 		else
 		{
 			if (type != ShaderType::NONE)
-				ss[int(type)] << line << '\n';
+				ss[static_cast<int>(type)] << line << '\n';
 		}
 
 	}

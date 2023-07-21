@@ -9,7 +9,7 @@ struct ShaderProgramSource
     std::string VertexSource;
     std::string FragmentSource;
 };
-//Conains fragment and vertex shader
+//Contains fragment and vertex shader
 class YENGINE Shader
 {
 public:
