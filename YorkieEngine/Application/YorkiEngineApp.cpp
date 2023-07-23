@@ -5,6 +5,8 @@
 #include <iostream>
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
+#include "../Window/Public/WindowManager.h"
+#include "../Logging/Public/Logger.h"
 
 YorkiEngineApp::YorkiEngineApp()
 {
@@ -14,53 +16,46 @@ YorkiEngineApp::YorkiEngineApp()
 void YorkiEngineApp::Run()
 {
     CreateApplication();
-    Update();
+    //Update();
 }
-
-void YorkiEngineApp::CreateApplication()
+#ifdef RENDER_OPENGL
+void YorkiEngineApp::InitializeGLFW()
 {
     // Initialize GLFW
     if (!glfwInit())
-    {
-        std::cerr << "Failed to initialize GLFW" << std::endl;
-    }
+        Logger::LogError("Failed to initialize GLFW");
 
     // Specify OpenGL version (in this case, 3.3)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
 
-    // Create a GLFW window
-    window = glfwCreateWindow(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title, nullptr, nullptr);
-    if (!window)
-    {
-        std::cerr << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-    }
-
-    // Make the window's context current
-    glfwMakeContextCurrent(window);
-
+void YorkiEngineApp::InitializeGLAD()
+{
     // Initialize GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         glfwTerminate();
     }
+}
 
-    // Set the viewport size and register the framebuffer_size_callback
-    int width, height;
-    glfwGetFramebufferSize(window, &width, &height);
-    glViewport(0, 0, width, height);
+#endif // RENDER_OPENGL
 
-    // Set the callback for window resizing
-    //glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-    OnCreateApplication();
+void YorkiEngineApp::CreateApplication()
+{
+    InitializeGLFW();
+    WindowManager::CreateWindow(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title);
+    InitializeGLAD();
+    OnCreateApplicationCallback();
+    Update();
 }
 
 void YorkiEngineApp::Update()
 {
+    WindowManager::DrawWindows();
+    /*
     // Main rendering loop
     while (!glfwWindowShouldClose(window))
     {
@@ -77,15 +72,18 @@ void YorkiEngineApp::Update()
 
         OnPostDraw();
     }
+    */
 }
 
 void YorkiEngineApp::TerminateApplication()
 {
+#ifdef RENDER_OPENGL
     // Terminate GLFW and exit
     glfwTerminate();
+#endif
 }
 
-void YorkiEngineApp::OnCreateApplication()
+void YorkiEngineApp::OnCreateApplicationCallback()
 {
 }
 
@@ -99,9 +97,4 @@ void YorkiEngineApp::OnPostDraw()
 
 void YorkiEngineApp::OnTerimateApplication()
 {
-}
-// Function called when the window is resized
-void YorkiEngineApp::framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
 }

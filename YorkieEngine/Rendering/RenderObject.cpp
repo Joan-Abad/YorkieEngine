@@ -9,7 +9,18 @@ struct Face
 {
     unsigned int vIndex[3]; // Vertex indices for the face (assuming triangles)
 };
+// Function to print the program info log
+void PrintProgramInfoLog(GLuint program) {
+    GLint logLength = 0;
+    glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
 
+    if (logLength > 0) {
+        char* logBuffer = new char[logLength];
+        glGetProgramInfoLog(program, logLength, nullptr, logBuffer);
+        std::cout << "Program Info Log:\n" << logBuffer << std::endl;
+        delete[] logBuffer;
+    }
+}
 int ParseVertexIndex(const std::string& faceIndexString)
 {
     std::istringstream iss(faceIndexString);
@@ -21,8 +32,8 @@ int ParseVertexIndex(const std::string& faceIndexString)
 RenderObject::RenderObject(const char* meshPath, Shader shader)
 {
     std::ifstream objFile(meshPath);
-
     std::string line;
+    /*
     while (std::getline(objFile, line))
     {
         std::istringstream iss(line);
@@ -49,31 +60,30 @@ RenderObject::RenderObject(const char* meshPath, Shader shader)
             //faces.push_back(face);
         }
     }
-
+    */
     AttachShader(shader);
-    CreateRenderObject();
 }
 
 RenderObject::RenderObject(const std::vector<float> vertices, Shader shader)
 {
-    this->vertices = vertices;
+    RenderingSystem::AddObjectToRender(this);
+   // buffer.AddBufferData(vertices);
     AttachShader(shader);
-    CreateRenderObject();
+    //CreateRenderObject();
+
 }
 
 RenderObject::RenderObject(const std::vector<float> vertices, const std::vector<unsigned int> indices)
 {
-    this->vertices = vertices;
-    this->indices = indices;
-    CreateRenderObject();
+    buffer.AddBufferData(vertices);
+    buffer.AddBufferData(indices);
 }
 
 RenderObject::RenderObject(const std::vector<float> vertices, const std::vector<unsigned int> indices, Shader shader)
 {
-    this->vertices = vertices;
-    this->indices = indices;
+    buffer.AddBufferData(vertices);
+    buffer.AddBufferData(indices);
     AttachShader(shader);
-    CreateRenderObject();
 }
 
 RenderObject::~RenderObject()
@@ -83,56 +93,32 @@ RenderObject::~RenderObject()
 
 void RenderObject::Render()
 {
+    /*float timeValue = glfwGetTime();
+    float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+    int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+    glUseProgram(shaderProgram);
+    glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);*/
     ExecuteShader();
-    glBindVertexArray(VAO);
-
+    glBindVertexArray(buffer.GetVAO());
+    /*
     if (indices.size() > 0)
     {
+        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     }
-    else
-    {
+    */
+    //else
+    //{
         glDrawArrays(GL_TRIANGLES, 0, 3);
-    }
+    //}
     glBindVertexArray(0);
 
-}
-
-void RenderObject::CreateRenderObject()
-{
-    RenderingSystem::AddObjectToRender(this);
-
-    // Create a Vertex Array Object (VAO) and a Vertex Buffer Object (VBO)
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-
-    // Bind the VAO
-    glBindVertexArray(VAO);
-
-    // Bind the VBO and copy the vertex data into it
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
-
-    // Set the vertex attribute pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    if (indices.size() > 0)
-    {
-        // Bind the EBO and copy the index data into it
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
-    }
-
-    // Unbind the VAO
-    glBindVertexArray(0);
-    CreateShaderProgram();
 }
 
 void RenderObject::AttachShader(Shader shader)
 {
     this->shader = shader;
+    CreateShaderProgram();
 }
 
 void RenderObject::CreateShaderProgram()

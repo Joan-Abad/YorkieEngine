@@ -21,16 +21,26 @@
   <ItemGroup>
     <ClCompile Include="Libraries\glad\src\glad.c" />
     <ClCompile Include="YorkieEngine\Application\YorkiEngineApp.cpp" />
+    <ClCompile Include="YorkieEngine\Buffer.cpp" />
+    <ClCompile Include="YorkieEngine\IndexBuffer.cpp" />
+    <ClCompile Include="YorkieEngine\Logging\Private\Logger.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\RenderObject.cpp" />
     <ClCompile Include="YorkieEngine\Shaders\Shader.cpp" />
+    <ClCompile Include="YorkieEngine\Window\Private\Window.cpp" />
+    <ClCompile Include="YorkieEngine\Window\Private\WindowManager.cpp" />
     <ClCompile Include="YorkieEngine\YorkieEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YorkieEngine\Application\YorkiEngineApp.h" />
+    <ClInclude Include="YorkieEngine\Buffer.h" />
+    <ClInclude Include="YorkieEngine\IndexBuffer.h" />
+    <ClInclude Include="YorkieEngine\Logging\Public\Logger.h" />
     <ClInclude Include="YorkieEngine\Rendering\RenderingSystem.h" />
     <ClInclude Include="YorkieEngine\Rendering\RenderObject.h" />
     <ClInclude Include="YorkieEngine\Shaders\Shader.h" />
+    <ClInclude Include="YorkieEngine\Window\Public\Window.h" />
+    <ClInclude Include="YorkieEngine\Window\Public\WindowManager.h" />
     <ClInclude Include="YorkieEngine\YorkieEngine.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -117,9 +127,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>YENGINE_EXPORT</PreprocessorDefinitions>
+      <PreprocessorDefinitions>YENGINE_EXPORT;RENDER_OPENGL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Libraries\glad\include;$(ProjectDir)Libraries\glfw\glfw-3.3.8\include;$(ProjectDir)Libraries\glm</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,9 +145,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>YENGINE_EXPORT</PreprocessorDefinitions>
+      <PreprocessorDefinitions>YENGINE_EXPORT;RENDER_OPENGL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)Libraries\glad\include;$(ProjectDir)Libraries\glfw\glfw-3.3.8\include;$(ProjectDir)Libraries\glm</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

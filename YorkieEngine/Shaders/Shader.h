@@ -15,6 +15,7 @@ class YENGINE Shader
 public:
     Shader() = default;
     Shader(const char* shaderPath);
+    void ParseShader(const std::string& path);
 
 private:
     void CheckShaderCompilationStatus(GLuint shader);
@@ -23,7 +24,6 @@ private:
     unsigned int fragmentShaderID;
     ShaderProgramSource shaderProgramSource;
 
-    void ParseShader(const std::string& path);
 
 public:
     inline unsigned int getVertexShaderID() { return vertexShaderID; };

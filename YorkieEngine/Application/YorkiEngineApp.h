@@ -15,22 +15,28 @@ public:
 	YorkiEngineApp();
 	void Run();
 private: 
-	GLFWwindow* window;
 	YorkiEngineAppInfo yorkiEngineAppInfo;
 	unsigned int VAO;
 	unsigned int VBO;
 	unsigned int EBO;
 	
-	void CreateApplication();
 	void Update();
 	void TerminateApplication();
-	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
+#ifdef RENDER_OPENGL
+	void InitializeGLFW();
+	void InitializeGLAD();
+#endif // RENDER_OPENGL
+
 
 protected:
-	virtual void OnCreateApplication();
+	void CreateApplication();
+	virtual void OnCreateApplicationCallback();
 	virtual void OnPreDraw();
 	virtual void OnPostDraw();
 	virtual void OnTerimateApplication();
+
+public: 
 
 };
 

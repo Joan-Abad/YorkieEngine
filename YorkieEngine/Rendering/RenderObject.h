@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include "../Shaders/Shader.h"
+#include "../Buffer.h"
 
 class YENGINE RenderObject
 {
@@ -13,25 +14,15 @@ public:
 	~RenderObject();
 
 	void Render();
-	void CreateRenderObject();
 	
 	void AttachShader(Shader shader);
-	inline int GetVerticesSize() { return vertices.size(); };
-	inline unsigned int GetIndicesSize() { return indices.size(); };
-
-	inline int GetVAO() { return VAO; };
-	inline int GetVBO() { return VBO; };
+	Buffer buffer;
 
 private: 
 
-	std::vector<float> vertices;
-	std::vector<unsigned int> indices;
 	Shader shader;
 	//Almost 100% this doesn't go here
 	unsigned int shaderProgram;
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int EBO;
 
 	void CreateShaderProgram();
 	void ExecuteShader();
