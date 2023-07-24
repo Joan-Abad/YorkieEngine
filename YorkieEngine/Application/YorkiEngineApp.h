@@ -23,10 +23,9 @@ private:
 	void Update();
 	void TerminateApplication();
 
-#ifdef RENDER_OPENGL
 	void InitializeGLFW();
 	void InitializeGLAD();
-#endif // RENDER_OPENGL
+	void InitializeImGUI();
 
 
 protected:

@@ -6,10 +6,12 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp> // Include this header for glm::value_ptr
 #include "../../Shaders/Shader.h"
+#include "../../ImGUI/imgui.h"
+#include "../../ImGUI/imgui_impl_glfw.h" // Include the proper ImGui backend for GLFW
+#include "../../ImGUI/imgui_impl_opengl3.h" // Include the proper ImGui backend for OpenGL
 
-Window::Window(int width, int height, const char* title, WindowMode windowMode)
+Window::Window(int width, int height, const char* title, WindowMode windowMode) //: width(width), height(height), title(title), windowMode(windowMode)
 {
-#ifdef RENDER_OPENGL
     // Create a GLFW window
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!window)
@@ -17,13 +19,12 @@ Window::Window(int width, int height, const char* title, WindowMode windowMode)
         Logger::LogError("WINDOW COULD NOT BE CREATED");
         glfwTerminate();
     }
-#endif // RENDER_OPENGL
+
     bDrawWindow = true;
 }
 
 void Window::Draw()
 {
-#ifdef RENDER_OPENGL
     while (bDrawWindow && !glfwWindowShouldClose(window))
     {
         // Clear the screen
@@ -36,5 +37,20 @@ void Window::Draw()
         // Poll for events
         glfwPollEvents();
     }
-#endif
+}
+
+int Window::GetWindowWidth()
+{
+    //TODO: Return a vector2 instead
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
+    return width;
+}
+
+int Window::GetWindowHeight()
+{
+    //TODO: Return a vector2 instead
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
+    return height;
 }

@@ -16,7 +16,7 @@ public:
     Shader() = default;
     Shader(const char* shaderPath);
     void ParseShader(const std::string& path);
-
+    void ExecuteShader();
 private:
     void CheckShaderCompilationStatus(GLuint shader);
 

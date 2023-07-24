@@ -1,4 +1,3 @@
-e:\projects\yorkieengine\x64\debug\glad.obj
 e:\projects\yorkieengine\x64\debug\yorkieengine.obj
 e:\projects\yorkieengine\x64\debug\shader.obj
 e:\projects\yorkieengine\x64\debug\renderobject.obj
@@ -6,6 +5,18 @@ e:\projects\yorkieengine\x64\debug\renderingsystem.obj
 e:\projects\yorkieengine\x64\debug\indexbuffer.obj
 e:\projects\yorkieengine\x64\debug\buffer.obj
 e:\projects\yorkieengine\x64\debug\yorkiengineapp.obj
+e:\projects\yorkieengine\x64\debug\windowmanager.obj
+e:\projects\yorkieengine\x64\debug\window.obj
+e:\projects\yorkieengine\x64\debug\viewport.obj
+e:\projects\yorkieengine\x64\debug\logger.obj
+e:\projects\yorkieengine\x64\debug\imgui_widgets.obj
+e:\projects\yorkieengine\x64\debug\imgui_tables.obj
+e:\projects\yorkieengine\x64\debug\imgui_draw.obj
+e:\projects\yorkieengine\x64\debug\imgui_demo.obj
+e:\projects\yorkieengine\x64\debug\imgui_impl_glfw.obj
+e:\projects\yorkieengine\x64\debug\glad.obj
+e:\projects\yorkieengine\x64\debug\imgui.obj
+e:\projects\yorkieengine\x64\debug\imgui_impl_opengl3.obj
 c:\users\joan\appdata\local\tempvc143.pdb
 e:\projects\sandboxapp\x64\debug\yorkieengine.lib
 e:\projects\sandboxapp\x64\debug\yorkieengine.exp

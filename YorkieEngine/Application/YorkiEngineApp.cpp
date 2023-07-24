@@ -7,6 +7,10 @@
 #include "glad/glad.h"
 #include "../Window/Public/WindowManager.h"
 #include "../Logging/Public/Logger.h"
+#include "../Window/Public/Viewport.h"
+#include "../ImGUI/imgui.h"
+#include "../ImGUI/imgui_impl_opengl3.h"
+#include "../ImGUI/imgui_impl_glfw.h"
 
 YorkiEngineApp::YorkiEngineApp()
 {
@@ -18,7 +22,6 @@ void YorkiEngineApp::Run()
     CreateApplication();
     //Update();
 }
-#ifdef RENDER_OPENGL
 void YorkiEngineApp::InitializeGLFW()
 {
     // Initialize GLFW
@@ -41,12 +44,16 @@ void YorkiEngineApp::InitializeGLAD()
     }
 }
 
-#endif // RENDER_OPENGL
+void YorkiEngineApp::InitializeImGUI()
+{
+    
+}
+
 
 void YorkiEngineApp::CreateApplication()
 {
     InitializeGLFW();
-    WindowManager::CreateWindow(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title);
+    WindowManager::CreateWindow<Viewport>(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title);
     InitializeGLAD();
     OnCreateApplicationCallback();
     Update();
@@ -77,10 +84,8 @@ void YorkiEngineApp::Update()
 
 void YorkiEngineApp::TerminateApplication()
 {
-#ifdef RENDER_OPENGL
     // Terminate GLFW and exit
     glfwTerminate();
-#endif
 }
 
 void YorkiEngineApp::OnCreateApplicationCallback()
