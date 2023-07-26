@@ -19,7 +19,6 @@ void Logger::LogError(const std::string& message)
 
 void Logger::Log(const std::string& tag, const std::string& message, const std::string& color)
 {   
-    std::cout << color << tag << RESET_COLOR << " ";
-    std::cout << tag << " ";
-    std::cout << message;
+    std::cout << color << tag << " ";
+    std::cout << message << RESET_COLOR << std::endl;
 }

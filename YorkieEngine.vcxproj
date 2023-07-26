@@ -31,6 +31,10 @@
     <ClCompile Include="YorkieEngine\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="YorkieEngine\IndexBuffer.cpp" />
     <ClCompile Include="YorkieEngine\Logging\Private\Logger.cpp" />
+    <ClCompile Include="YorkieEngine\Math\Mat4x4 .cpp" />
+    <ClCompile Include="YorkieEngine\Math\MathHelpers .cpp" />
+    <ClCompile Include="YorkieEngine\Math\Vector2D .cpp" />
+    <ClCompile Include="YorkieEngine\Math\Vector3D.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\RenderingSystem.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\RenderObject.cpp" />
     <ClCompile Include="YorkieEngine\Shaders\Shader.cpp" />
@@ -53,6 +57,10 @@
     <ClInclude Include="YorkieEngine\ImGUI\imstb_truetype.h" />
     <ClInclude Include="YorkieEngine\IndexBuffer.h" />
     <ClInclude Include="YorkieEngine\Logging\Public\Logger.h" />
+    <ClInclude Include="YorkieEngine\Math\Mat4x4.h" />
+    <ClInclude Include="YorkieEngine\Math\MathHelpers.h" />
+    <ClInclude Include="YorkieEngine\Math\Vector2D.h" />
+    <ClInclude Include="YorkieEngine\Math\Vector3D.h" />
     <ClInclude Include="YorkieEngine\Rendering\RenderingSystem.h" />
     <ClInclude Include="YorkieEngine\Rendering\RenderObject.h" />
     <ClInclude Include="YorkieEngine\Shaders\Shader.h" />

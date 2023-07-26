@@ -68,6 +68,10 @@
     <ClCompile Include="YorkieEngine\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="YorkieEngine\ImGUI\imgui_impl_glfw.cpp" />
     <ClCompile Include="YorkieEngine\ImGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="YorkieEngine\Math\Vector2D .cpp" />
+    <ClCompile Include="YorkieEngine\Math\Mat4x4 .cpp" />
+    <ClCompile Include="YorkieEngine\Math\Vector3D.cpp" />
+    <ClCompile Include="YorkieEngine\Math\MathHelpers .cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YorkieEngine\YorkieEngine.h">
@@ -104,5 +108,9 @@
     <ClInclude Include="YorkieEngine\ImGUI\imgui_impl_glfw.h" />
     <ClInclude Include="YorkieEngine\ImGUI\imgui_impl_opengl3.h" />
     <ClInclude Include="YorkieEngine\ImGUI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="YorkieEngine\Math\Vector2D.h" />
+    <ClInclude Include="YorkieEngine\Math\Mat4x4.h" />
+    <ClInclude Include="YorkieEngine\Math\Vector3D.h" />
+    <ClInclude Include="YorkieEngine\Math\MathHelpers.h" />
   </ItemGroup>
 </Project>

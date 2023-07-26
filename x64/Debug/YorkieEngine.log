@@ -1,4 +1,6 @@
-﻿  Viewport.cpp
+﻿  Vector2D .cpp
+  Vector3D.cpp
+  Viewport.cpp
 E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(326,1): warning C4005: 'GL_ALL_ATTRIB_BITS': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(107,1): message : see previous definition of 'GL_ALL_ATTRIB_BITS'
 E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(414,1): warning C4005: 'GL_LOGIC_OP': macro redefinition
@@ -9,4 +11,7 @@ E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(592,1): warning C400
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(973,1): message : see previous definition of 'GL_CLIENT_ALL_ATTRIB_BITS'
 E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(19,9): warning C4251: 'RenderObject::buffer': class 'Buffer' needs to have dll-interface to be used by clients of class 'RenderObject'
 E:\Projects\YorkieEngine\YorkieEngine\Buffer.h(6,7): message : see declaration of 'Buffer'
+  Generating Code...
+     Creating library E:\Projects\SandboxApp\x64\Debug\YorkieEngine.lib and object E:\Projects\SandboxApp\x64\Debug\YorkieEngine.exp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   YorkieEngine.vcxproj -> E:\Projects\SandboxApp\x64\Debug\YorkieEngine.dll
