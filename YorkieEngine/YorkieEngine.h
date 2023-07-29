@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef YENGINE_EXPORT
-#define YENGINE __declspec(dllexport)
+#define Yorkie __declspec(dllexport)
 #else
-#define YENGINE __declspec(dllimport)
+#define Yorkie __declspec(dllimport)
 #endif

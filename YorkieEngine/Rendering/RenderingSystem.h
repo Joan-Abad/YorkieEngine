@@ -4,7 +4,7 @@
 #include "../YorkieEngine.h"
 #include <string>
 
-class YENGINE RenderingSystem
+class Yorkie RenderingSystem
 {
 public:
 	static void AddObjectToRender(class RenderObject* objectToRender);

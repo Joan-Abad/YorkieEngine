@@ -22,9 +22,13 @@ void WindowManager::SetActiveWindow(Window& window)
 	//glfwGetFramebufferSize(activeWindow->window, &width, &height);
 	//glViewport(0, 0, width, height);
 
-
+	
 }
-
+Window& WindowManager::GetActiveWindow()
+{
+	// TODO: insert return statement here
+	return *activeWindow;
+}
 void WindowManager::DrawWindows()
 {
 	for (auto& window : windows)

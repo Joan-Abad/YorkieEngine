@@ -14,6 +14,6 @@ void RenderingSystem::RenderObjects(GLFWwindow* window)
 {
 	for (auto& renderObject : objectsToRender)
 	{
-		renderObject->Render();
+		//renderObject->Render();
 	}
 }

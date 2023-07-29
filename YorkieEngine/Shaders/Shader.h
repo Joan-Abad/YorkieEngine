@@ -10,7 +10,7 @@ struct ShaderProgramSource
     std::string FragmentSource;
 };
 //Contains fragment and vertex shader
-class YENGINE Shader
+class Yorkie Shader
 {
 public:
     Shader() = default;

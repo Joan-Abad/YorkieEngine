@@ -4,10 +4,11 @@
 #include "glad/glad.h"
 #include "Window.h"
 #include <vector>
+#include "../../YorkieEngine.h"
 
 class RenderObject;
 
-class Viewport : Window
+class Yorkie Viewport : public Window
 {
 	friend class WindowManager;
 

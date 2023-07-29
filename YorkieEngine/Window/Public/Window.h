@@ -13,7 +13,7 @@ enum class WindowMode
 class Window
 {
 	friend class WindowManager;
-
+	friend class RenderObject;
 protected:
 	Window(int width, int height, const char* title, WindowMode windowMode);
 

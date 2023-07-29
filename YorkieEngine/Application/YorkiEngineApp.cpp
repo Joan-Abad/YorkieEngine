@@ -53,7 +53,7 @@ void YorkiEngineApp::InitializeImGUI()
 void YorkiEngineApp::CreateApplication()
 {
     InitializeGLFW();
-    WindowManager::CreateWindow<Viewport>(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title);
+    Window* window = WindowManager::CreateWindow<Viewport>(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title);
     InitializeGLAD();
     OnCreateApplicationCallback();
     Update();

@@ -1,30 +1,32 @@
 #pragma once
 #include <vector>
-#include <memory>
+#include "../YorkieEngine.h"
 #include "../Shaders/Shader.h"
-#include "../Buffer.h"
+#include "Buffers/VAO.h"
+#include "Buffers/VBO.h"
 
-class YENGINE RenderObject
+
+class Yorkie RenderObject
 {
+	friend class Window;
 public: 
-	RenderObject(const char* meshPath, Shader shader);
-	RenderObject(const std::vector<float> vertices, Shader shader);
-	RenderObject(const std::vector<float> vertices, const std::vector<unsigned int> indices);
-	RenderObject(const std::vector<float> vertices, const std::vector<unsigned int> indices, Shader shader);
+	RenderObject();
 	~RenderObject();
 
-	void Render();
-	
 	void AttachShader(Shader shader);
-	Buffer buffer;
+	void AddVBOBuffer(VBO& vbo);
+	void Render();
 
 private: 
+	VAO vao;
+	std::vector<VBO*> vbos;
 
 	Shader shader;
 	//Almost 100% this doesn't go here
 	unsigned int shaderProgram;
-
 	void CreateShaderProgram();
 	void ExecuteShader();
 
+public: 
+	inline unsigned int &GetVAO() { return vao.GetVAO(); }
 };

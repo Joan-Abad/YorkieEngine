@@ -3,22 +3,19 @@
 
 class GLFWwindow; 
 
-struct YENGINE YorkiEngineAppInfo
+struct Yorkie YorkiEngineAppInfo
 {
 	const char* title = "Yorki Engine";
 	unsigned int screenWidth = 1920;
 	unsigned int screenHeight = 1080;
 };
-class YENGINE YorkiEngineApp
+class Yorkie YorkiEngineApp
 {
 public: 
 	YorkiEngineApp();
 	void Run();
 private: 
 	YorkiEngineAppInfo yorkiEngineAppInfo;
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int EBO;
 	
 	void Update();
 	void TerminateApplication();
@@ -34,8 +31,5 @@ protected:
 	virtual void OnPreDraw();
 	virtual void OnPostDraw();
 	virtual void OnTerimateApplication();
-
-public: 
-
 };
 
