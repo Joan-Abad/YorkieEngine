@@ -74,6 +74,7 @@
     <ClCompile Include="YorkieEngine\Math\MathHelpers .cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Buffers\VBO.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Buffers\VAO.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\Primitives\Cube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YorkieEngine\YorkieEngine.h">
@@ -116,5 +117,10 @@
     <ClInclude Include="YorkieEngine\Math\MathHelpers.h" />
     <ClInclude Include="YorkieEngine\Rendering\Buffers\VBO.h" />
     <ClInclude Include="YorkieEngine\Rendering\Buffers\VAO.h" />
+    <ClInclude Include="YorkieEngine\Rendering\Primitives\Cube.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\Cube.shader" />
+    <None Include="res\shaders\Triangle.shader" />
   </ItemGroup>
 </Project>
