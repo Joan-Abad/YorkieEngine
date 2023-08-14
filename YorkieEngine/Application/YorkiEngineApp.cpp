@@ -62,24 +62,6 @@ void YorkiEngineApp::CreateApplication()
 void YorkiEngineApp::Update()
 {
     WindowManager::DrawWindows();
-    /*
-    // Main rendering loop
-    while (!glfwWindowShouldClose(window))
-    {
-        // Clear the screen to black
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        OnPreDraw();
-        RenderingSystem::RenderObjects(window);
-
-        // Swap buffers and poll events
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-
-        OnPostDraw();
-    }
-    */
 }
 
 void YorkiEngineApp::TerminateApplication()

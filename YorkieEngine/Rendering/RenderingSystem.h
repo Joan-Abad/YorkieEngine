@@ -3,7 +3,6 @@
 #include <memory>
 #include "../YorkieEngine.h"
 #include <string>
-
 class Yorkie RenderingSystem
 {
 public:

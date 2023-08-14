@@ -4,51 +4,53 @@
 #include <sstream>
 #include <vector>
 
-RenderObject::RenderObject()
+RenderObject::RenderObject(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
 {
-
+	this->vertices = vertices;
+	this->indices = indices;
+	
+	SetupMesh();
 }
 
 RenderObject::~RenderObject()
 {
-    glDeleteProgram(shaderProgram);
 }
 
-void RenderObject::Render()
+void RenderObject::SetupMesh()
 {
-    glad_glUseProgram(shaderProgram);
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
 
-    vao.Bind();
+	// Bind VAO and VBO
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+	// Transfer vertex data to the buffer
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
-    vao.Unbind();
+	// Bind EBO and transfer index data to the buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
+	// Set up vertex attributes
+	// Vertex positions (assuming Vertex structure contains position and normal)
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Position));
+
+	// Vertex normals (assuming Vertex structure contains position and normal)
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+
+	// Unbind VAO (optional but recommended)
+	glBindVertexArray(0);
 }
 
-void RenderObject::AttachShader(Shader shader)
+void RenderObject::Draw()
+{
+}
+
+void RenderObject::AttachShader(Shader* shader)
 {
     this->shader = shader;
-    CreateShaderProgram();
-}
-
-void RenderObject::AddVBOBuffer(VBO& vbo)
-{
-    vbos.push_back(&vbo);
-}
-
-void RenderObject::CreateShaderProgram()
-{
-    shaderProgram = glCreateProgram();
-
-    glAttachShader(shaderProgram, shader.getVertexShaderID());
-    glAttachShader(shaderProgram, shader.getFragmentShaderID());
-    glLinkProgram(shaderProgram);
-    glDeleteShader(shader.getVertexShaderID());
-    glDeleteShader(shader.getFragmentShaderID());
-}
-
-void RenderObject::ExecuteShader()
-{
-    glUseProgram(shaderProgram);
 }

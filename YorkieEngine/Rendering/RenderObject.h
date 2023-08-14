@@ -4,29 +4,31 @@
 #include "../Shaders/Shader.h"
 #include "Buffers/VAO.h"
 #include "Buffers/VBO.h"
+#include "glm.hpp"
 
+struct Vertex {
+	glm::vec3 Position;
+	glm::vec3 Normal;
+};
 
 class Yorkie RenderObject
 {
 	friend class Window;
 public: 
-	RenderObject();
+	RenderObject(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
 	~RenderObject();
+	virtual void Draw();
+	void AttachShader(Shader* shader);
+protected:
+	RenderObject() = default;
 
-	void AttachShader(Shader shader);
-	void AddVBOBuffer(VBO& vbo);
-	void Render();
+	unsigned int VAO, VBO, EBO;
+	void SetupMesh();
 
+	// mesh data
+	std::vector<Vertex>       vertices;
+	std::vector<unsigned int> indices;
+
+	Shader* shader;
 private: 
-	VAO vao;
-	std::vector<VBO*> vbos;
-
-	Shader shader;
-	//Almost 100% this doesn't go here
-	unsigned int shaderProgram;
-	void CreateShaderProgram();
-	void ExecuteShader();
-
-public: 
-	inline unsigned int &GetVAO() { return vao.GetVAO(); }
 };

@@ -23,6 +23,18 @@ Shader::Shader(const char* shaderPath)
 	glShaderSource(fragmentShaderID, 1, &fragmentShaderSourcePtr, nullptr);
 	glCompileShader(fragmentShaderID);
 	CheckShaderCompilationStatus(fragmentShaderID);
+
+	ID = glCreateProgram();
+	glAttachShader(ID, vertexShaderID);
+	glAttachShader(ID, fragmentShaderID);
+	glLinkProgram(ID);
+	int  success;
+	char infoLog[512];
+	glGetProgramiv(ID, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(ID, 512, NULL, infoLog);
+		std::cout << "Info log:" << infoLog;
+	}
 }
 
 void Shader::CheckShaderCompilationStatus(GLuint shader)
@@ -76,4 +88,5 @@ void Shader::ParseShader(const std::string& path)
 
 void Shader::ExecuteShader()
 {
+	glUseProgram(ID);
 }

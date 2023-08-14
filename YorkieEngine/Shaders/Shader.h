@@ -23,9 +23,10 @@ private:
     unsigned int vertexShaderID;
     unsigned int fragmentShaderID;
     ShaderProgramSource shaderProgramSource;
-
+    unsigned int ID;
 
 public:
     inline unsigned int getVertexShaderID() { return vertexShaderID; };
     inline unsigned int getFragmentShaderID() { return fragmentShaderID; };
+    inline unsigned int getProgramID() { return ID; };
 };
