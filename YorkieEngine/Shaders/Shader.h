@@ -17,13 +17,15 @@ public:
     Shader(const char* shaderPath);
     void ParseShader(const std::string& path);
     void ExecuteShader();
+    void StopShader();
+
 private:
     void CheckShaderCompilationStatus(GLuint shader);
 
     unsigned int vertexShaderID;
     unsigned int fragmentShaderID;
-    ShaderProgramSource shaderProgramSource;
     unsigned int ID;
+    ShaderProgramSource shaderProgramSource;
 
 public:
     inline unsigned int getVertexShaderID() { return vertexShaderID; };

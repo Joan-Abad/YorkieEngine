@@ -1,5 +1,6 @@
 #pragma once
 #include "../YorkieEngine.h"
+#include "../Modules/ShaderModule.h"
 
 class GLFWwindow; 
 
@@ -14,7 +15,9 @@ class Yorkie YorkiEngineApp
 public: 
 	YorkiEngineApp();
 	void Run();
+
 private: 
+	bool bIsRunning;
 	YorkiEngineAppInfo yorkiEngineAppInfo;
 	
 	void Update();
@@ -23,10 +26,12 @@ private:
 	void InitializeGLFW();
 	void InitializeGLAD();
 	void InitializeImGUI();
+	void InitializeEngineModules();
 
 
 protected:
 	void CreateApplication();
+	void InitializeWindows();
 	virtual void OnCreateApplicationCallback();
 	virtual void OnPreDraw();
 	virtual void OnPostDraw();

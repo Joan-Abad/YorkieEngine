@@ -14,13 +14,17 @@ class Yorkie Viewport : public Window
 
 protected:
 	Viewport(int width, int height, const char* title, WindowMode windowMode);
-
+	
+	virtual void Init();
 	virtual void Draw();
-
+	
 public:
 	void AddRenderObject(RenderObject& renderObject);
 	inline GLFWwindow* GetWindow() const { return window; };
 private: 
+	void InitRenderObjects();
+	//PreDraw function for all render object before the current Render calls
+	void PreDrawRenderObjects();
 	void DrawRenderObjects(); 
 	void DrawImGUiExample();
 	std::vector<RenderObject*> renderObjects; 

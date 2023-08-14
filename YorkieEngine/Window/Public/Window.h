@@ -20,9 +20,8 @@ protected:
 	bool bDrawWindow;
 	GLFWwindow* window;
 
+	virtual void Init();
 	virtual void Draw();
-
-	
 
 public:
 	inline GLFWwindow* GetWindow() { return window; };

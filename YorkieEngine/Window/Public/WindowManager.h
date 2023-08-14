@@ -21,7 +21,14 @@ public:
 
 	static void DrawWindows();
 
-	static Window& GetActiveWindow();
+	template<typename T>
+	static T& GetActiveWindow()
+	{
+		return dynamic_cast<T&>(*activeWindow);
+	}
+	static Window& GetWindow(int index);
+
+	static void InitWindows();
 private:
 	static std::vector<Window*> windows;
 	static Window* activeWindow;

@@ -23,6 +23,10 @@ Window::Window(int width, int height, const char* title, WindowMode windowMode) 
     bDrawWindow = true;
 }
 
+void Window::Init()
+{
+}
+
 void Window::Draw()
 {
     while (bDrawWindow && !glfwWindowShouldClose(window))

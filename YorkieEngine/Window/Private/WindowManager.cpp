@@ -24,11 +24,21 @@ void WindowManager::SetActiveWindow(Window& window)
 
 	
 }
-Window& WindowManager::GetActiveWindow()
+
+Window& WindowManager::GetWindow(int index)
 {
 	// TODO: insert return statement here
-	return *activeWindow;
+	return *windows.at(index);
 }
+
+void WindowManager::InitWindows()
+{
+	for (auto& window : windows)
+	{
+		window->Init();
+	}
+}
+
 void WindowManager::DrawWindows()
 {
 	for (auto& window : windows)

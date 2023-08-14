@@ -12,15 +12,16 @@
 #include "../ImGUI/imgui_impl_opengl3.h"
 #include "../ImGUI/imgui_impl_glfw.h"
 
-YorkiEngineApp::YorkiEngineApp()
+YorkiEngineApp::YorkiEngineApp() : bIsRunning(true)
 {
-
+    InitializeEngineModules();
 }
 
 void YorkiEngineApp::Run()
 {
     CreateApplication();
-    //Update();
+    InitializeWindows();
+    Update();
 }
 void YorkiEngineApp::InitializeGLFW()
 {
@@ -49,6 +50,10 @@ void YorkiEngineApp::InitializeImGUI()
     
 }
 
+void YorkiEngineApp::InitializeEngineModules()
+{
+}
+
 
 void YorkiEngineApp::CreateApplication()
 {
@@ -56,12 +61,19 @@ void YorkiEngineApp::CreateApplication()
     Window* window = WindowManager::CreateWindow<Viewport>(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title);
     InitializeGLAD();
     OnCreateApplicationCallback();
-    Update();
+}
+
+void YorkiEngineApp::InitializeWindows()
+{
+    WindowManager::InitWindows();
 }
 
 void YorkiEngineApp::Update()
 {
-    WindowManager::DrawWindows();
+    while (bIsRunning)
+    {
+        WindowManager::DrawWindows();
+    }
 }
 
 void YorkiEngineApp::TerminateApplication()

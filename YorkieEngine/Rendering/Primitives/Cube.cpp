@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "glad/glad.h"
 
 Cube::Cube()
 {
@@ -90,8 +91,9 @@ Cube::Cube()
     SetupMesh();
 }
 
-void Cube::Draw()
+void Cube::Draw() 
 {
+    RenderObject::Draw();
     glBindVertexArray(VAO);
     //glDrawArrays(GL_TRIANGLES, 0, 3 * vertices.size());
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

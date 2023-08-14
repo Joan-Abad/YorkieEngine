@@ -90,3 +90,8 @@ void Shader::ExecuteShader()
 {
 	glUseProgram(ID);
 }
+
+void Shader::StopShader()
+{
+	glUseProgram(0);
+}

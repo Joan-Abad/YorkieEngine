@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Libraries\glad\src\glad.c" />
+    <ClCompile Include="YorkieEngine\Modules\ShaderModule.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Buffers\VAO.cpp" />
     <ClCompile Include="YorkieEngine\Application\YorkiEngineApp.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Buffers\Buffer.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="YorkieEngine\YorkieEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="YorkieEngine\Modules\ShaderModule.h" />
     <ClInclude Include="YorkieEngine\Rendering\Buffers\VAO.h" />
     <ClInclude Include="YorkieEngine\Application\YorkiEngineApp.h" />
     <ClInclude Include="YorkieEngine\Rendering\Buffers\Buffer.h" />
