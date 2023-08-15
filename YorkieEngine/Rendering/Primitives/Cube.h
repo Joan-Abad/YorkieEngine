@@ -7,8 +7,5 @@ class Yorkie Cube : public RenderObject
 {
 public: 
 	Cube();
-
-protected: 
-	virtual void Draw() override;
 };
 

@@ -25,21 +25,29 @@ public:
 	virtual void Init();
 	virtual void PreDraw();
 	virtual void Draw();
-	void SetUniformLocations();
 
 	void AttachShader(Shader* shader);
 
 	void AddOffstet(float x, float y, float z);
 	void AddOffstet(glm::vec3& newPosition);
+
 	void AddScale(float x, float y, float z);
 	void AddScale(glm::vec3& newScale);
+
 	void AddRotation(float Roll, float Pitch, float Yaw);
+
 	void SetPosition(float x, float y, float z);
 	void SetPosition(glm::vec3 &newPosition);
+
 	void SetRotation(float Roll, float Pitch, float Yaw);
+
 	void SetScale(float x, float y, float z);
 	void SetScale(glm::vec3 &newScale);
+
 	void SetProjection();
+
+	Window* window;
+
 protected:
 	//This constructor is for child objects. After setting vertices/indices or w/e you need, call SetupMesh(). 
 	RenderObject() = default;
@@ -52,8 +60,8 @@ protected:
 	GLint modelLoc;
 	GLint viewLoc;
 	GLint projLoc;
-
 	unsigned int VAO, VBO, EBO;
+
 	void SetupMesh();
 
 	// mesh data
@@ -62,6 +70,7 @@ protected:
 
 	Shader* shader;
 
-public:
-	Window* window;
+private:
+	void SetUniformLocations();
+
 };

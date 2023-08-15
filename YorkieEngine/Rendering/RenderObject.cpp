@@ -9,6 +9,7 @@
 #include "gtc/type_ptr.hpp"
 #include "../Window/Public/Window.h"
 #include "../Modules/ShaderModule.h"
+#include <iostream>
 
 RenderObject::RenderObject(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices)
 {
@@ -31,6 +32,7 @@ RenderObject::~RenderObject()
 {
 }
 
+
 void RenderObject::Init()
 {
 	if (!shader)
@@ -39,21 +41,13 @@ void RenderObject::Init()
 	SetUniformLocations();
 }
 
+
+
 void RenderObject::PreDraw()
 {
-	//AddOffstet(0, 0, -0.1f);
-	
-	SetPosition(0,0,-3);
-	//AddRotation(0.f, 1.f, 0.f);
-	SetScale(2.5f, 1.0f, 1.0);
-	SetProjection();
+	//AddRotation(1.f, 1.f, 1.f);
+	//SetPosition(0,0,-3);
 
-	shader->ExecuteShader();
-	// Set uniforms
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-	shader->StopShader();
 }
 
 void RenderObject::SetupMesh()
@@ -88,13 +82,15 @@ void RenderObject::SetupMesh()
 
 void RenderObject::Draw()
 {
+	SetProjection();
 
 	shader->ExecuteShader();
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-
 }
 
 void RenderObject::SetUniformLocations()
@@ -123,12 +119,28 @@ void RenderObject::AddOffstet(glm::vec3& newPosition)
 
 void RenderObject::AddScale(float x, float y, float z)
 {
-	model = glm::scale(model, glm::vec3(x, y, z));
+	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(x,y,z));
+	model *= scaleMatrix;
 }
 
 void RenderObject::AddScale(glm::vec3& newScale)
 {
-	model = glm::scale(model, newScale);
+	glm::vec3 existingScale = glm::vec3(model[0][0], model[1][1], model[2][2]);
+	glm::vec3 newIntScale = existingScale + newScale;
+
+	// Create a new scale matrix with the updated scaling factors
+	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), newIntScale);
+
+	// Multiply the existing model matrix by the new scale matrix
+	model = model * scaleMatrix;
+
+	// Print the resulting transformation matrix
+	const float* matData = glm::value_ptr(model);
+	for (int i = 0; i < 16; ++i) {
+		std::cout << matData[i] << " ";
+		if ((i + 1) % 4 == 0)
+			std::cout << std::endl;
+	}
 }
 
 void RenderObject::AddRotation(float Roll, float Pitch, float Yaw)
