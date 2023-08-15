@@ -18,6 +18,9 @@ protected:
 	virtual void Draw();
 
 	Camera* renderCamera;
+	bool bFirstMouse;
+	float lastX;
+	float lastY;
 public:
 	void AddRenderObject(RenderObject& renderObject);
 	inline GLFWwindow* GetWindow() const { return window; };
@@ -28,6 +31,7 @@ private:
 	void DrawRenderObjects(); 
 	void DrawImGUiExample();
 	void ProcessInput();
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	std::vector<RenderObject*> renderObjects; 
 	
 };

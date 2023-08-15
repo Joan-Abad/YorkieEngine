@@ -22,6 +22,16 @@ void Viewport::Init()
     InitRenderObjects();
     //GameCamera
     renderCamera = new Camera();
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    glfwSetWindowUserPointer(window, this);
+    glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
+        Viewport* instance = static_cast<Viewport*>(glfwGetWindowUserPointer(window));
+        if (instance) {
+            instance->mouse_callback(window, xpos, ypos);
+        }
+        });
 }
 
 void Viewport::Draw()
@@ -34,7 +44,6 @@ void Viewport::Draw()
 
     ProcessInput();
     
-    renderCamera->view = glm::lookAt(renderCamera->cameraPos, renderCamera->cameraPos + renderCamera->cameraFront, renderCamera->cameraUp);
 
     DrawRenderObjects();
 
@@ -86,6 +95,50 @@ void Viewport::ProcessInput()
         renderCamera->cameraPos -= glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         renderCamera->cameraPos += glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
+
+    renderCamera->view = glm::lookAt(renderCamera->cameraPos, renderCamera->cameraPos + renderCamera->cameraFront, renderCamera->cameraUp);
+
+    
+    renderCamera->direction.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+    renderCamera->direction.y = sin(glm::radians(renderCamera->pitch));
+    renderCamera->direction.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+
+}
+
+void Viewport::mouse_callback(GLFWwindow* glfWindow, double xpos, double ypos)
+{    
+    if (bFirstMouse) // initially set to true
+    {
+        lastX = xpos;
+        lastY = ypos;
+        bFirstMouse = false;
+    }
+
+    //float lastX = GetWindowWidth() / 2;
+    //float lastY = GetWindowHeight() / 2;
+
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
+    lastX = xpos;
+    lastY = ypos;
+
+    const float sensitivity = 0.1f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    renderCamera->yaw += xoffset;
+    renderCamera->pitch += yoffset;
+
+    if (renderCamera->pitch > 89.0f)
+        renderCamera->pitch = 89.0f;
+    if (renderCamera->pitch < -89.0f)
+        renderCamera->pitch = -89.0f;
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+    direction.y = sin(glm::radians(renderCamera->pitch));
+    direction.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+    renderCamera->cameraFront = glm::normalize(direction);
 }
 
 void Viewport::InitRenderObjects()

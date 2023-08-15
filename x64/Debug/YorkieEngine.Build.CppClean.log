@@ -25,6 +25,10 @@ e:\projects\yorkieengine\x64\debug\window.obj
 e:\projects\yorkieengine\x64\debug\viewport.obj
 e:\projects\yorkieengine\x64\debug\shader.obj
 e:\projects\yorkieengine\x64\debug\renderobject.obj
+e:\projects\yorkieengine\x64\debug\basiclight.obj
+e:\projects\yorkieengine\x64\debug\camera.obj
+e:\projects\yorkieengine\x64\debug\cameramodule.obj
+e:\projects\yorkieengine\x64\debug\transformable.obj
 c:\users\joan\appdata\local\tempvc143.pdb
 e:\projects\sandboxapp\x64\debug\yorkieengine.lib
 e:\projects\sandboxapp\x64\debug\yorkieengine.exp
