@@ -5,7 +5,7 @@
 #include "Window.h"
 #include <vector>
 #include "../../YorkieEngine.h"
-
+#include "../../Camera/Camera.h"
 class RenderObject;
 
 class Yorkie Viewport : public Window
@@ -14,10 +14,10 @@ class Yorkie Viewport : public Window
 
 protected:
 	Viewport(int width, int height, const char* title, WindowMode windowMode);
-	
 	virtual void Init();
 	virtual void Draw();
-	
+
+	Camera* renderCamera;
 public:
 	void AddRenderObject(RenderObject& renderObject);
 	inline GLFWwindow* GetWindow() const { return window; };
@@ -27,6 +27,7 @@ private:
 	void PreDrawRenderObjects();
 	void DrawRenderObjects(); 
 	void DrawImGUiExample();
+	void ProcessInput();
 	std::vector<RenderObject*> renderObjects; 
 	
 };

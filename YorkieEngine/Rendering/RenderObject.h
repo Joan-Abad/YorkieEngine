@@ -24,7 +24,7 @@ public:
 
 	virtual void Init();
 	virtual void PreDraw();
-	virtual void Draw();
+	virtual void Draw(glm::mat4 &view);
 
 	void AttachShader(Shader* shader);
 

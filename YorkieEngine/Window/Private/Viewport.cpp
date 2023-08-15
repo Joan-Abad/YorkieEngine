@@ -9,6 +9,8 @@
 #include "../../Logging/Public/Logger.h"
 #include "../../Rendering/Primitives/Cube.h"
 #include "../../Modules/ShaderModule.h"
+#include "../../Camera/Camera.h"
+#include "gtc/matrix_transform.hpp"
 
 Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode)
 {
@@ -18,6 +20,8 @@ Viewport::Viewport(int width, int height, const char* title, WindowMode windowMo
 void Viewport::Init()
 {
     InitRenderObjects();
+    //GameCamera
+    renderCamera = new Camera();
 }
 
 void Viewport::Draw()
@@ -27,6 +31,10 @@ void Viewport::Draw()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     PreDrawRenderObjects();
+
+    ProcessInput();
+    
+    renderCamera->view = glm::lookAt(renderCamera->cameraPos, renderCamera->cameraPos + renderCamera->cameraFront, renderCamera->cameraUp);
 
     DrawRenderObjects();
 
@@ -48,7 +56,7 @@ void Viewport::DrawRenderObjects()
 {
     for (const auto &renderObject : renderObjects)
     {
-        renderObject->Draw();
+        renderObject->Draw(renderCamera->view);
     }
 }
 
@@ -65,6 +73,19 @@ void Viewport::DrawImGUiExample()
     // End the frame
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void Viewport::ProcessInput()
+{
+    const float cameraSpeed = 0.05f; // adjust accordingly
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        renderCamera->cameraPos += cameraSpeed * renderCamera->cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        renderCamera->cameraPos -= cameraSpeed * renderCamera->cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        renderCamera->cameraPos -= glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        renderCamera->cameraPos += glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
 }
 
 void Viewport::InitRenderObjects()

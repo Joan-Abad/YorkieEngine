@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Transformable.cpp" />
+    <ClCompile Include="YorkieEngine\Modules\CameraModule.cpp" />
+    <ClCompile Include="YorkieEngine\Camera\Camera.cpp" />
     <ClCompile Include="YorkieEngine\Ligthing\BasicLight.cpp" />
     <ClCompile Include="Libraries\glad\src\glad.c" />
     <ClCompile Include="YorkieEngine\Modules\ShaderModule.cpp" />
@@ -49,6 +52,9 @@
     <ClCompile Include="YorkieEngine\YorkieEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Transformable.h" />
+    <ClInclude Include="YorkieEngine\Modules\CameraModule.h" />
+    <ClInclude Include="YorkieEngine\Camera\Camera.h" />
     <ClInclude Include="YorkieEngine\Ligthing\BasicLight.h" />
     <ClInclude Include="YorkieEngine\Modules\ShaderModule.h" />
     <ClInclude Include="YorkieEngine\Rendering\Buffers\VAO.h" />

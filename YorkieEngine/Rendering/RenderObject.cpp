@@ -80,7 +80,7 @@ void RenderObject::SetupMesh()
 	glBindVertexArray(0);
 }
 
-void RenderObject::Draw()
+void RenderObject::Draw(glm::mat4& view)
 {
 	SetProjection();
 
@@ -109,12 +109,12 @@ void RenderObject::AttachShader(Shader* shader)
 
 void RenderObject::AddOffstet(float x, float y, float z)
 {
-	view = glm::translate(view, glm::vec3(x, y, z));
+	model = glm::translate(view, glm::vec3(x, y, z));
 }
 
 void RenderObject::AddOffstet(glm::vec3& newPosition)
 {
-	view = glm::translate(view, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
+	model = glm::translate(view, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
 }
 
 void RenderObject::AddScale(float x, float y, float z)
@@ -155,14 +155,14 @@ void RenderObject::AddRotation(float Roll, float Pitch, float Yaw)
 
 void RenderObject::SetPosition(glm::vec3& newPosition)
 {
-	view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
 }
 
 void RenderObject::SetPosition(float x, float y, float z)
 {
-	view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(x, y, z));
+	model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(x, y, z));
 }
 
 void RenderObject::SetRotation(float Roll, float Pitch, float Yaw)

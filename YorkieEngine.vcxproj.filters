@@ -77,6 +77,9 @@
     <ClCompile Include="YorkieEngine\Rendering\Primitives\Cube.cpp" />
     <ClCompile Include="YorkieEngine\Modules\ShaderModule.cpp" />
     <ClCompile Include="YorkieEngine\Ligthing\BasicLight.cpp" />
+    <ClCompile Include="YorkieEngine\Camera\Camera.cpp" />
+    <ClCompile Include="YorkieEngine\Modules\CameraModule.cpp" />
+    <ClCompile Include="Transformable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YorkieEngine\YorkieEngine.h">
@@ -122,6 +125,9 @@
     <ClInclude Include="YorkieEngine\Rendering\Primitives\Cube.h" />
     <ClInclude Include="YorkieEngine\Modules\ShaderModule.h" />
     <ClInclude Include="YorkieEngine\Ligthing\BasicLight.h" />
+    <ClInclude Include="YorkieEngine\Camera\Camera.h" />
+    <ClInclude Include="YorkieEngine\Modules\CameraModule.h" />
+    <ClInclude Include="Transformable.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Cube.shader" />
