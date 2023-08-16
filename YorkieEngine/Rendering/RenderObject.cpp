@@ -11,19 +11,21 @@
 #include "../Modules/ShaderModule.h"
 #include <iostream>
 
-RenderObject::RenderObject(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices)
+RenderObject::RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices)
 {
 	this->vertices = vertices;
 	this->indices = indices;
 	model = glm::mat4(1.0f);
 	view = glm::mat4(1.0f);
 	projection = glm::mat4(1.0f);
+	position = glm::vec3(0,0,0);
 	shader = nullptr;
 	window = nullptr;
+	this->objectName = objectName;
 	SetupMesh();
 }
 
-RenderObject::RenderObject(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, Shader &shader) : RenderObject(vertices, indices)
+RenderObject::RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, Shader &shader) : RenderObject(objectName, vertices, indices)
 {
 	this->shader = &shader;
 }
@@ -88,6 +90,14 @@ void RenderObject::Draw(glm::mat4& view)
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+	//TODO: Remove from here
+	glm::vec3 position = glm::vec3(model[3]); // The fourth column (if using column-major)
+
+	// The 'position' vector now contains the x, y, and z coordinates of the object in world space
+	this->position.x = position.x;
+	this->position.y = position.y;
+	this->position.z = position.z;
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

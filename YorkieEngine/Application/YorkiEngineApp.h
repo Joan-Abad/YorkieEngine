@@ -7,8 +7,8 @@ class GLFWwindow;
 struct Yorkie YorkiEngineAppInfo
 {
 	const char* title = "Yorki Engine";
-	unsigned int screenWidth = 1920;
-	unsigned int screenHeight = 1080;
+	unsigned int screenWidth = 2560;
+	unsigned int screenHeight = 1440;
 };
 class Yorkie YorkiEngineApp
 {

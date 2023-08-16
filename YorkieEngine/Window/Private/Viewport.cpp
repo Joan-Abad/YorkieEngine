@@ -88,15 +88,15 @@ void Viewport::InitImGUI()
 
 void Viewport::ProcessInput()
 {
-    const float cameraSpeed = 0.05f; // adjust accordingly
+    const float cameraSpeed = 0.25f; // adjust accordingly
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        renderCamera->cameraPos += cameraSpeed * renderCamera->cameraFront;
+        renderCamera->position += cameraSpeed * renderCamera->cameraFront;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        renderCamera->cameraPos -= cameraSpeed * renderCamera->cameraFront;
+        renderCamera->position -= cameraSpeed * renderCamera->cameraFront;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        renderCamera->cameraPos -= glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
+        renderCamera->position -= glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        renderCamera->cameraPos += glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
+        renderCamera->position += glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         if (isEscapeAvailable)
@@ -126,14 +126,14 @@ void Viewport::ProcessInput()
         isEscapeAvailable = true;
     }
 
-    renderCamera->view = glm::lookAt(renderCamera->cameraPos, renderCamera->cameraPos + renderCamera->cameraFront, renderCamera->cameraUp);
+    renderCamera->view = glm::lookAt(renderCamera->position, renderCamera->position + renderCamera->cameraFront, renderCamera->cameraUp);
 }
 
 void Viewport::InitViewportCamera()
 {
 
     //GameCamera
-    renderCamera = new Camera();
+    renderCamera = new Camera("Main Camera");
 }
 
 void Viewport::InitMouse()
@@ -148,8 +148,6 @@ void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposI
     {
         float xpos = static_cast<float>(xposIn);
         float ypos = static_cast<float>(yposIn);
-
-        std::cout << "Xpos: " << xpos << " | Ypos: " << ypos << std::endl;
 
         if (bFirstMouse)
         {
@@ -209,11 +207,59 @@ void Viewport::DrawViewportUI()
     ImGui::NewFrame();
     bool isWindowOpen = true;
     // Create a window
+
     ImGui::Begin("Outliner", &isWindowOpen, ImGuiWindowFlags_None);
-    ImGui::SetWindowSize(ImVec2(GetWindowWidth()/5, GetWindowHeight())); // Set window size
+    ImGui::SetWindowFontScale(1.5f); // Larger font scale
+
+    ImGui::Text("RenderObjects:");
+    
+    static int item_current_idx = 0; // Here we store our selection data as an index.
+    RenderObject* ro = nullptr;
+    if (ImGui::BeginListBox("##listbox 2", ImVec2(-FLT_MIN, 5 * ImGui::GetTextLineHeightWithSpacing())))
+    {
+        for (int n = 0; n < renderObjects.size(); n++)
+        {
+            const bool is_selected = (item_current_idx == n);
+            if (ImGui::Selectable(renderObjects[n]->objectName, is_selected))
+            {
+                item_current_idx = n;
+                ro = renderObjects[n];
+                ImGui::SetItemDefaultFocus();
+                break;
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+            {
+                ro = renderObjects[n];
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+        ImGui::EndListBox();
+    }
+    if (ro)
+    {
+        ImGui::Text("Details:");
+        ImGui::Text("Location:");
+        ImGui::SameLine();
+        // Convert the float to a string
+        std::string xLocation = " X: " + std::to_string((int)ro->GetPosition().x);
+        std::string yLocation = " Y: " + std::to_string((int)ro->GetPosition().y);
+        std::string zLocation = " Z: " + std::to_string((int)ro->GetPosition().z);
+
+
+        ImGui::Text(xLocation.c_str());
+        ImGui::SameLine();
+        ImGui::Text(yLocation.c_str());
+        ImGui::SameLine();
+        ImGui::Text(zLocation.c_str());
+
+    }
+    else
+        Logger::LogError("RO NULL");
+    ImGui::SetWindowSize(ImVec2(GetWindowWidth()/5, GetWindowHeight()/2)); // Set window size
     // Set window position to (x, y)
     ImGui::SetWindowPos(ImVec2(0, 0));
-    ImGui::SetWindowFontScale(1.5f); // Adjust the value as needed
     // Add UI elements here
 
     ImGui::End();

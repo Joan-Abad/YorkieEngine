@@ -8,16 +8,18 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(1153,1): 
 E:\Projects\YorkieEngine\Libraries\glad\include\glad\glad.h(592,1): warning C4005: 'GL_CLIENT_ALL_ATTRIB_BITS': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\GL\gl.h(973,1): message : see previous definition of 'GL_CLIENT_ALL_ATTRIB_BITS'
 E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(12,20): warning C4091: 'extern ': ignored on left of 'Window' when no variable is declared
-E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(57,12): warning C4251: 'RenderObject::model': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' needs to have dll-interface to be used by clients of class 'RenderObject'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(52,12): warning C4251: 'RenderObject::position': struct 'glm::vec<3,float,glm::packed_highp>' needs to have dll-interface to be used by clients of class 'RenderObject'
+E:\Projects\YorkieEngine\Libraries\glm\fwd.hpp(420,10): message : see declaration of 'glm::vec<3,float,glm::packed_highp>'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(62,12): warning C4251: 'RenderObject::model': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' needs to have dll-interface to be used by clients of class 'RenderObject'
 E:\Projects\YorkieEngine\Libraries\glm\fwd.hpp(520,10): message : see declaration of 'glm::mat<4,4,glm::f32,glm::packed_highp>'
-E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(58,12): warning C4251: 'RenderObject::view': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' needs to have dll-interface to be used by clients of class 'RenderObject'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(63,12): warning C4251: 'RenderObject::view': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' needs to have dll-interface to be used by clients of class 'RenderObject'
 E:\Projects\YorkieEngine\Libraries\glm\fwd.hpp(520,10): message : see declaration of 'glm::mat<4,4,glm::f32,glm::packed_highp>'
-E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(59,12): warning C4251: 'RenderObject::projection': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' needs to have dll-interface to be used by clients of class 'RenderObject'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(64,12): warning C4251: 'RenderObject::projection': struct 'glm::mat<4,4,glm::f32,glm::packed_highp>' needs to have dll-interface to be used by clients of class 'RenderObject'
 E:\Projects\YorkieEngine\Libraries\glm\fwd.hpp(520,10): message : see declaration of 'glm::mat<4,4,glm::f32,glm::packed_highp>'
-E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(68,22): warning C4251: 'RenderObject::vertices': class 'std::vector<Vertex,std::allocator<Vertex>>' needs to have dll-interface to be used by clients of class 'RenderObject'
-E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(20,20): message : see declaration of 'std::vector<Vertex,std::allocator<Vertex>>'
-E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(69,28): warning C4251: 'RenderObject::indices': class 'std::vector<unsigned int,std::allocator<unsigned int>>' needs to have dll-interface to be used by clients of class 'RenderObject'
-E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(20,51): message : see declaration of 'std::vector<unsigned int,std::allocator<unsigned int>>'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(73,22): warning C4251: 'RenderObject::vertices': class 'std::vector<Vertex,std::allocator<Vertex>>' needs to have dll-interface to be used by clients of class 'RenderObject'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(20,44): message : see declaration of 'std::vector<Vertex,std::allocator<Vertex>>'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(74,28): warning C4251: 'RenderObject::indices': class 'std::vector<unsigned int,std::allocator<unsigned int>>' needs to have dll-interface to be used by clients of class 'RenderObject'
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(20,75): message : see declaration of 'std::vector<unsigned int,std::allocator<unsigned int>>'
 E:\Projects\YorkieEngine\YorkieEngine\Window\Public\Viewport.h(12,1): warning C4275: non dll-interface class 'Window' used as base for dll-interface class 'Viewport'
 E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.h(12,14): message : see declaration of 'Window'
 E:\Projects\YorkieEngine\YorkieEngine\Window\Public\Viewport.h(11,14): message : see declaration of 'Viewport'
@@ -27,6 +29,6 @@ E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(108,42): warni
 E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(109,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(116,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(117,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(213,68): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(213,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(260,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp(260,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   YorkieEngine.vcxproj -> E:\Projects\SandboxApp\x64\Debug\YorkieEngine.dll

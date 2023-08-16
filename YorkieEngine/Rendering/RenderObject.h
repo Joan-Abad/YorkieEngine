@@ -17,8 +17,8 @@ class Yorkie RenderObject
 	//class Window;
 	friend class Window;
 public: 
-	RenderObject(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
-	RenderObject(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, Shader &shader);
+	RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
+	RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, Shader &shader);
 
 	~RenderObject();
 
@@ -47,6 +47,11 @@ public:
 	void SetProjection();
 
 	Window* window;
+	const char* objectName;
+	//TODO: Remove from here, not public
+	glm::vec3 position;
+
+	glm::vec3 GetPosition() { return position; };
 
 protected:
 	//This constructor is for child objects. After setting vertices/indices or w/e you need, call SetupMesh(). 

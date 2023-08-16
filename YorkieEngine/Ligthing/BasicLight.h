@@ -6,7 +6,7 @@
 class Yorkie BasicLight : public Cube
 {
 public:
-	BasicLight();
+	BasicLight(const char* name);
 
 	glm::vec3 lightColor;
 };

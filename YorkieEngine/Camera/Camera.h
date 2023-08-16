@@ -4,11 +4,10 @@
 class Camera : public RenderObject
 {
 public:
-	Camera();
+	Camera(const char* objectName);
 
 	float pitch, yaw, roll;
 
-	glm::vec3 cameraPos;
 	glm::vec3 cameraDirection;
 	glm::vec3 cameraTarget;
 	glm::vec3 cameraFront;
