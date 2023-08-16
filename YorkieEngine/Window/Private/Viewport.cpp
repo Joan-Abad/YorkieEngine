@@ -2,28 +2,25 @@
 #include "../../ImGUI/imgui.h"
 #include "../../ImGUI/imgui_impl_glfw.h" // Include the proper ImGui backend for GLFW
 #include "../../ImGUI/imgui_impl_opengl3.h" // Include the proper ImGui backend for OpenGL
-#include "../../Rendering/RenderObject.h"
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 #include "../../Math/Vector3D.h"
 #include "../../Logging/Public/Logger.h"
 #include "../../Rendering/Primitives/Cube.h"
+#include "../../Rendering/RenderObject.h"
 #include "../../Modules/ShaderModule.h"
 #include "../../Camera/Camera.h"
 #include "gtc/matrix_transform.hpp"
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode)
 {
-
+    bFirstMouse = true;
+    isInGame = true;
 }
 
 void Viewport::Init()
 {
     InitRenderObjects();
-    //GameCamera
-    renderCamera = new Camera();
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     glfwSetWindowUserPointer(window, this);
     glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
@@ -32,10 +29,20 @@ void Viewport::Init()
             instance->mouse_callback(window, xpos, ypos);
         }
         });
+
+    InitImGUI();
+    bool show_demo_window = true;
+    // Main loop
+    InitViewportCamera();
+    InitMouse();
+   
 }
 
 void Viewport::Draw()
 {
+    // Poll for events
+    glfwPollEvents();
+
     // Clear the screen
     glClearColor(0.2f, 0.2f, 0.2f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -44,14 +51,12 @@ void Viewport::Draw()
 
     ProcessInput();
     
-
     DrawRenderObjects();
+    DrawViewportUI();
 
     // Swap the front and back buffers
     glfwSwapBuffers(window);
 
-    // Poll for events
-    glfwPollEvents();
 
 }
 
@@ -69,19 +74,16 @@ void Viewport::DrawRenderObjects()
     }
 }
 
-void Viewport::DrawImGUiExample()
+void Viewport::InitImGUI()
 {
-    // Start a new frame
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
+    // Initialize ImGui
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
 
-    // Create ImGui widgets here
-    ImGui::Text("Hello, ImGui!");
+    ImGui::StyleColorsDark();
 
-    // End the frame
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 void Viewport::ProcessInput()
@@ -95,50 +97,92 @@ void Viewport::ProcessInput()
         renderCamera->cameraPos -= glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         renderCamera->cameraPos += glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
-
-    renderCamera->view = glm::lookAt(renderCamera->cameraPos, renderCamera->cameraPos + renderCamera->cameraFront, renderCamera->cameraUp);
-
-    
-    renderCamera->direction.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-    renderCamera->direction.y = sin(glm::radians(renderCamera->pitch));
-    renderCamera->direction.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-
-}
-
-void Viewport::mouse_callback(GLFWwindow* glfWindow, double xpos, double ypos)
-{    
-    if (bFirstMouse) // initially set to true
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
-        lastX = xpos;
-        lastY = ypos;
-        bFirstMouse = false;
+        if (isEscapeAvailable)
+        {
+            if (isInGame)
+            {
+                glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                lastX = GetWindowWidth() / 2;
+                lastY = GetWindowHeight() / 2;
+                glfwSetCursorPos(window, lastX, lastY);
+            }
+            else
+            {
+                glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                lastX = GetWindowWidth() / 2;
+                lastY = GetWindowHeight() / 2;
+                glfwSetCursorPos(window, lastX, lastY);
+            }
+            isEscapeAvailable = false;
+            isInGame = !isInGame;
+        }
+    }
+    else if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_RELEASE)
+    {
+        isEscapeAvailable = true;
     }
 
-    //float lastX = GetWindowWidth() / 2;
-    //float lastY = GetWindowHeight() / 2;
+    renderCamera->view = glm::lookAt(renderCamera->cameraPos, renderCamera->cameraPos + renderCamera->cameraFront, renderCamera->cameraUp);
+}
 
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates range from bottom to top
-    lastX = xpos;
-    lastY = ypos;
+void Viewport::InitViewportCamera()
+{
 
-    const float sensitivity = 0.1f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
+    //GameCamera
+    renderCamera = new Camera();
+}
 
-    renderCamera->yaw += xoffset;
-    renderCamera->pitch += yoffset;
+void Viewport::InitMouse()
+{
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
 
-    if (renderCamera->pitch > 89.0f)
-        renderCamera->pitch = 89.0f;
-    if (renderCamera->pitch < -89.0f)
-        renderCamera->pitch = -89.0f;
+void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposIn)
+{    
+    if (isInGame)
+    {
+        float xpos = static_cast<float>(xposIn);
+        float ypos = static_cast<float>(yposIn);
 
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-    direction.y = sin(glm::radians(renderCamera->pitch));
-    direction.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-    renderCamera->cameraFront = glm::normalize(direction);
+        std::cout << "Xpos: " << xpos << " | Ypos: " << ypos << std::endl;
+
+        if (bFirstMouse)
+        {
+            lastX = xpos;
+            lastY = ypos;
+            bFirstMouse = false;
+        }
+
+        float xoffset = xpos - lastX;
+        float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+        lastX = xpos;
+        lastY = ypos;
+
+        float sensitivity = 0.1f; // change this value to your liking
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
+
+        renderCamera->yaw += xoffset;
+        renderCamera->pitch += yoffset;
+
+        // make sure that when pitch is out of bounds, screen doesn't get flipped
+        if (renderCamera->pitch > 89.0f)
+            renderCamera->pitch = 89.0f;
+        if (renderCamera->pitch < -89.0f)
+            renderCamera->pitch = -89.0f;
+
+        glm::vec3 front;
+        front.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+        front.y = sin(glm::radians(renderCamera->pitch));
+        front.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+        renderCamera->cameraFront = glm::normalize(front);
+    }
+    
 }
 
 void Viewport::InitRenderObjects()
@@ -155,4 +199,26 @@ void Viewport::PreDrawRenderObjects()
     {
         renderObject->PreDraw();
     }
+}
+
+void Viewport::DrawViewportUI()
+{
+    // Start the ImGui frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+    bool isWindowOpen = true;
+    // Create a window
+    ImGui::Begin("Outliner", &isWindowOpen, ImGuiWindowFlags_None);
+    ImGui::SetWindowSize(ImVec2(GetWindowWidth()/5, GetWindowHeight())); // Set window size
+    // Set window position to (x, y)
+    ImGui::SetWindowPos(ImVec2(0, 0));
+    ImGui::SetWindowFontScale(1.5f); // Adjust the value as needed
+    // Add UI elements here
+
+    ImGui::End();
+
+    // Render ImGui
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
