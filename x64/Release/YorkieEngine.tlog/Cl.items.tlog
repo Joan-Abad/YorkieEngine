@@ -1,0 +1,23 @@
+E:\Projects\YorkieEngine\Libraries\glad\src\glad.c;E:\Projects\YorkieEngine\x64\Release\glad.obj
+E:\Projects\YorkieEngine\YorkieEngine\Application\YorkiEngineApp.cpp;E:\Projects\YorkieEngine\x64\Release\YorkiEngineApp.obj
+E:\Projects\YorkieEngine\YorkieEngine\Buffer.cpp;E:\Projects\YorkieEngine\x64\Release\Buffer.obj
+E:\Projects\YorkieEngine\YorkieEngine\ImGUI\imgui.cpp;E:\Projects\YorkieEngine\x64\Release\imgui.obj
+E:\Projects\YorkieEngine\YorkieEngine\ImGUI\imgui_demo.cpp;E:\Projects\YorkieEngine\x64\Release\imgui_demo.obj
+E:\Projects\YorkieEngine\YorkieEngine\ImGUI\imgui_draw.cpp;E:\Projects\YorkieEngine\x64\Release\imgui_draw.obj
+E:\Projects\YorkieEngine\YorkieEngine\ImGUI\imgui_impl_glfw.cpp;E:\Projects\YorkieEngine\x64\Release\imgui_impl_glfw.obj
+E:\Projects\YorkieEngine\YorkieEngine\ImGUI\imgui_impl_opengl3.cpp;E:\Projects\YorkieEngine\x64\Release\imgui_impl_opengl3.obj
+E:\Projects\YorkieEngine\YorkieEngine\ImGUI\imgui_tables.cpp;E:\Projects\YorkieEngine\x64\Release\imgui_tables.obj
+E:\Projects\YorkieEngine\YorkieEngine\ImGUI\imgui_widgets.cpp;E:\Projects\YorkieEngine\x64\Release\imgui_widgets.obj
+E:\Projects\YorkieEngine\YorkieEngine\IndexBuffer.cpp;E:\Projects\YorkieEngine\x64\Release\IndexBuffer.obj
+E:\Projects\YorkieEngine\YorkieEngine\Logging\Private\Logger.cpp;E:\Projects\YorkieEngine\x64\Release\Logger.obj
+E:\Projects\YorkieEngine\YorkieEngine\Math\Mat4x4 .cpp;E:\Projects\YorkieEngine\x64\Release\Mat4x4 .obj
+E:\Projects\YorkieEngine\YorkieEngine\Math\MathHelpers .cpp;E:\Projects\YorkieEngine\x64\Release\MathHelpers .obj
+E:\Projects\YorkieEngine\YorkieEngine\Math\Vector2D .cpp;E:\Projects\YorkieEngine\x64\Release\Vector2D .obj
+E:\Projects\YorkieEngine\YorkieEngine\Math\Vector3D.cpp;E:\Projects\YorkieEngine\x64\Release\Vector3D.obj
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderingSystem.cpp;E:\Projects\YorkieEngine\x64\Release\RenderingSystem.obj
+E:\Projects\YorkieEngine\YorkieEngine\Rendering\RenderObject.cpp;E:\Projects\YorkieEngine\x64\Release\RenderObject.obj
+E:\Projects\YorkieEngine\YorkieEngine\Shaders\Shader.cpp;E:\Projects\YorkieEngine\x64\Release\Shader.obj
+E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Viewport.cpp;E:\Projects\YorkieEngine\x64\Release\Viewport.obj
+E:\Projects\YorkieEngine\YorkieEngine\Window\Private\Window.cpp;E:\Projects\YorkieEngine\x64\Release\Window.obj
+E:\Projects\YorkieEngine\YorkieEngine\Window\Private\WindowManager.cpp;E:\Projects\YorkieEngine\x64\Release\WindowManager.obj
+E:\Projects\YorkieEngine\YorkieEngine\YorkieEngine.cpp;E:\Projects\YorkieEngine\x64\Release\YorkieEngine.obj
