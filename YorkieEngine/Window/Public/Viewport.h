@@ -40,6 +40,7 @@ private:
 	void InitViewportCamera();
 	void InitMouse();
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void SetRenderObjectMatrices(RenderObject& renderObj);
 	std::vector<RenderObject*> renderObjects; 
 	
 };

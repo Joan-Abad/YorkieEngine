@@ -58,3 +58,8 @@ int Window::GetWindowHeight()
     glfwGetWindowSize(window, &width, &height);
     return height;
 }
+
+float Window::GetAspectRatio()
+{
+    return (float)GetWindowWidth() / (float)GetWindowHeight();
+}

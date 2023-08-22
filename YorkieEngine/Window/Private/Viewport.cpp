@@ -70,7 +70,12 @@ void Viewport::DrawRenderObjects()
 {
     for (const auto &renderObject : renderObjects)
     {
-        renderObject->Draw(renderCamera->view);
+        Shader& shader = renderObject->GetShader();
+        shader.Bind();
+        shader.SetUniformMat4("model", renderObject->GetModel());
+        shader.SetUniformMat4("view", renderCamera->GetView());
+        shader.SetUniformMat4("projection", renderCamera->GetProjection());
+        renderObject->Draw();
     }
 }
 
@@ -89,14 +94,16 @@ void Viewport::InitImGUI()
 void Viewport::ProcessInput()
 {
     const float cameraSpeed = 0.25f; // adjust accordingly
+
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        renderCamera->position += cameraSpeed * renderCamera->cameraFront;
+        renderCamera->AddOffstet(glm::vec3(cameraSpeed * renderCamera->cameraFront));
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        renderCamera->position -= cameraSpeed * renderCamera->cameraFront;
+        renderCamera->AddOffstet(-cameraSpeed * renderCamera->cameraFront);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        renderCamera->position -= glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
+        renderCamera->AddOffstet(-glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        renderCamera->position += glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed;
+        renderCamera->AddOffstet(glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed);
+
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         if (isEscapeAvailable)
@@ -126,12 +133,13 @@ void Viewport::ProcessInput()
         isEscapeAvailable = true;
     }
 
-    renderCamera->view = glm::lookAt(renderCamera->position, renderCamera->position + renderCamera->cameraFront, renderCamera->cameraUp);
+    glm::mat4 camView = glm::lookAt(renderCamera->position, renderCamera->position + renderCamera->cameraFront, renderCamera->cameraUp);
+    renderCamera->SetViewMatrix(camView);
+    renderCamera->SetProjectionMatrix(GetAspectRatio());
 }
 
 void Viewport::InitViewportCamera()
 {
-
     //GameCamera
     renderCamera = new Camera("Main Camera");
 }
@@ -181,6 +189,12 @@ void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposI
         renderCamera->cameraFront = glm::normalize(front);
     }
     
+}
+
+void Viewport::SetRenderObjectMatrices(RenderObject& renderObj)
+{
+    //View matrix and projection matrix
+    renderCamera->SetProjectionMatrix(GetAspectRatio());
 }
 
 void Viewport::InitRenderObjects()

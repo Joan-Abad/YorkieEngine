@@ -3,6 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "../YorkieEngine.h"
 #include <string>
+#include "glm.hpp"
 
 struct ShaderProgramSource
 {
@@ -16,8 +17,11 @@ public:
     Shader() = default;
     Shader(const char* shaderPath);
     void ParseShader(const std::string& path);
-    void ExecuteShader();
-    void StopShader();
+    void Bind();
+    void Unbind();
+
+    void SetUniformVec4(const char* variableName, const glm::vec4& vec4);
+    void SetUniformMat4(const char* variableName, const glm::mat4& mat4);
 
 private:
     void CheckShaderCompilationStatus(GLuint shader);

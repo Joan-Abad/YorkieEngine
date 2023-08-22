@@ -54,6 +54,11 @@ void YorkiEngineApp::InitializeEngineModules()
 {
 }
 
+double YorkiEngineApp::GetTime()
+{
+    return glfwGetTime();
+}
+
 
 void YorkiEngineApp::CreateApplication()
 {
@@ -72,7 +77,9 @@ void YorkiEngineApp::Update()
 {
     while (bIsRunning)
     {
+        OnPreDraw();
         WindowManager::DrawWindows();
+        OnPostDraw();
     }
 }
 

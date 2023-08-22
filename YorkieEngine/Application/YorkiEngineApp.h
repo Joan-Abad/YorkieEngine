@@ -15,6 +15,7 @@ class Yorkie YorkiEngineApp
 public: 
 	YorkiEngineApp();
 	void Run();
+	static double GetTime();
 
 private: 
 	bool bIsRunning;
@@ -27,7 +28,6 @@ private:
 	void InitializeGLAD();
 	void InitializeImGUI();
 	void InitializeEngineModules();
-
 
 protected:
 	void CreateApplication();

@@ -7,6 +7,11 @@
 struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
+	
+	Vertex(const glm::vec3& position)
+	{
+		Position = position;
+	}
 };
 
 extern class Window;
@@ -16,6 +21,7 @@ class Yorkie RenderObject
 {
 	//class Window;
 	friend class Window;
+
 public: 
 	RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
 	RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices, Shader &shader);
@@ -24,12 +30,12 @@ public:
 
 	virtual void Init();
 	virtual void PreDraw();
-	virtual void Draw(glm::mat4 &view);
+	virtual void Draw();
 
 	void AttachShader(Shader* shader);
 
 	void AddOffstet(float x, float y, float z);
-	void AddOffstet(glm::vec3& newPosition);
+	void AddOffstet(const glm::vec3& newPosition);
 
 	void AddScale(float x, float y, float z);
 	void AddScale(glm::vec3& newScale);
@@ -37,14 +43,14 @@ public:
 	void AddRotation(float Roll, float Pitch, float Yaw);
 
 	void SetPosition(float x, float y, float z);
-	void SetPosition(glm::vec3 &newPosition);
+	void SetPosition(const glm::vec3 &newPosition);
 
 	void SetRotation(float Roll, float Pitch, float Yaw);
 
 	void SetScale(float x, float y, float z);
 	void SetScale(glm::vec3 &newScale);
 
-	void SetProjection();
+	Shader& GetShader() { return *shader; };
 
 	Window* window;
 	const char* objectName;
@@ -52,6 +58,7 @@ public:
 	glm::vec3 position;
 
 	glm::vec3 GetPosition() { return position; };
+	inline glm::mat4& GetModel() { return model; };
 
 protected:
 	//This constructor is for child objects. After setting vertices/indices or w/e you need, call SetupMesh(). 
@@ -60,11 +67,8 @@ protected:
 
 	//Transformations
 	glm::mat4 model;
-	glm::mat4 view;
-	glm::mat4 projection;
+
 	GLint modelLoc;
-	GLint viewLoc;
-	GLint projLoc;
 	unsigned int VAO, VBO, EBO;
 
 	void SetupMesh();
@@ -74,8 +78,4 @@ protected:
 	std::vector<unsigned int> indices;
 
 	Shader* shader;
-
-private:
-	void SetUniformLocations();
-
 };

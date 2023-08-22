@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "gtc/type_ptr.hpp"
+#include "../Logging/Public/Logger.h"
 
 Shader::Shader(const char* shaderPath)
 {
@@ -86,12 +88,30 @@ void Shader::ParseShader(const std::string& path)
 	shaderProgramSource = { ss[0].str(), ss[1].str() };
 }
 
-void Shader::ExecuteShader()
+void Shader::Bind()
 {
 	glUseProgram(ID);
 }
 
-void Shader::StopShader()
+void Shader::Unbind()
 {
 	glUseProgram(0);
+}
+
+void Shader::SetUniformVec4(const char* variableName, const glm::vec4& vec4)
+{
+	int loc = glGetUniformLocation(ID, variableName);
+	if (loc == -1)
+		Logger::LogError("Uniform " + std::string(variableName) + " NOT found");
+	glUniform4fv(loc, 1, glm::value_ptr(vec4));
+
+}
+
+void Shader::SetUniformMat4(const char* variableName, const glm::mat4& mat4)
+{
+	int loc = glGetUniformLocation(ID, variableName);
+	if (loc == -1)
+		Logger::LogError("Uniform " + std::string(variableName) + " NOT found");
+
+	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat4));
 }

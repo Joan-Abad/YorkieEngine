@@ -16,8 +16,6 @@ RenderObject::RenderObject(const char* objectName, std::vector<Vertex> &vertices
 	this->vertices = vertices;
 	this->indices = indices;
 	model = glm::mat4(1.0f);
-	view = glm::mat4(1.0f);
-	projection = glm::mat4(1.0f);
 	position = glm::vec3(0,0,0);
 	shader = nullptr;
 	window = nullptr;
@@ -40,15 +38,12 @@ void RenderObject::Init()
 	if (!shader)
 		shader = ShaderModule::GetShaderModule()->GetDefaultShader();
 
-	SetUniformLocations();
 }
 
 
 
 void RenderObject::PreDraw()
 {
-	//AddRotation(1.f, 1.f, 1.f);
-	//SetPosition(0,0,-3);
 
 }
 
@@ -82,15 +77,8 @@ void RenderObject::SetupMesh()
 	glBindVertexArray(0);
 }
 
-void RenderObject::Draw(glm::mat4& view)
-{
-	SetProjection();
-
-	shader->ExecuteShader();
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
+void RenderObject::Draw()
+{	
 	//TODO: Remove from here
 	glm::vec3 position = glm::vec3(model[3]); // The fourth column (if using column-major)
 
@@ -103,15 +91,6 @@ void RenderObject::Draw(glm::mat4& view)
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 
-void RenderObject::SetUniformLocations()
-{
-	shader->ExecuteShader();
-	modelLoc = glGetUniformLocation(shader->getProgramID(), "model");
-	viewLoc = glGetUniformLocation(shader->getProgramID(), "view");
-	projLoc = glGetUniformLocation(shader->getProgramID(), "projection");
-	shader->StopShader();
-}
-
 void RenderObject::AttachShader(Shader* shader)
 {
     this->shader = shader;
@@ -119,12 +98,12 @@ void RenderObject::AttachShader(Shader* shader)
 
 void RenderObject::AddOffstet(float x, float y, float z)
 {
-	model = glm::translate(view, glm::vec3(x, y, z));
+	model = glm::translate(model, glm::vec3(x, y, z));
 }
 
-void RenderObject::AddOffstet(glm::vec3& newPosition)
+void RenderObject::AddOffstet(const glm::vec3& newPosition)
 {
-	model = glm::translate(view, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
+	position += newPosition;
 }
 
 void RenderObject::AddScale(float x, float y, float z)
@@ -163,7 +142,7 @@ void RenderObject::AddRotation(float Roll, float Pitch, float Yaw)
 		model = glm::rotate(model, glm::radians(Yaw), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
-void RenderObject::SetPosition(glm::vec3& newPosition)
+void RenderObject::SetPosition(const glm::vec3& newPosition)
 {
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
@@ -192,10 +171,4 @@ void RenderObject::SetScale(float x, float y, float z)
 void RenderObject::SetScale(glm::vec3& newScale)
 {
 	model = glm::scale(model, glm::vec3(newScale.x, newScale.y, newScale.z));
-}
-
-void RenderObject::SetProjection()
-{
-	projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians(45.0f), (float)window->GetWindowWidth() / (float)window->GetWindowHeight(), 0.1f, 400.0f);
 }
