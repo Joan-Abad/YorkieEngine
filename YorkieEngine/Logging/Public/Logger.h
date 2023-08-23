@@ -1,12 +1,13 @@
 #pragma once
 #include <string>
+#include "../../YorkieEngine.h"
 
 #define RESET_COLOR "\033[0m"
 #define INFO_COLOR "\033[37m"    // Light grey
 #define WARNING_COLOR "\033[33m" // Yellow
 #define ERROR_COLOR "\033[31m"   // Red
 
-class Logger
+class YorkieAPI Logger
 {
 public:
     static void LogInfo(const std::string& message);

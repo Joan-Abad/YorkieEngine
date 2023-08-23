@@ -1,5 +1,5 @@
 #include "YorkiEngineApp.h"
-#include "../Rendering/RenderingSystem.h"
+#include "../Rendering/Renderer.h"
 #include "../Shaders/Shader.h"
 #include "../Rendering/RenderObject.h"
 #include <iostream>

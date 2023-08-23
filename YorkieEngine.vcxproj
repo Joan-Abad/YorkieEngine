@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="YorkieEngine\Input\Controller.cpp" />
     <ClCompile Include="Transformable.cpp" />
     <ClCompile Include="YorkieEngine\Modules\CameraModule.cpp" />
     <ClCompile Include="YorkieEngine\Camera\Camera.cpp" />
@@ -43,7 +44,7 @@
     <ClCompile Include="YorkieEngine\Math\Vector3D.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Buffers\VBO.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Primitives\Cube.cpp" />
-    <ClCompile Include="YorkieEngine\Rendering\RenderingSystem.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\Renderer.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\RenderObject.cpp" />
     <ClCompile Include="YorkieEngine\Shaders\Shader.cpp" />
     <ClCompile Include="YorkieEngine\Window\Private\Viewport.cpp" />
@@ -52,6 +53,8 @@
     <ClCompile Include="YorkieEngine\YorkieEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="YorkieEngine\Components\TransformComponent.h" />
+    <ClInclude Include="YorkieEngine\Input\Controller.h" />
     <ClInclude Include="Transformable.h" />
     <ClInclude Include="YorkieEngine\Modules\CameraModule.h" />
     <ClInclude Include="YorkieEngine\Camera\Camera.h" />
@@ -77,7 +80,7 @@
     <ClInclude Include="YorkieEngine\Math\Vector3D.h" />
     <ClInclude Include="YorkieEngine\Rendering\Buffers\VBO.h" />
     <ClInclude Include="YorkieEngine\Rendering\Primitives\Cube.h" />
-    <ClInclude Include="YorkieEngine\Rendering\RenderingSystem.h" />
+    <ClInclude Include="YorkieEngine\Rendering\Renderer.h" />
     <ClInclude Include="YorkieEngine\Rendering\RenderObject.h" />
     <ClInclude Include="YorkieEngine\Shaders\Shader.h" />
     <ClInclude Include="YorkieEngine\Window\Public\Viewport.h" />
@@ -175,8 +178,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>YENGINE_EXPORT;RENDER_OPENGL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Libraries\glad\include;$(ProjectDir)Libraries\glfw\glfw-3.3.8\include;$(ProjectDir)Libraries\glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\Libraries\entt-master\src;$(ProjectDir)Libraries\glad\include;$(ProjectDir)Libraries\glfw\glfw-3.3.8\include;$(ProjectDir)Libraries\glm</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -193,8 +197,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>YENGINE_EXPORT;RENDER_OPENGL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Libraries\glad\include;$(ProjectDir)Libraries\glfw\glfw-3.3.8\include;$(ProjectDir)Libraries\glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\Libraries\entt-master\src;$(ProjectDir)Libraries\glad\include;$(ProjectDir)Libraries\glfw\glfw-3.3.8\include;$(ProjectDir)Libraries\glm</AdditionalIncludeDirectories>
       <ProgramDataBaseFileName>$(TEMP)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

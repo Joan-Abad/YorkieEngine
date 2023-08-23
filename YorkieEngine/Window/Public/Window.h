@@ -14,9 +14,10 @@ class Window
 {
 	friend class WindowManager;
 	friend class RenderObject;
-protected:
+public:
+	Window() = default;
 	Window(int width, int height, const char* title, WindowMode windowMode);
-
+protected:
 	bool bDrawWindow;
 	GLFWwindow* window;
 

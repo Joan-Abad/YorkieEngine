@@ -1,6 +1,6 @@
 #include "RenderObject.h"
 #include "glad/glad.h"
-#include "RenderingSystem.h"
+#include "Renderer.h"
 #include <sstream>
 #include <vector>
 #include <glm.hpp>
@@ -10,6 +10,7 @@
 #include "../Window/Public/Window.h"
 #include "../Modules/ShaderModule.h"
 #include <iostream>
+#include "../Window/Public/Viewport.h"
 
 RenderObject::RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices)
 {
@@ -18,7 +19,8 @@ RenderObject::RenderObject(const char* objectName, std::vector<Vertex> &vertices
 	model = glm::mat4(1.0f);
 	position = glm::vec3(0,0,0);
 	shader = nullptr;
-	window = nullptr;
+	viewport = nullptr;
+
 	this->objectName = objectName;
 	SetupMesh();
 }
@@ -171,4 +173,9 @@ void RenderObject::SetScale(float x, float y, float z)
 void RenderObject::SetScale(glm::vec3& newScale)
 {
 	model = glm::scale(model, glm::vec3(newScale.x, newScale.y, newScale.z));
+}
+
+void RenderObject::SetViewport(Viewport* viewport)
+{
+	this->viewport = viewport;
 }
