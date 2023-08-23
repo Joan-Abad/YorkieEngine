@@ -2,7 +2,7 @@
 #include "Buffer.h"
 #include "../../YorkieEngine.h"
 
-class Yorkie VAO : Buffer
+class YorkieAPI VAO : Buffer
 {
 public: 
 	VAO();

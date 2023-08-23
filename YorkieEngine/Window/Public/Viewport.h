@@ -5,12 +5,22 @@
 #include "Window.h"
 #include <vector>
 #include "../../YorkieEngine.h"
-#include "../../Camera/Camera.h"
-class RenderObject;
+#include "entt/entt.hpp"
 
-class Yorkie Viewport : public Window
+class RenderObject;
+class Camera;
+
+class YorkieAPI Viewport : public Window
 {
 	friend class WindowManager;
+
+public:
+	void AddRenderObject(RenderObject& renderObject);
+
+	entt::registry registry;
+
+	//GETTERS
+	inline GLFWwindow* GetWindow() const { return window; };
 
 protected:
 	Viewport(int width, int height, const char* title, WindowMode windowMode);
@@ -24,11 +34,6 @@ protected:
 	bool isInGame;	
 	bool isEscapeAvailable;
 
-public:
-	void AddRenderObject(RenderObject& renderObject);
-	void CharCallback(GLFWwindow* window, unsigned int c);
-	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-	inline GLFWwindow* GetWindow() const { return window; };
 private: 
 	void InitRenderObjects();
 	//PreDraw function for all render object before the current Render calls
@@ -42,6 +47,5 @@ private:
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void SetRenderObjectMatrices(RenderObject& renderObj);
 	std::vector<RenderObject*> renderObjects; 
-	
 };
 

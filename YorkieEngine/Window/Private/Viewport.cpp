@@ -31,11 +31,10 @@ void Viewport::Init()
         });
 
     InitImGUI();
-    bool show_demo_window = true;
+
     // Main loop
     InitViewportCamera();
     InitMouse();
-   
 }
 
 void Viewport::Draw()
@@ -43,10 +42,9 @@ void Viewport::Draw()
     // Poll for events
     glfwPollEvents();
 
-    // Clear the screen
+    //Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
+    glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2f, 0.2f, 0.2f, 1.f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     PreDrawRenderObjects();
 
     ProcessInput();
@@ -56,25 +54,26 @@ void Viewport::Draw()
 
     // Swap the front and back buffers
     glfwSwapBuffers(window);
-
-
 }
 
 void Viewport::AddRenderObject(RenderObject& renderObject)
 {
     renderObjects.push_back(&renderObject);
-    renderObject.window = this;
+    renderObject.SetViewport(this);
 }
 
 void Viewport::DrawRenderObjects()
 {
     for (const auto &renderObject : renderObjects)
     {
+        //Set MVP matrix 
         Shader& shader = renderObject->GetShader();
         shader.Bind();
         shader.SetUniformMat4("model", renderObject->GetModel());
         shader.SetUniformMat4("view", renderCamera->GetView());
         shader.SetUniformMat4("projection", renderCamera->GetProjection());
+
+        //Draw
         renderObject->Draw();
     }
 }
@@ -271,6 +270,7 @@ void Viewport::DrawViewportUI()
     }
     else
         Logger::LogError("RO NULL");
+
     ImGui::SetWindowSize(ImVec2(GetWindowWidth()/5, GetWindowHeight()/2)); // Set window size
     // Set window position to (x, y)
     ImGui::SetWindowPos(ImVec2(0, 0));

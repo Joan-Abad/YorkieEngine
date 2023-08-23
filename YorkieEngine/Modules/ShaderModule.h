@@ -2,7 +2,7 @@
 #include "../Shaders/Shader.h"
 #include "../YorkieEngine.h"
 
-class Yorkie ShaderModule
+class YorkieAPI ShaderModule
 {
 public:
 	ShaderModule();

@@ -3,7 +3,7 @@
 #include <vector>
 #include "../../YorkieEngine.h"
 
-class Yorkie WindowManager
+class YorkieAPI WindowManager
 {
 	friend class Window;
 public:

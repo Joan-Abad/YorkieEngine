@@ -3,6 +3,10 @@
 #include "../YorkieEngine.h"
 #include "../Shaders/Shader.h"
 #include "glm.hpp"
+#include "entt/entt.hpp"
+#include "../Window/Public/Viewport.h"
+#include "../Components/TransformComponent.h"
+
 
 struct Vertex {
 	glm::vec3 Position;
@@ -14,13 +18,10 @@ struct Vertex {
 	}
 };
 
-extern class Window;
 
 //Object that can be rendered in the game world
-class Yorkie RenderObject
+class YorkieAPI RenderObject
 {
-	//class Window;
-	friend class Window;
 
 public: 
 	RenderObject(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
@@ -50,9 +51,28 @@ public:
 	void SetScale(float x, float y, float z);
 	void SetScale(glm::vec3 &newScale);
 
-	Shader& GetShader() { return *shader; };
+	void SetViewport(Viewport* viewport);
 
-	Window* window;
+	template <typename T, typename... Args>
+	T& AddComponent(Args&&... args)
+	{
+		return viewport->registry.emplace<T>(entity, std::forward<Args>(args)...);
+	}
+
+	template <typename T>
+	T& GetComponent()
+	{
+		return viewport->registry.get<T>(entity);
+	}
+
+	template <typename T>
+	T& HasComponent()
+	{
+		return viewport->registry.any_of<T>(entity);
+	}
+
+	inline Shader& GetShader() { return *shader; };
+
 	const char* objectName;
 	//TODO: Remove from here, not public
 	glm::vec3 position;
@@ -69,13 +89,15 @@ protected:
 	glm::mat4 model;
 
 	GLint modelLoc;
-	unsigned int VAO, VBO, EBO;
-
-	void SetupMesh();
-
+	Shader* shader;
 	// mesh data
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
+	unsigned int VAO, VBO, EBO;
+	void SetupMesh();
 
-	Shader* shader;
+private:
+	entt::entity entity;
+	Viewport* viewport;
+
 };

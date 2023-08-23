@@ -3,7 +3,7 @@
 #include <vector>
 #include "../../YorkieEngine.h"
 
-class Yorkie VBO : public Buffer
+class YorkieAPI VBO : public Buffer
 {
 public:
     //If VAO is overrided with a value, it will bind to that VAO before generating the VBO. 

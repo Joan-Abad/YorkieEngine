@@ -10,6 +10,7 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Compiled Dynamic libraries
 *.so
@@ -30,3 +31,20 @@
 *.exe
 *.out
 *.app
+
+# Log files
+*.tlog
+*.log
+
+# Intermediate
+.vs/
+*.aps
+
+# Output Directores
+x64
+Debug
+Release
+
+#imgui
+imgui.ini
+

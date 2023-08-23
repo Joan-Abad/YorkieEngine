@@ -3,7 +3,7 @@
 #include "../YorkieEngine.h"
 #include "../Rendering/Primitives/Cube.h"
 
-class Yorkie BasicLight : public Cube
+class YorkieAPI BasicLight : public Cube
 {
 public:
 	BasicLight(const char* name);

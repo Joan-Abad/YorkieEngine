@@ -3,7 +3,7 @@
 #include "../RenderObject.h"
 #include <vector>
 
-class Yorkie Cube : public RenderObject
+class YorkieAPI Cube : public RenderObject
 {
 public: 
 	Cube();
