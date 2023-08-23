@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="YorkieEngine\Input\Controller.cpp" />
     <ClCompile Include="Transformable.cpp" />
+    <ClCompile Include="YorkieEngine\Input\Input.cpp" />
     <ClCompile Include="YorkieEngine\Modules\CameraModule.cpp" />
     <ClCompile Include="YorkieEngine\Camera\Camera.cpp" />
     <ClCompile Include="YorkieEngine\Ligthing\BasicLight.cpp" />
@@ -44,7 +44,6 @@
     <ClCompile Include="YorkieEngine\Math\Vector3D.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Buffers\VBO.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\Primitives\Cube.cpp" />
-    <ClCompile Include="YorkieEngine\Rendering\Renderer.cpp" />
     <ClCompile Include="YorkieEngine\Rendering\RenderObject.cpp" />
     <ClCompile Include="YorkieEngine\Shaders\Shader.cpp" />
     <ClCompile Include="YorkieEngine\Window\Private\Viewport.cpp" />
@@ -56,6 +55,7 @@
     <ClInclude Include="YorkieEngine\Components\TransformComponent.h" />
     <ClInclude Include="YorkieEngine\Input\Controller.h" />
     <ClInclude Include="Transformable.h" />
+    <ClInclude Include="YorkieEngine\Input\Input.h" />
     <ClInclude Include="YorkieEngine\Modules\CameraModule.h" />
     <ClInclude Include="YorkieEngine\Camera\Camera.h" />
     <ClInclude Include="YorkieEngine\Ligthing\BasicLight.h" />
@@ -80,7 +80,6 @@
     <ClInclude Include="YorkieEngine\Math\Vector3D.h" />
     <ClInclude Include="YorkieEngine\Rendering\Buffers\VBO.h" />
     <ClInclude Include="YorkieEngine\Rendering\Primitives\Cube.h" />
-    <ClInclude Include="YorkieEngine\Rendering\Renderer.h" />
     <ClInclude Include="YorkieEngine\Rendering\RenderObject.h" />
     <ClInclude Include="YorkieEngine\Shaders\Shader.h" />
     <ClInclude Include="YorkieEngine\Window\Public\Viewport.h" />

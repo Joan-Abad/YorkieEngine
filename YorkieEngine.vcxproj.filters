@@ -45,9 +45,6 @@
     <ClCompile Include="YorkieEngine\Rendering\RenderObject.cpp">
       <Filter>Source\Rendering\Private</Filter>
     </ClCompile>
-    <ClCompile Include="YorkieEngine\Rendering\Renderer.cpp">
-      <Filter>Source\Rendering\Private</Filter>
-    </ClCompile>
     <ClCompile Include="YorkieEngine\Application\YorkiEngineApp.cpp">
       <Filter>Source\Application\Private</Filter>
     </ClCompile>
@@ -81,6 +78,7 @@
     <ClCompile Include="YorkieEngine\Modules\CameraModule.cpp" />
     <ClCompile Include="Transformable.cpp" />
     <ClCompile Include="YorkieEngine\Input\Controller.cpp" />
+    <ClCompile Include="YorkieEngine\Input\Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="YorkieEngine\YorkieEngine.h">
@@ -90,9 +88,6 @@
       <Filter>Source\Shaders\Public</Filter>
     </ClInclude>
     <ClInclude Include="YorkieEngine\Rendering\RenderObject.h">
-      <Filter>Source\Rendering\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="YorkieEngine\Rendering\Renderer.h">
       <Filter>Source\Rendering\Public</Filter>
     </ClInclude>
     <ClInclude Include="YorkieEngine\Application\YorkiEngineApp.h">
@@ -131,6 +126,7 @@
     <ClInclude Include="Transformable.h" />
     <ClInclude Include="YorkieEngine\Input\Controller.h" />
     <ClInclude Include="YorkieEngine\Components\TransformComponent.h" />
+    <ClInclude Include="YorkieEngine\Input\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Cube.shader" />

@@ -11,7 +11,6 @@
 #include "gtc/matrix_transform.hpp"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
-#include "../../Rendering/Renderer.h"
 
 Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode)
 {
@@ -43,8 +42,9 @@ void Viewport::Draw()
     // Poll for events
     glfwPollEvents();
 
-    Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
-
+    //Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.f);
     PreDrawRenderObjects();
 
     ProcessInput();

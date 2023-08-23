@@ -1,6 +1,5 @@
 #include "RenderObject.h"
 #include "glad/glad.h"
-#include "Renderer.h"
 #include <sstream>
 #include <vector>
 #include <glm.hpp>

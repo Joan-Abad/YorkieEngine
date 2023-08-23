@@ -94,7 +94,6 @@ protected:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int VAO, VBO, EBO;
-	TransformComponent* transformComponent;
 	void SetupMesh();
 
 private:
