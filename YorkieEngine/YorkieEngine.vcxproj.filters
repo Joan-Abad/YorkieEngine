@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{8d36214e-bc2f-4301-992f-d9bf8f114e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{fa18b73f-9ef2-4fc2-a4f8-c05544c03e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application">
+      <UniqueIdentifier>{59261780-d237-4f73-9adc-8776e372c28a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application\Public">
+      <UniqueIdentifier>{90ee8475-744c-4562-89af-511ababeb926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Application\Private">
+      <UniqueIdentifier>{0955284b-9a1e-4be0-8239-e9b44ffef956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Public">
+      <UniqueIdentifier>{884c6241-afcd-427e-a8dd-023d5addee87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering\Private">
+      <UniqueIdentifier>{21f3d488-dccf-49ed-a652-b56bc2eb8abd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shaders">
+      <UniqueIdentifier>{92c3e0a9-0963-42cc-acd8-63c61344d4d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shaders\Public">
+      <UniqueIdentifier>{e1385ec0-060d-4921-ae56-091dea12cfee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Shaders\Private">
+      <UniqueIdentifier>{59ca16fa-e7a4-44d3-a655-a71d0be2e368}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Libraries\glad\src\glad.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\YorkieEngine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Shaders\Shader.cpp">
+      <Filter>Source\Shaders\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Rendering\GameEntity.cpp">
+      <Filter>Source\Rendering\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Application\YorkiEngineApp.cpp">
+      <Filter>Source\Application\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Rendering\Buffers\IndexBuffer.cpp">
+      <Filter>Source\Rendering\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Rendering\Buffers\Buffer.cpp">
+      <Filter>Source\Rendering\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="YorkieEngine\Window\Private\Window.cpp" />
+    <ClCompile Include="YorkieEngine\Window\Private\WindowManager.cpp" />
+    <ClCompile Include="YorkieEngine\Logging\Private\Logger.cpp" />
+    <ClCompile Include="YorkieEngine\Window\Private\Viewport.cpp" />
+    <ClCompile Include="YorkieEngine\ImGUI\imgui.cpp" />
+    <ClCompile Include="YorkieEngine\ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="YorkieEngine\ImGUI\imgui_draw.cpp" />
+    <ClCompile Include="YorkieEngine\ImGUI\imgui_tables.cpp" />
+    <ClCompile Include="YorkieEngine\ImGUI\imgui_widgets.cpp" />
+    <ClCompile Include="YorkieEngine\ImGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="YorkieEngine\ImGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="YorkieEngine\Math\Vector2D .cpp" />
+    <ClCompile Include="YorkieEngine\Math\Mat4x4 .cpp" />
+    <ClCompile Include="YorkieEngine\Math\Vector3D.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\Buffers\VBO.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\Buffers\VAO.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\Primitives\Cube.cpp" />
+    <ClCompile Include="YorkieEngine\Modules\ShaderModule.cpp" />
+    <ClCompile Include="YorkieEngine\Ligthing\BasicLight.cpp" />
+    <ClCompile Include="YorkieEngine\Camera\Camera.cpp" />
+    <ClCompile Include="YorkieEngine\Modules\CameraModule.cpp" />
+    <ClCompile Include="YorkieEngine\Input\Input.cpp" />
+    <ClCompile Include="YorkieEngine\Rendering\Renderer.cpp" />
+    <ClCompile Include="YorkieEngine\Components\TransformComponent.cpp" />
+    <ClCompile Include="src\Camera\Camera.cpp" />
+    <ClCompile Include="src\Components\TransformComponent.cpp" />
+    <ClCompile Include="src\Engine\Event.cpp" />
+    <ClCompile Include="src\Engine\YorkieEngine.cpp" />
+    <ClCompile Include="src\Engine\YorkiEngineApp.cpp" />
+    <ClCompile Include="src\Game\GameEntity.cpp" />
+    <ClCompile Include="src\Graphics\Buffers\Buffer.cpp" />
+    <ClCompile Include="src\Graphics\Buffers\IndexBuffer.cpp" />
+    <ClCompile Include="src\Graphics\Buffers\VAO.cpp" />
+    <ClCompile Include="src\Graphics\Buffers\VBO.cpp" />
+    <ClCompile Include="src\Graphics\Primitives\Cube.cpp" />
+    <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Input\Controller.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
+    <ClCompile Include="src\Lighting\BasicLight.cpp" />
+    <ClCompile Include="src\Logging\Logger.cpp" />
+    <ClCompile Include="src\Maths\Mat4x4.cpp" />
+    <ClCompile Include="src\Maths\MathHelpers.cpp" />
+    <ClCompile Include="src\Maths\Vector2D.cpp" />
+    <ClCompile Include="src\Maths\Vector3D.cpp" />
+    <ClCompile Include="src\Modules\CameraModule.cpp" />
+    <ClCompile Include="src\Modules\ShaderModule.cpp" />
+    <ClCompile Include="src\Window\Viewport.cpp" />
+    <ClCompile Include="src\Window\Window.cpp" />
+    <ClCompile Include="src\Window\WindowManager.cpp" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="include\UI\imgui.cpp" />
+    <ClCompile Include="include\UI\imgui_demo.cpp" />
+    <ClCompile Include="include\UI\imgui_draw.cpp" />
+    <ClCompile Include="include\UI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="include\UI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="include\UI\imgui_tables.cpp" />
+    <ClCompile Include="include\UI\imgui_widgets.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="YorkieEngine\YorkieEngine.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="YorkieEngine\Shaders\Shader.h">
+      <Filter>Source\Shaders\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="YorkieEngine\Rendering\GameEntity.h">
+      <Filter>Source\Rendering\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="YorkieEngine\Application\YorkiEngineApp.h">
+      <Filter>Source\Application\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="YorkieEngine\Rendering\Buffers\Buffer.h">
+      <Filter>Source\Rendering\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="YorkieEngine\Rendering\Buffers\IndexBuffer.h">
+      <Filter>Source\Rendering\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="YorkieEngine\Window\Public\Window.h" />
+    <ClInclude Include="YorkieEngine\Window\Public\WindowManager.h" />
+    <ClInclude Include="YorkieEngine\Logging\Public\Logger.h" />
+    <ClInclude Include="YorkieEngine\Window\Public\Viewport.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imgui.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imconfig.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imgui_internal.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imstb_rectpack.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imstb_textedit.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imstb_truetype.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="YorkieEngine\ImGUI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="YorkieEngine\Math\Vector2D.h" />
+    <ClInclude Include="YorkieEngine\Math\Mat4x4.h" />
+    <ClInclude Include="YorkieEngine\Math\Vector3D.h" />
+    <ClInclude Include="YorkieEngine\Rendering\Buffers\VBO.h" />
+    <ClInclude Include="YorkieEngine\Rendering\Buffers\VAO.h" />
+    <ClInclude Include="YorkieEngine\Rendering\Primitives\Cube.h" />
+    <ClInclude Include="YorkieEngine\Modules\ShaderModule.h" />
+    <ClInclude Include="YorkieEngine\Ligthing\BasicLight.h" />
+    <ClInclude Include="YorkieEngine\Camera\Camera.h" />
+    <ClInclude Include="YorkieEngine\Modules\CameraModule.h" />
+    <ClInclude Include="YorkieEngine\Input\Controller.h" />
+    <ClInclude Include="YorkieEngine\Components\TransformComponent.h" />
+    <ClInclude Include="YorkieEngine\Input\Input.h" />
+    <ClInclude Include="YorkieEngine\Rendering\Renderer.h" />
+    <ClInclude Include="include\Camera\Camera.h" />
+    <ClInclude Include="include\Components\TransformComponent.h" />
+    <ClInclude Include="include\Engine\Event.h" />
+    <ClInclude Include="include\Engine\YorkieEngine.h" />
+    <ClInclude Include="include\Engine\YorkiEngineApp.h" />
+    <ClInclude Include="include\Game\GameEntity.h" />
+    <ClInclude Include="include\Graphics\Buffers\Buffer.h" />
+    <ClInclude Include="include\Graphics\Buffers\IndexBuffer.h" />
+    <ClInclude Include="include\Graphics\Buffers\VAO.h" />
+    <ClInclude Include="include\Graphics\Buffers\VBO.h" />
+    <ClInclude Include="include\Graphics\Primitives\Cube.h" />
+    <ClInclude Include="include\Graphics\Shaders\Shader.h" />
+    <ClInclude Include="include\Graphics\Renderer.h" />
+    <ClInclude Include="include\Input\Controller.h" />
+    <ClInclude Include="include\Input\Input.h" />
+    <ClInclude Include="include\Lighting\BasicLight.h" />
+    <ClInclude Include="include\Logging\Logger.h" />
+    <ClInclude Include="include\Maths\Mat4x4.h" />
+    <ClInclude Include="include\Maths\MathHelpers.h" />
+    <ClInclude Include="include\Maths\Vector2D.h" />
+    <ClInclude Include="include\Maths\Vector3D.h" />
+    <ClInclude Include="include\Modules\CameraModule.h" />
+    <ClInclude Include="include\Modules\ShaderModule.h" />
+    <ClInclude Include="include\UI\imconfig.h" />
+    <ClInclude Include="include\UI\imgui.h" />
+    <ClInclude Include="include\UI\imgui_impl_glfw.h" />
+    <ClInclude Include="include\UI\imgui_impl_opengl3.h" />
+    <ClInclude Include="include\UI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="include\UI\imgui_internal.h" />
+    <ClInclude Include="include\UI\imstb_rectpack.h" />
+    <ClInclude Include="include\UI\imstb_textedit.h" />
+    <ClInclude Include="include\UI\imstb_truetype.h" />
+    <ClInclude Include="include\Window\Viewport.h" />
+    <ClInclude Include="include\Window\Window.h" />
+    <ClInclude Include="include\Window\WindowManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\Cube.shader" />
+    <None Include="res\shaders\Triangle.shader" />
+  </ItemGroup>
+</Project>
