@@ -18,14 +18,14 @@ add_library(YorkieEngine SHARED ${SOURCES} ${HEADERS})
 target_include_directories(YorkieEngine 
     PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/YorkieEngine/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glad/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/entt-master/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glm
-    ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glad/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/entt/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glfw/include
 )
 
 # Link your game engine target with GLFW
-target_link_libraries(YorkieEngine ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/glfw/build/src/Debug/glfw3.lib)
+target_link_libraries(YorkieEngine ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glfw/lib/glfw3.lib)
 
 # Find and link OpenGL
 find_package(OpenGL REQUIRED)

@@ -1,7 +1,0 @@
-E:/Projects/YorkieEngineInit/Libraries/glfw/build/CMakeFiles/uninstall.dir
-E:/Projects/YorkieEngineInit/Libraries/glfw/build/CMakeFiles/INSTALL.dir
-E:/Projects/YorkieEngineInit/Libraries/glfw/build/CMakeFiles/ALL_BUILD.dir
-E:/Projects/YorkieEngineInit/Libraries/glfw/build/CMakeFiles/ZERO_CHECK.dir
-E:/Projects/YorkieEngineInit/Libraries/glfw/build/src/CMakeFiles/update_mappings.dir
-E:/Projects/YorkieEngineInit/Libraries/glfw/build/src/CMakeFiles/glfw.dir
-E:/Projects/YorkieEngineInit/Libraries/glfw/build/src/CMakeFiles/INSTALL.dir
