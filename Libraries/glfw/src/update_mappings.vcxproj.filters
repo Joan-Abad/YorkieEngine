@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Projects\YorkieEngineGitTest\YorkieEngine\Dependencies\glfw\CMakeFiles\6edcb00a201b99a6e5db6e1a0951aac5\update_mappings.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\Projects\YorkieEngineGitTest\YorkieEngine\Dependencies\glfw\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\Projects\YorkieEngineGitTest\YorkieEngine\Dependencies\glfw\src\mappings.h.in">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="E:\Projects\YorkieEngineGitTest\YorkieEngine\Dependencies\glfw\CMake\GenerateMappings.cmake" />
+    <None Include="E:\Projects\YorkieEngineGitTest\YorkieEngine\Dependencies\glfw\src\CMakeFiles\update_mappings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6D2D3DC3-14B8-35CE-A3C0-9CF78089E885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{485D853D-F681-3663-A932-34C4EF6FC762}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
