@@ -56,6 +56,22 @@ void Viewport::Draw()
     glfwSwapBuffers(window);
 }
 
+GameEntity* Viewport::CreateEntity()
+{
+    GameEntity* gameEntity = new GameEntity();
+
+    if (gameEntity)
+    {
+        renderObjects.push_back(gameEntity);
+        gameEntity->SetViewport(this);
+        gameEntity->RootComponent = &gameEntity->AddComponent<TransformComponent>();
+    }
+    else
+        Logger::LogError("Game Entity could not be created");
+
+    return gameEntity;
+}
+
 GameEntity* Viewport::CreateEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
 {
     GameEntity* gameEntity = new GameEntity(objectName, vertices, indices);
@@ -64,8 +80,8 @@ GameEntity* Viewport::CreateEntity(const char* objectName, std::vector<Vertex>& 
     {
         renderObjects.push_back(gameEntity);
         gameEntity->SetViewport(this);
-        // TransformComponent transform = gameEntity->AddComponent<TransformComponent>();
-        
+        gameEntity->RootComponent = &gameEntity->AddComponent<TransformComponent>();
+
         Logger::LogInfo("Game entity " + std::string(gameEntity->objectName) + " creaded");
     }
     else
@@ -187,6 +203,7 @@ void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposI
 
         float xoffset = xpos - lastX;
         float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
         lastX = xpos;
         lastY = ypos;
 
@@ -278,9 +295,9 @@ void Viewport::DrawViewportUI()
         ImGui::Text("Location:");
         ImGui::SameLine();
         // Convert the float to a string
-        std::string xLocation = " X: " + std::to_string((int)ro->GetPosition().x);
-        std::string yLocation = " Y: " + std::to_string((int)ro->GetPosition().y);
-        std::string zLocation = " Z: " + std::to_string((int)ro->GetPosition().z);
+        std::string xLocation = " X: " + std::to_string((int)ro->GetEntityLocation().x);
+        std::string yLocation = " Y: " + std::to_string((int)ro->GetEntityLocation().y);
+        std::string zLocation = " Z: " + std::to_string((int)ro->GetEntityLocation().z);
 
 
         ImGui::Text(xLocation.c_str());

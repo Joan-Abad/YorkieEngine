@@ -17,6 +17,7 @@ class YorkieAPI Viewport : public Window
 	friend class WindowManager;
 
 public:
+	GameEntity* CreateEntity();
 	GameEntity* CreateEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 	GameEntity* CreateEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Shader& shader);
 

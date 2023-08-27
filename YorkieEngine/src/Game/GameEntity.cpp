@@ -10,6 +10,14 @@
 #include "Modules/ShaderModule.h"
 #include <iostream>
 #include "Window/Viewport.h"
+#include "entt/entity/registry.hpp"
+
+GameEntity::GameEntity()
+{
+	objectName = "NULL NAME";
+	shader = nullptr;
+	viewport = nullptr;
+}
 
 GameEntity::GameEntity(const char* objectName, std::vector<Vertex> &vertices, std::vector<unsigned int> &indices)
 {
@@ -142,30 +150,28 @@ void GameEntity::AddRotation(float Roll, float Pitch, float Yaw)
 		model = glm::rotate(model, glm::radians(Yaw), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
-void GameEntity::SetPosition(const glm::vec3& newPosition)
+void GameEntity::SetEntityLocation(const glm::vec3& newPosition)
 {
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
+	if (RootComponent)
+		RootComponent->SetLocation(newPosition.x, newPosition.y, newPosition.z);
 }
 
-void GameEntity::SetPosition(float x, float y, float z)
+void GameEntity::SetEntityLocation(float x, float y, float z)
 {
-	model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(x, y, z));
+	if (RootComponent)
+		RootComponent->SetLocation(x,y,z);
 }
 
 void GameEntity::SetRotation(float Roll, float Pitch, float Yaw)
 {
-	model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(Roll), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(Pitch), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(Yaw), glm::vec3(0.0f, 0.0f, 1.0f));	
+	if (RootComponent)
+		RootComponent->SetRotation(Roll, Pitch, Yaw);
 }
 
 void GameEntity::SetScale(float x, float y, float z)
 {
-	model = glm::mat4(1.0f);
-	model = glm::scale(model, glm::vec3(x, y, z));
+	if (RootComponent)
+		RootComponent->SetScale(x,y,z);
 }
 
 void GameEntity::SetScale(glm::vec3& newScale)
@@ -176,4 +182,9 @@ void GameEntity::SetScale(glm::vec3& newScale)
 void GameEntity::SetViewport(Viewport* viewport)
 {
 	this->viewport = viewport;
+}
+
+glm::vec3 &GameEntity::GetEntityLocation() 
+{
+	return RootComponent->GetLocation();
 }

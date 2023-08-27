@@ -18,12 +18,11 @@ struct Vertex {
 	}
 };
 
-
-//Object that can be rendered in the game world
 class YorkieAPI GameEntity
 {
 	friend class Viewport;
-private: 
+public: 
+	GameEntity();
 	GameEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 	GameEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Shader& shader);
 
@@ -44,8 +43,8 @@ public:
 
 	void AddRotation(float Roll, float Pitch, float Yaw);
 
-	void SetPosition(float x, float y, float z);
-	void SetPosition(const glm::vec3 &newPosition);
+	void SetEntityLocation(float x, float y, float z);
+	void SetEntityLocation(const glm::vec3 &newPosition);
 
 	void SetRotation(float Roll, float Pitch, float Yaw);
 
@@ -53,6 +52,8 @@ public:
 	void SetScale(glm::vec3 &newScale);
 
 	void SetViewport(Viewport* viewport);
+
+	TransformComponent* RootComponent = nullptr;
 
 	template <typename T, typename... Args>
 	T& AddComponent(Args&&... args)
@@ -77,21 +78,18 @@ public:
 	const char* objectName;
 	//TODO: Remove from here, not public
 	glm::vec3 position;
-	Viewport* viewport;
+	Viewport* viewport = nullptr;
 
-	glm::vec3 GetPosition() { return position; };
+	glm::vec3 &GetEntityLocation();
 	inline glm::mat4& GetModel() { return model; };
 
 protected:
-	//This constructor is for child objects. After setting vertices/indices or w/e you need, call SetupMesh(). 
-	GameEntity() = default;
-
 
 	//Transformations
 	glm::mat4 model;
 
 	GLint modelLoc;
-	Shader* shader;
+	Shader* shader = nullptr;
 	// mesh data
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -100,6 +98,4 @@ protected:
 
 private:
 	entt::entity entity;
-
-
 };

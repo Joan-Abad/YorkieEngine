@@ -41,8 +41,14 @@ target_compile_definitions(YorkieEngine PRIVATE YENGINE_EXPORT)
 
 # Add a custom command to copy the GLFW DLL to the binary directory
 add_custom_command(TARGET YorkieEngine POST_BUILD
+#DLL 
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
-        "$ENV{E}/Projects/SandboxAppTest/Dependencies/YorkieEngine/lib/"
-    COMMENT "Copying YorkieEngine files..."
+        "$ENV{E}/Projects/SandboxApp/${CMAKE_VS_PLATFORM_NAME}/$<CONFIG>/"
+		COMMENT "Copying YorkieEngine.dll files..."
+#LIB	
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_BINARY_DIR}/Debug/"
+        "$ENV{E}/Projects/SandboxApp/Dependencies/YorkieEngine/lib/"
+		COMMENT "Copying YorkieEngine.lib files..."
 )
