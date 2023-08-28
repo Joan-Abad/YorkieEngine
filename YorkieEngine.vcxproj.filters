@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Camera\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\BaseComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\MeshComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\TransformComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Engine\Event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Engine\YorkiEngineApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Engine\YorkieEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Game\GameEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Buffers\Buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Buffers\IndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Buffers\VAO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Buffers\VBO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Primitives\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Shaders\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Input\Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Input\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Lighting\BasicLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Logging\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Mat4x4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\MathHelpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Vector2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Vector3D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\CameraModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\ShaderModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_impl_glfw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_impl_opengl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_tables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\Viewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\glad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\BaseComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\MeshComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\TransformComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\YorkiEngineApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\YorkieEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Game\GameEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\Buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\IndexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\VAO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\VBO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Primitives\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Shaders\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Input\Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Input\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Lighting\BasicLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Logging\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Maths\Mat4x4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Maths\MathHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Maths\Vector2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Maths\Vector3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Modules\CameraModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Modules\ShaderModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_impl_glfw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_impl_opengl3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_impl_opengl3_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\Viewport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\WindowManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\Projects\YorkieEngine\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{7166D5C3-83F1-339D-BE87-6987C4782F0E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1918408F-0E87-3AFC-BFD8-FC243EA8CF2D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

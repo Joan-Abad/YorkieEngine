@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ALL_BUILD", "ALL_BUILD.vcxproj", "{01EC749B-FE47-38A6-9789-73D15F3403DB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3161E4F5-4719-3111-8F7C-0670E3A68EC3} = {3161E4F5-4719-3111-8F7C-0670E3A68EC3}
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616} = {CA7A1E82-BB47-392E-BA93-C75AB1420616}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YorkieEngine", "YorkieEngine.vcxproj", "{3161E4F5-4719-3111-8F7C-0670E3A68EC3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616} = {CA7A1E82-BB47-392E-BA93-C75AB1420616}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZERO_CHECK", "ZERO_CHECK.vcxproj", "{CA7A1E82-BB47-392E-BA93-C75AB1420616}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+		Custom|x64 = Custom|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01EC749B-FE47-38A6-9789-73D15F3403DB}.Debug|x64.ActiveCfg = Debug|x64
+		{01EC749B-FE47-38A6-9789-73D15F3403DB}.Release|x64.ActiveCfg = Release|x64
+		{01EC749B-FE47-38A6-9789-73D15F3403DB}.Custom|x64.ActiveCfg = Custom|x64
+		{3161E4F5-4719-3111-8F7C-0670E3A68EC3}.Debug|x64.ActiveCfg = Debug|x64
+		{3161E4F5-4719-3111-8F7C-0670E3A68EC3}.Debug|x64.Build.0 = Debug|x64
+		{3161E4F5-4719-3111-8F7C-0670E3A68EC3}.Release|x64.ActiveCfg = Release|x64
+		{3161E4F5-4719-3111-8F7C-0670E3A68EC3}.Release|x64.Build.0 = Release|x64
+		{3161E4F5-4719-3111-8F7C-0670E3A68EC3}.Custom|x64.ActiveCfg = Custom|x64
+		{3161E4F5-4719-3111-8F7C-0670E3A68EC3}.Custom|x64.Build.0 = Custom|x64
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616}.Debug|x64.ActiveCfg = Debug|x64
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616}.Debug|x64.Build.0 = Debug|x64
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616}.Release|x64.ActiveCfg = Release|x64
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616}.Release|x64.Build.0 = Release|x64
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616}.Custom|x64.ActiveCfg = Custom|x64
+		{CA7A1E82-BB47-392E-BA93-C75AB1420616}.Custom|x64.Build.0 = Custom|x64
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59D31E81-91D9-347A-8000-24E409BFAA3F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
