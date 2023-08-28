@@ -19,7 +19,7 @@ public:
 		return window;
 	}
 
-	static void DrawWindows();
+	static void DrawWindows(float frameTime);
 
 	template<typename T>
 	static T& GetActiveWindow()

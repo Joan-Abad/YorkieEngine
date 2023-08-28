@@ -39,10 +39,10 @@ void WindowManager::InitWindows()
 	}
 }
 
-void WindowManager::DrawWindows()
+void WindowManager::DrawWindows(float frameTime)
 {
 	for (auto& window : windows)
 	{
-		window->Draw();
+		window->Update(frameTime);
 	}
 }

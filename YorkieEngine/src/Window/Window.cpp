@@ -27,7 +27,7 @@ void Window::Init()
 {
 }
 
-void Window::Draw()
+void Window::Update(float deltaTime)
 {
     while (bDrawWindow && !glfwWindowShouldClose(window))
     {

@@ -32,6 +32,9 @@ void YorkiEngineApp::InitializeGLFW()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    glfwSwapInterval(1); // 1 means vsync is enabled
+
 }
 
 void YorkiEngineApp::InitializeGLAD()
@@ -58,6 +61,25 @@ double YorkiEngineApp::GetTime()
     return glfwGetTime();
 }
 
+double YorkiEngineApp::SetDeltaTime()
+{
+    // Calculate frame time
+    double currentTime = glfwGetTime();
+    double frameTime = currentTime - previousTime;
+    previousTime = currentTime;
+    fpsTimeTracker += frameTime;
+
+    FPS++;
+    if (fpsTimeTracker > 1)
+    {
+        std::cout << "Frames per second: " << FPS << std::endl;
+        FPS = 0; 
+        fpsTimeTracker = 0; 
+    }
+    
+    return frameTime;
+}
+
 
 void YorkiEngineApp::CreateApplication()
 {
@@ -76,9 +98,9 @@ void YorkiEngineApp::Update()
 {
     while (bIsRunning)
     {
-        OnPreDraw();
-        WindowManager::DrawWindows();
-        OnPostDraw();
+        OnUpdate();
+        OnPostUpdate();
+        FPS++;
     }
 }
 
@@ -92,11 +114,13 @@ void YorkiEngineApp::OnCreateApplicationCallback()
 {
 }
 
-void YorkiEngineApp::OnPreDraw()
+void YorkiEngineApp::OnUpdate()
 {
+    float deltaTime = SetDeltaTime();
+    WindowManager::DrawWindows(deltaTime);
 }
 
-void YorkiEngineApp::OnPostDraw()
+void YorkiEngineApp::OnPostUpdate()
 {
 }
 

@@ -8,7 +8,7 @@ public:
 	CameraModule();
 
 	//Returns the current camera if created
-	Camera * CreateCamera();
+	Camera * CreateCamera(Viewport* viewport);
 
 	static CameraModule* GetInstance()
 	{

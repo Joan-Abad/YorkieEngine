@@ -1,8 +1,24 @@
 #include "Components/BaseComponent.h"
 
-BaseComponent::BaseComponent(BaseComponent* parentComponent, std::vector<BaseComponent*> childComponents, const char* componentName)
+BaseComponent::BaseComponent()
 {
-	this->parentComponent = parentComponent;
-	this->childComponents = childComponents;
-	this->componentName = componentName;
+	this->componentName = "Base Component";
+}
+
+void BaseComponent::AddParentComponent(BaseComponent& parentComponent)
+{
+	this->parentComponent = &parentComponent;
+}
+
+void BaseComponent::Start()
+{
+}
+
+void BaseComponent::Update(float deltaTime)
+{
+}
+
+void BaseComponent::AddChildComponent(BaseComponent& childComponent)
+{
+	childComponents.push_back(&childComponent);
 }

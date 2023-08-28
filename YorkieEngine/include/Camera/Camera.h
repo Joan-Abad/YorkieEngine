@@ -4,7 +4,7 @@
 class Camera : public GameEntity
 {
 public:
-	Camera(const char* objectName);
+	Camera(Viewport* viewport);
 
 	float pitch, yaw, roll;
 
@@ -19,6 +19,7 @@ public:
 
 	void SetViewMatrix(glm::mat4& matrix);
 	void SetProjectionMatrix(const float AspectRatio);
+	void ProcessKeyboard();
 	inline glm::mat4& GetProjection() { return projection; };
 	inline glm::mat4& GetView() { return view; };
 private:

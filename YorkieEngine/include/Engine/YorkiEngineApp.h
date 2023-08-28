@@ -16,13 +16,17 @@ public:
 	YorkiEngineApp();
 	void Run();
 	static double GetTime();
-
+	
 private: 
 	bool bIsRunning;
+	double previousTime;
+	double fpsTimeTracker;
+	unsigned int FPS;
 	YorkiEngineAppInfo yorkiEngineAppInfo;
-	
+
 	void Update();
 	void TerminateApplication();
+	double SetDeltaTime();
 
 	void InitializeGLFW();
 	void InitializeGLAD();
@@ -33,8 +37,8 @@ protected:
 	void CreateApplication();
 	void InitializeWindows();
 	virtual void OnCreateApplicationCallback();
-	virtual void OnPreDraw();
-	virtual void OnPostDraw();
+	virtual void OnUpdate();
+	virtual void OnPostUpdate();
 	virtual void OnTerimateApplication();
 };
 

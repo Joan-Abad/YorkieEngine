@@ -38,14 +38,15 @@ void Viewport::Init()
     InitMouse();
 }
 
-void Viewport::Draw()
+void Viewport::Update(float deltaTime)
 {
     // Poll for events
     glfwPollEvents();
 
     Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
 
-    PreDrawGameEntitys();
+
+    UpdateGameEntities(deltaTime);
 
     ProcessInput();
     
@@ -58,13 +59,11 @@ void Viewport::Draw()
 
 GameEntity* Viewport::CreateEntity()
 {
-    GameEntity* gameEntity = new GameEntity();
+    GameEntity* gameEntity = new GameEntity(this);
 
     if (gameEntity)
     {
         renderObjects.push_back(gameEntity);
-        gameEntity->SetViewport(this);
-        gameEntity->RootComponent = &gameEntity->AddComponent<TransformComponent>();
     }
     else
         Logger::LogError("Game Entity could not be created");
@@ -72,9 +71,9 @@ GameEntity* Viewport::CreateEntity()
     return gameEntity;
 }
 
-GameEntity* Viewport::CreateEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
+GameEntity* Viewport::CreateEntity(const char* objectName)
 {
-    GameEntity* gameEntity = new GameEntity(objectName, vertices, indices);
+    GameEntity* gameEntity = new GameEntity(objectName);
     
     if (gameEntity)
     {
@@ -90,9 +89,9 @@ GameEntity* Viewport::CreateEntity(const char* objectName, std::vector<Vertex>& 
     return gameEntity;
 }
 
-GameEntity* Viewport::CreateEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Shader& shader)
+GameEntity* Viewport::CreateEntity(const char* objectName, Shader& shader)
 {
-    auto entity = CreateEntity(objectName, vertices, indices);
+    auto entity = CreateEntity(objectName);
     
     if(entity)
         entity->AttachShader(&shader);
@@ -107,12 +106,26 @@ void Viewport::DrawGameEntitys()
         //Set MVP matrix 
         Shader& shader = renderObject->GetShader();
         shader.Bind();
+        /*
+        auto m = renderObject->GetModel();
+        auto v = renderCamera->GetView();
+        auto p = renderCamera->GetProjection();
+        std::string modelPrint = "Model - X: " + std::to_string(m[3].x) + " - Y: " + std::to_string(m[3].y) + " - Z: " + std::to_string(m[3].z);
+        std::string viewPrint = "View - X: " + std::to_string(v[3].x) + " - Y: " + std::to_string(v[3].y) + " - Z: " + std::to_string(v[3].z);
+        std::string projectPrint = "Projection - X: " + std::to_string(p[3].x) + " - Y: " + std::to_string(p[3].y) + " - Z: " + std::to_string(p[3].z);
+
+        Logger::LogInfo(modelPrint);
+        Logger::LogInfo(viewPrint);
+        Logger::LogInfo(projectPrint);
+        */
+        std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
+
         shader.SetUniformMat4("model", renderObject->GetModel());
         shader.SetUniformMat4("view", renderCamera->GetView());
         shader.SetUniformMat4("projection", renderCamera->GetProjection());
 
         //Draw
-        renderObject->Draw();
+        renderObject->PostUpdate();
     }
 }
 
@@ -133,13 +146,13 @@ void Viewport::ProcessInput()
     const float cameraSpeed = 0.25f; // adjust accordingly
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        renderCamera->AddOffstet(glm::vec3(cameraSpeed * renderCamera->cameraFront));
+        renderCamera->position += renderCamera->cameraFront * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        renderCamera->AddOffstet(-cameraSpeed * renderCamera->cameraFront);
+        renderCamera->position -= renderCamera->cameraFront * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        renderCamera->AddOffstet(-glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed);
+        renderCamera->position -= renderCamera->cameraRight * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        renderCamera->AddOffstet(glm::normalize(glm::cross(renderCamera->cameraFront, renderCamera->cameraUp)) * cameraSpeed);
+        renderCamera->position += renderCamera->cameraRight * cameraSpeed;
 
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
@@ -173,12 +186,29 @@ void Viewport::ProcessInput()
     glm::mat4 camView = glm::lookAt(renderCamera->position, renderCamera->position + renderCamera->cameraFront, renderCamera->cameraUp);
     renderCamera->SetViewMatrix(camView);
     renderCamera->SetProjectionMatrix(GetAspectRatio());
+    
+    //auto m = renderObject->GetModel();
+    auto v = renderCamera->GetView();
+    auto p = renderCamera->GetProjection();
+    //std::string modelPrint = "Model - X: " + std::to_string(m[3].x) + " - Y: " + std::to_string(m[3].y) + " - Z: " + std::to_string(m[3].z);
+    std::string viewPrint = "View - X: " + std::to_string(v[3].x) + " - Y: " + std::to_string(v[3].y) + " - Z: " + std::to_string(v[3].z);
+    std::string projectPrint = "Projection - X: " + std::to_string(p[3].x) + " - Y: " + std::to_string(p[3].y) + " - Z: " + std::to_string(p[3].z);
+    if (v[3].y > 5)
+        int i = 0; 
+
+    //Logger::LogInfo(modelPrint);
+
+    Logger::LogInfo("Camera Front: X- " + std::to_string(renderCamera->cameraFront.x) + " Y- " + std::to_string(renderCamera->cameraFront.x) + " Z: " + std::to_string(renderCamera->cameraFront.z));
+    Logger::LogInfo("Camera Up: X- " + std::to_string(renderCamera->cameraUp.x) + " Y- " + std::to_string(renderCamera->cameraUp.x) + " Z: " + std::to_string(renderCamera->cameraUp.z));
+    Logger::LogInfo(viewPrint);
+    Logger::LogInfo(projectPrint);
 }
 
 void Viewport::InitViewportCamera()
 {
     //GameCamera
-    renderCamera = new Camera("Main Camera");
+    renderCamera = new Camera(this);
+    WorldUp = renderCamera->cameraUp;
 }
 
 void Viewport::InitMouse()
@@ -189,45 +219,44 @@ void Viewport::InitMouse()
 
 void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposIn)
 {    
-    if (isInGame)
+    float xpos = static_cast<float>(xposIn);
+    float ypos = static_cast<float>(yposIn);
+
+    if (bFirstMouse)
     {
-        float xpos = static_cast<float>(xposIn);
-        float ypos = static_cast<float>(yposIn);
-
-        if (bFirstMouse)
-        {
-            lastX = xpos;
-            lastY = ypos;
-            bFirstMouse = false;
-        }
-
-        float xoffset = xpos - lastX;
-        float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
         lastX = xpos;
         lastY = ypos;
-
-        float sensitivity = 0.1f; // change this value to your liking
-        xoffset *= sensitivity;
-        yoffset *= sensitivity;
-
-        renderCamera->yaw += xoffset;
-        renderCamera->pitch += yoffset;
-
-        // make sure that when pitch is out of bounds, screen doesn't get flipped
-        if (renderCamera->pitch > 89.0f)
-            renderCamera->pitch = 89.0f;
-        if (renderCamera->pitch < -89.0f)
-            renderCamera->pitch = -89.0f;
-
-        glm::vec3 front;
-        front.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-        front.y = sin(glm::radians(renderCamera->pitch));
-        front.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-        renderCamera->cameraFront = glm::normalize(front);
+        bFirstMouse = false;
     }
-    
+
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+    lastX = xpos;
+    lastY = ypos;
+
+    float sensitivity = 0.1f; // change this value to your liking
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    renderCamera->yaw += xoffset;
+    renderCamera->pitch += yoffset;
+
+    // make sure that when pitch is out of bounds, screen doesn't get flipped
+    if (renderCamera->pitch > 89.0f)
+        renderCamera->pitch = 89.0f;
+    if (renderCamera->pitch < -89.0f)
+        renderCamera->pitch = -89.0f;
+
+    glm::vec3 front;
+    front.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+    front.y = sin(glm::radians(renderCamera->pitch));
+    front.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+
+    renderCamera->cameraFront = glm::normalize(front);
+    renderCamera->cameraRight = glm::normalize(glm::cross(front, WorldUp));
+    renderCamera->cameraUp = glm::normalize(glm::cross(renderCamera->cameraRight, front));
 }
+  
 
 void Viewport::SetGameEntityMatrices(GameEntity& renderObj)
 {
@@ -243,11 +272,19 @@ void Viewport::InitGameEntitys()
     }
 }
 
-void Viewport::PreDrawGameEntitys()
+void Viewport::UpdateEntitiesComponents()
 {
     for (const auto& renderObject : renderObjects)
     {
-        renderObject->PreDraw();
+        //renderObject
+    }
+}
+
+void Viewport::UpdateGameEntities(float deltaTime)
+{
+    for (const auto& renderObject : renderObjects)
+    {
+        renderObject->Update(deltaTime);
     }
 }
 

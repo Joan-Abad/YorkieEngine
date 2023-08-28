@@ -6,10 +6,10 @@
 #include <vector>
 #include "Engine/YorkieEngine.h"
 #include "entt/entt.hpp"
+#include "glm.hpp"
 
 class GameEntity;
 class Camera;
-class Vertex;
 class Shader;
 
 class YorkieAPI Viewport : public Window
@@ -18,8 +18,8 @@ class YorkieAPI Viewport : public Window
 
 public:
 	GameEntity* CreateEntity();
-	GameEntity* CreateEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
-	GameEntity* CreateEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Shader& shader);
+	GameEntity* CreateEntity(const char* objectName);
+	GameEntity* CreateEntity(const char* objectName, Shader& shader);
 
 	entt::registry registry;
 
@@ -28,8 +28,8 @@ public:
 
 protected:
 	Viewport(int width, int height, const char* title, WindowMode windowMode);
-	virtual void Init();
-	virtual void Draw();
+	virtual void Init() override;
+	virtual void Update(float deltaTime) override;
 
 	Camera* renderCamera;
 	float lastX;
@@ -37,11 +37,13 @@ protected:
 	bool bFirstMouse;
 	bool isInGame;	
 	bool isEscapeAvailable;
+	glm::vec3 WorldUp;
 
 private: 
 	void InitGameEntitys();
 	//PreDraw function for all render object before the current Render calls
-	void PreDrawGameEntitys();
+	void UpdateEntitiesComponents();
+	void UpdateGameEntities(float deltaTime);
 	void DrawViewportUI();
 	void DrawGameEntitys(); 
 	void InitImGUI();

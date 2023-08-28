@@ -1,11 +1,11 @@
 #include "Graphics/Primitives/Cube.h"
 #include "glad/glad.h"
 
-Cube::Cube()
+Cube::Cube(Viewport* viewport) : GameEntity(viewport)
 {
     shader = nullptr;
     model = glm::mat4(1.0f);
-
+    /*
     std::vector<Vertex> CubeVertecies = {
         // Front face
         Vertex(glm::vec3(-0.5f, -0.5f,  0.5f)), // Bottom-left
@@ -72,4 +72,5 @@ Cube::Cube()
     this->indices = indices;
 
     SetupMesh();
+    */
 }

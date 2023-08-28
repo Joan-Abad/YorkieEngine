@@ -22,7 +22,7 @@ protected:
 	GLFWwindow* window;
 
 	virtual void Init();
-	virtual void Draw();
+	virtual void Update(float deltaTime);
 
 public:
 	inline GLFWwindow* GetWindow() { return window; };

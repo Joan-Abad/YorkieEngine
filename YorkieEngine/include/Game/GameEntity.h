@@ -7,31 +7,20 @@
 #include "Window/Viewport.h"
 #include "Components/TransformComponent.h"
 
-
-struct Vertex {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-	
-	Vertex(const glm::vec3& position)
-	{
-		Position = position;
-	}
-};
-
 class YorkieAPI GameEntity
 {
 	friend class Viewport;
 public: 
-	GameEntity();
-	GameEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
-	GameEntity(const char* objectName, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Shader& shader);
+	GameEntity(Viewport* viewport);
+	GameEntity(const char* objectName);
+	GameEntity(const char* objectName, Shader& shader);
 
 public:
 	~GameEntity();
 
 	virtual void Init();
-	virtual void PreDraw();
-	virtual void Draw();
+	virtual void Update(float deltaTime);
+	virtual void PostUpdate();
 
 	void AttachShader(Shader* shader);
 
@@ -58,19 +47,21 @@ public:
 	template <typename T, typename... Args>
 	T& AddComponent(Args&&... args)
 	{
-		return viewport->registry.emplace<T>(entity, std::forward<Args>(args)...);
+		auto& newComponent =  mViewport->registry.emplace<T>(entity, std::forward<Args>(args)...);
+		components.push_back(&newComponent);
+		return newComponent;
 	}
 
 	template <typename T>
 	T& GetComponent()
 	{
-		return viewport->registry.get<T>(entity);
+		return mViewport->registry.get<T>(entity);
 	}
 
 	template <typename T>
 	T& HasComponent()
 	{
-		return viewport->registry.any_of<T>(entity);
+		return mViewport->registry.any_of<T>(entity);
 	}
 
 	inline Shader& GetShader() { return *shader; };
@@ -78,10 +69,10 @@ public:
 	const char* objectName;
 	//TODO: Remove from here, not public
 	glm::vec3 position;
-	Viewport* viewport = nullptr;
+	Viewport* mViewport = nullptr;
 
 	glm::vec3 &GetEntityLocation();
-	inline glm::mat4& GetModel() { return model; };
+	inline glm::mat4& GetModel() { return *RootComponent; };
 
 protected:
 
@@ -91,11 +82,8 @@ protected:
 	GLint modelLoc;
 	Shader* shader = nullptr;
 	// mesh data
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	unsigned int VAO, VBO, EBO;
-	void SetupMesh();
-
+	
 private:
+	std::vector<BaseComponent*> components;
 	entt::entity entity;
 };
