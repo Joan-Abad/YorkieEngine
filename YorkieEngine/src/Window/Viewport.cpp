@@ -17,11 +17,12 @@ Viewport::Viewport(int width, int height, const char* title, WindowMode windowMo
 {
     bFirstMouse = true;
     isInGame = true;
+    input.SetWindow(*this);
 }
 
 void Viewport::Init()
 {
-    InitGameEntitys();
+    InitGameEntites();
 
     glfwSetWindowUserPointer(window, this);
     glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
@@ -145,13 +146,13 @@ void Viewport::ProcessInput()
 {
     const float cameraSpeed = 0.25f; // adjust accordingly
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (input.IsKeyPressed(EKeyboardKeys::KEY_W))
         renderCamera->position += renderCamera->cameraFront * cameraSpeed;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    if (input.IsKeyPressed(EKeyboardKeys::KEY_S))
         renderCamera->position -= renderCamera->cameraFront * cameraSpeed;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    if (input.IsKeyPressed(EKeyboardKeys::KEY_A))
         renderCamera->position -= renderCamera->cameraRight * cameraSpeed;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    if (input.IsKeyPressed(EKeyboardKeys::KEY_D))
         renderCamera->position += renderCamera->cameraRight * cameraSpeed;
 
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -208,7 +209,7 @@ void Viewport::InitViewportCamera()
 {
     //GameCamera
     renderCamera = new Camera(this);
-    WorldUp = renderCamera->cameraUp;
+    WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 void Viewport::InitMouse()
@@ -219,42 +220,45 @@ void Viewport::InitMouse()
 
 void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposIn)
 {    
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
-
-    if (bFirstMouse)
+    if (isInGame)
     {
+        float xpos = static_cast<float>(xposIn);
+        float ypos = static_cast<float>(yposIn);
+
+        if (bFirstMouse)
+        {
+            lastX = xpos;
+            lastY = ypos;
+            bFirstMouse = false;
+        }
+
+        float xoffset = xpos - lastX;
+        float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
         lastX = xpos;
         lastY = ypos;
-        bFirstMouse = false;
+
+        float sensitivity = 0.1f; // change this value to your liking
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
+
+        renderCamera->yaw += xoffset;
+        renderCamera->pitch += yoffset;
+
+        // make sure that when pitch is out of bounds, screen doesn't get flipped
+        if (renderCamera->pitch > 89.0f)
+            renderCamera->pitch = 89.0f;
+        if (renderCamera->pitch < -89.0f)
+            renderCamera->pitch = -89.0f;
+
+        glm::vec3 front;
+        front.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+        front.y = sin(glm::radians(renderCamera->pitch));
+        front.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
+
+        renderCamera->cameraFront = glm::normalize(front);
+        renderCamera->cameraRight = glm::normalize(glm::cross(front, WorldUp));
+        renderCamera->cameraUp = glm::normalize(glm::cross(renderCamera->cameraRight, front));
     }
-
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-    lastX = xpos;
-    lastY = ypos;
-
-    float sensitivity = 0.1f; // change this value to your liking
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    renderCamera->yaw += xoffset;
-    renderCamera->pitch += yoffset;
-
-    // make sure that when pitch is out of bounds, screen doesn't get flipped
-    if (renderCamera->pitch > 89.0f)
-        renderCamera->pitch = 89.0f;
-    if (renderCamera->pitch < -89.0f)
-        renderCamera->pitch = -89.0f;
-
-    glm::vec3 front;
-    front.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-    front.y = sin(glm::radians(renderCamera->pitch));
-    front.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-
-    renderCamera->cameraFront = glm::normalize(front);
-    renderCamera->cameraRight = glm::normalize(glm::cross(front, WorldUp));
-    renderCamera->cameraUp = glm::normalize(glm::cross(renderCamera->cameraRight, front));
 }
   
 
@@ -264,7 +268,7 @@ void Viewport::SetGameEntityMatrices(GameEntity& renderObj)
     renderCamera->SetProjectionMatrix(GetAspectRatio());
 }
 
-void Viewport::InitGameEntitys()
+void Viewport::InitGameEntites()
 {
     for (const auto& renderObject : renderObjects)
     {
@@ -309,7 +313,7 @@ void Viewport::DrawViewportUI()
         for (int n = 0; n < renderObjects.size(); n++)
         {
             const bool is_selected = (item_current_idx == n);
-            if (ImGui::Selectable(renderObjects[n]->objectName, is_selected))
+            if (ImGui::Selectable(renderObjects[n]->objectName.c_str(), is_selected))
             {
                 item_current_idx = n;
                 ro = renderObjects[n];

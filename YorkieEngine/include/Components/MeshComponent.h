@@ -15,13 +15,13 @@ struct YorkieAPI Vertex {
 
 struct YorkieAPI MeshComponent : public BaseComponent
 {
-
-public: 	
+public:
 	//MeshComponent(const std::vector<Vertex>& vertices);
 	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 	virtual void Start() override;
 	virtual void Update(float deltaTime) override;
 	void SetupVertexData();
+private:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int VAO, VBO, EBO;

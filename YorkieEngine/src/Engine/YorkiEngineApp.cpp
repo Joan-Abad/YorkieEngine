@@ -11,18 +11,26 @@
 #include "UI/imgui_impl_opengl3.h"
 #include "UI/imgui_impl_glfw.h"
 
-YorkiEngineApp::YorkiEngineApp() : bIsRunning(true)
+double YorkieEngineApp::deltaTime = 0;
+
+YorkieEngineApp::YorkieEngineApp() : bIsRunning(true)
 {
     InitializeEngineModules();
 }
 
-void YorkiEngineApp::Run()
+void YorkieEngineApp::Run()
 {
     CreateApplication();
     InitializeWindows();
     Update();
 }
-void YorkiEngineApp::InitializeGLFW()
+
+void YorkieEngineApp::Shutdown()
+{
+
+}
+
+void YorkieEngineApp::InitializeGLFW()
 {
     // Initialize GLFW
     if (!glfwInit())
@@ -37,7 +45,7 @@ void YorkiEngineApp::InitializeGLFW()
 
 }
 
-void YorkiEngineApp::InitializeGLAD()
+void YorkieEngineApp::InitializeGLAD()
 {
     // Initialize GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -47,54 +55,62 @@ void YorkiEngineApp::InitializeGLAD()
     }
 }
 
-void YorkiEngineApp::InitializeImGUI()
+void YorkieEngineApp::InitializeImGUI()
 {
     
 }
 
-void YorkiEngineApp::InitializeEngineModules()
+void YorkieEngineApp::InitializeEngineModules()
 {
 }
 
-double YorkiEngineApp::GetTime()
+double YorkieEngineApp::GetGameTime()
 {
     return glfwGetTime();
 }
 
-double YorkiEngineApp::SetDeltaTime()
+double YorkieEngineApp::GetDeltaTime()
+{
+    return deltaTime;
+}
+
+void YorkieEngineApp::SetDeltaTime()
 {
     // Calculate frame time
     double currentTime = glfwGetTime();
-    double frameTime = currentTime - previousTime;
-    previousTime = currentTime;
-    fpsTimeTracker += frameTime;
-
+    deltaTime = currentTime - previousTimeTracker;
+    previousTimeTracker = currentTime;
+    fpsTimeTracker += deltaTime;
     FPS++;
+
     if (fpsTimeTracker > 1)
     {
         std::cout << "Frames per second: " << FPS << std::endl;
         FPS = 0; 
         fpsTimeTracker = 0; 
     }
-    
-    return frameTime;
 }
 
 
-void YorkiEngineApp::CreateApplication()
+void YorkieEngineApp::CreateApplication()
 {
     InitializeGLFW();
-    Window* window = WindowManager::CreateWindow<Viewport>(yorkiEngineAppInfo.screenWidth, yorkiEngineAppInfo.screenHeight, yorkiEngineAppInfo.title);
+    CreateEngineViewport();
     InitializeGLAD();
     OnCreateApplicationCallback();
 }
 
-void YorkiEngineApp::InitializeWindows()
+void YorkieEngineApp::CreateEngineViewport()
+{
+    WindowManager::CreateWindow<Viewport>(yorkiEngineAppConfig.screenWidth, yorkiEngineAppConfig.screenHeight, yorkiEngineAppConfig.title);
+}
+
+void YorkieEngineApp::InitializeWindows()
 {
     WindowManager::InitWindows();
 }
 
-void YorkiEngineApp::Update()
+void YorkieEngineApp::Update()
 {
     while (bIsRunning)
     {
@@ -104,26 +120,26 @@ void YorkiEngineApp::Update()
     }
 }
 
-void YorkiEngineApp::TerminateApplication()
+void YorkieEngineApp::TerminateApplication()
 {
     // Terminate GLFW and exit
     glfwTerminate();
 }
 
-void YorkiEngineApp::OnCreateApplicationCallback()
+void YorkieEngineApp::OnCreateApplicationCallback()
 {
 }
 
-void YorkiEngineApp::OnUpdate()
+void YorkieEngineApp::OnUpdate()
 {
-    float deltaTime = SetDeltaTime();
+    SetDeltaTime();
     WindowManager::DrawWindows(deltaTime);
 }
 
-void YorkiEngineApp::OnPostUpdate()
+void YorkieEngineApp::OnPostUpdate()
 {
 }
 
-void YorkiEngineApp::OnTerimateApplication()
+void YorkieEngineApp::OnTerimateApplication()
 {
 }

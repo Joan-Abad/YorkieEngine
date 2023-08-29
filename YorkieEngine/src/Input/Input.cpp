@@ -9,3 +9,8 @@ bool Input::IsKeyPressed(EKeyboardKeys keyboardKeys)
 {
 	return glfwGetKey(window->GetWindow(), keyboardKeys) == GLFW_PRESS;
 }
+
+void Input::SetWindow(Window& window)
+{
+	this->window = &window;
+}

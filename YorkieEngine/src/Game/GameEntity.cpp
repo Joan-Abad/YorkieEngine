@@ -9,12 +9,15 @@
 #include "Window/Viewport.h"
 #include "entt/entity/registry.hpp"
 
+unsigned int GameEntity::entityID = 1;
+
 GameEntity::GameEntity(Viewport* viewport) : mViewport(viewport)
 {
 	entity = viewport->registry.create();
 	model = glm::mat4(1.0f);
 	position = glm::vec3(0, 0, 0);
-	objectName = "NULL NAME";
+	objectName = "GameEntity_ " + std::to_string(entityID);
+	entityID++;
 	shader = nullptr;
 	
 	RootComponent = &AddComponent<TransformComponent>();

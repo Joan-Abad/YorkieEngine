@@ -4,19 +4,17 @@
 #include "Modules/CameraModule.h"
 
 Camera::Camera(Viewport* viewport) : GameEntity(viewport),
-	cameraTarget(glm::vec3(0.f, 0.f, 0.f)), cameraDirection(glm::vec3(0.f, 0.f, 0.f)),
-	cameraFront(glm::vec3(0.0f,0.0f,-1.0f)), cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)), yaw(-90)
+	cameraTarget(glm::vec3(0.f, 0.f, 0.f)),
+	cameraDirection(glm::vec3(0.f, 0.f, 0.f)),
+	cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),
+	cameraUp(glm::vec3(0.0f, 1.0f, 0.0f)),
+	yaw(-90), nearPlane(0.1f), farPlane(400.f), FOV(45.f),
+	projection(glm::mat4(1.0f))
 {
-	view = glm::lookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	this->objectName = objectName;
 	position = glm::vec3(0.0f, 0.0f, 25.0f);
-	pitch = 0; 
+	view = glm::lookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+	this->objectName = "Camera";
 	cameraRight = glm::normalize(glm::cross(cameraUp, cameraDirection));
-	projection = glm::mat4(1.0f);
-	model = glm::mat4(1.0f);
-	nearPlane = 0.1f;
-	farPlane = 400.f;
-	FOV = 45.f;
 }
 
 void Camera::SetViewMatrix(glm::mat4 & matrix)

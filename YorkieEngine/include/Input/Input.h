@@ -56,9 +56,10 @@ enum EKeyboardKeys
 class YorkieAPI Input
 {
 public:
+	Input() = default;
 	Input(Window& window);
 	bool IsKeyPressed(EKeyboardKeys keyboardKeys);
-
+	void SetWindow(Window& window);
 private:
 	Window* window;
 };

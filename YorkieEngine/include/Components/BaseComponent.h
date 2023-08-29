@@ -16,6 +16,7 @@ public:
 	
 	virtual void Start();
 	virtual void Update(float deltaTime);
+
 private:
 	BaseComponent* parentComponent;
 	std::vector<BaseComponent*> childComponents;

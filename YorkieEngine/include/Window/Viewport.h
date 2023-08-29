@@ -7,6 +7,7 @@
 #include "Engine/YorkieEngine.h"
 #include "entt/entt.hpp"
 #include "glm.hpp"
+#include "Input/Input.h"
 
 class GameEntity;
 class Camera;
@@ -32,15 +33,19 @@ protected:
 	virtual void Update(float deltaTime) override;
 
 	Camera* renderCamera;
+	//Check mouse last frame positions
 	float lastX;
 	float lastY;
+	//Stores if its the first mouse input
 	bool bFirstMouse;
+	//Checks if it is navigating through the game editor
 	bool isInGame;	
 	bool isEscapeAvailable;
+	//Stores the up vector of the world
 	glm::vec3 WorldUp;
 
 private: 
-	void InitGameEntitys();
+	void InitGameEntites();
 	//PreDraw function for all render object before the current Render calls
 	void UpdateEntitiesComponents();
 	void UpdateGameEntities(float deltaTime);
@@ -53,5 +58,6 @@ private:
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void SetGameEntityMatrices(GameEntity& renderObj);
 	std::vector<GameEntity*> renderObjects; 
+	Input input;
 };
 
