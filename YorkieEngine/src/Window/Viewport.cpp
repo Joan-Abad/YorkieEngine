@@ -22,9 +22,12 @@ Viewport::Viewport(int width, int height, const char* title, WindowMode windowMo
 
 void Viewport::Init()
 {
+    grid = new Grid();
+
     InitGameEntites();
 
     glfwSetWindowUserPointer(window, this);
+
     glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
         Viewport* instance = static_cast<Viewport*>(glfwGetWindowUserPointer(window));
         if (instance) {
@@ -50,7 +53,7 @@ void Viewport::Update(float deltaTime)
 
     ProcessInput();
 
-    DrawGameEntities(deltaTime);
+    DrawLevel(deltaTime);
     UpdateGameEntities(deltaTime);
 
     // Swap the front and back buffers
@@ -163,7 +166,7 @@ void Viewport::ProcessInput()
 
     glm::mat4 camView = glm::lookAt(renderCamera->position, renderCamera->position + renderCamera->cameraFront, renderCamera->cameraUp);
     renderCamera->SetViewMatrix(camView);
-    renderCamera->SetProjectionMatrix(GetAspectRatio());
+    Renderer::SetProjectionMatrix(*renderCamera, GetAspectRatio());
 }
 
 void Viewport::InitViewportCamera()
@@ -223,13 +226,6 @@ void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposI
         renderCamera->cameraRight = glm::normalize(glm::cross(front, WorldUp));
         renderCamera->cameraUp = glm::normalize(glm::cross(renderCamera->cameraRight, front));
     }
-}
-  
-
-void Viewport::SetGameEntityMatrices(GameEntity& renderObj)
-{
-    //View matrix and projection matrix
-    renderCamera->SetProjectionMatrix(GetAspectRatio());
 }
 
 void Viewport::InitGameEntites()
@@ -317,4 +313,10 @@ void Viewport::DrawViewportUI()
     // Render ImGui
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void Viewport::DrawLevel(float deltaTime)
+{
+    Renderer::DrawGrid(*renderCamera, *grid);
+    DrawGameEntities(deltaTime);
 }

@@ -8,6 +8,7 @@
 #include "entt/entt.hpp"
 #include "glm.hpp"
 #include "Input/Input.h"
+#include "Editor/Grid.h"
 
 class GameEntity;
 class Camera;
@@ -32,7 +33,6 @@ protected:
 	virtual void Init() override;
 	virtual void Update(float deltaTime) override;
 
-	Camera* renderCamera;
 	//Check mouse last frame positions
 	float lastX;
 	float lastY;
@@ -43,6 +43,8 @@ protected:
 	bool isEscapeAvailable;
 	//Stores the up vector of the world
 	glm::vec3 WorldUp;
+	Grid* grid;
+	Camera* renderCamera;
 
 private: 
 	void InitGameEntites();
@@ -50,13 +52,13 @@ private:
 	void UpdateEntitiesComponents();
 	void UpdateGameEntities(float deltaTime);
 	void DrawViewportUI();
+	void DrawLevel(float deltaTime);
 	void DrawGameEntities(float deltaTime);
 	void InitImGUI();
 	void ProcessInput();
 	void InitViewportCamera();
 	void InitMouse();
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	void SetGameEntityMatrices(GameEntity& renderObj);
 	std::vector<GameEntity*> gameEntitites; 
 	Input input;
 };

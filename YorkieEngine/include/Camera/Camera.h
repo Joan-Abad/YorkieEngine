@@ -19,7 +19,8 @@ public:
 	void SetProjectionMatrix(const float AspectRatio);
 	inline glm::mat4& GetProjection() { return projection; };
 	inline glm::mat4& GetView() { return view; };
-
+	inline float GetNearPlane() { return nearPlane; };
+	inline float GetFarPlane() { return farPlane; };
 private:
 	float nearPlane;
 	float farPlane;

@@ -13,7 +13,9 @@ class YorkieAPI Renderer
 public:
 	static void ClearColor(glm::vec4 color);
 	static void DrawEntity(Camera& renderCamera, GameEntity& gameEntity);
-private:
-	//std::vector<int> VaoIn
+	static void DrawGrid(Camera& renderCamera, Grid& grid);
+	static void SetProjectionMatrix(Camera& renderCamera, float aspectRatio);
+private: 
+	static glm::mat4 projection;
 };
 
