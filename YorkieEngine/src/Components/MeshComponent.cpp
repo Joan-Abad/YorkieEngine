@@ -22,6 +22,10 @@ void MeshComponent::Start()
 
 void MeshComponent::Update(float deltaTime)
 {
+}
+
+void MeshComponent::DrawMesh()
+{
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }

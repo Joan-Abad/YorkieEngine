@@ -23,6 +23,9 @@ public:
     void SetUniformVec4(const char* variableName, const glm::vec4& vec4);
     void SetUniformMat4(const char* variableName, const glm::mat4& mat4);
 
+    inline unsigned int getVertexShaderID() { return vertexShaderID; };
+    inline unsigned int getFragmentShaderID() { return fragmentShaderID; };
+    inline unsigned int getProgramID() { return ID; };
 private:
     void CheckShaderCompilationStatus(GLuint shader);
 
@@ -30,9 +33,4 @@ private:
     unsigned int fragmentShaderID;
     unsigned int ID;
     ShaderProgramSource shaderProgramSource;
-
-public:
-    inline unsigned int getVertexShaderID() { return vertexShaderID; };
-    inline unsigned int getFragmentShaderID() { return fragmentShaderID; };
-    inline unsigned int getProgramID() { return ID; };
 };

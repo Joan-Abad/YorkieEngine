@@ -300,7 +300,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Primitives\Cube.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Renderer.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Shaders\Shader.cpp" />
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Input\Controller.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Input\Input.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Lighting\BasicLight.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Logging\Logger.cpp" />
@@ -336,7 +335,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Primitives\Cube.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Renderer.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Shaders\Shader.h" />
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Input\Controller.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Input\Input.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Lighting\BasicLight.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Logging\Logger.h" />

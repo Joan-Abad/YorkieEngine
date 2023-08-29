@@ -85,7 +85,7 @@ void YorkieEngineApp::SetDeltaTime()
 
     if (fpsTimeTracker > 1)
     {
-        std::cout << "Frames per second: " << FPS << std::endl;
+        //std::cout << "Frames per second: " << FPS << std::endl;
         FPS = 0; 
         fpsTimeTracker = 0; 
     }

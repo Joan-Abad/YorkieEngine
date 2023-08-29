@@ -51,7 +51,7 @@ public:
 	//Pointer that stores in which level this entity is in
 	void SetViewport(Viewport* viewport);
 
-	TransformComponent* RootComponent = nullptr;
+	TransformComponent* RootComponent;
 
 	//ECS (ENTT) helper functions
 	//Adds a new component to the entity
@@ -70,14 +70,14 @@ public:
 	}
 	//Check if an entity has a component
 	template <typename T>
-	T& HasComponent()
+	bool HasComponent()
 	{
 		return mViewport->registry.any_of<T>(entity);
 	}
 
 	inline Shader& GetShader() { return *shader; };
 
-	std::string objectName;
+	std::string entityName;
 	//TODO: Remove from here, not public
 	glm::vec3 position;
 
@@ -88,12 +88,11 @@ protected:
 
 	//Transformations
 	glm::mat4 model;
-	GLint modelLoc;
-	Shader* shader = nullptr;	
+	Shader* shader;	
 private:
 	
 	entt::entity entity;
-	Viewport* mViewport = nullptr;
+	Viewport* mViewport;
 	//List of the components of an entity
 	std::vector<BaseComponent*> components;
 	//Entity ID, used for now to give a defualt name to each entity

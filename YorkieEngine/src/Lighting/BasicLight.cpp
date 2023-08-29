@@ -5,6 +5,6 @@ BasicLight::BasicLight(Viewport* viewport) : Cube(viewport), lightColor(glm::vec
 	//TODO delete this pointer
 	Shader* shader = new Shader("res/shaders/defaultLight.shader");
 	AttachShader(shader);
-	objectName = "BASIC LIGHT";
+	entityName = "BASIC LIGHT";
 	//SetPosition(,);
 }

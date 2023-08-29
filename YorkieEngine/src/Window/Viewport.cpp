@@ -45,14 +45,13 @@ void Viewport::Update(float deltaTime)
     glfwPollEvents();
 
     Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
-
-
-    UpdateGameEntities(deltaTime);
+    
+    DrawViewportUI();
 
     ProcessInput();
-    
-    DrawGameEntitys();
-    DrawViewportUI();
+
+    DrawGameEntities(deltaTime);
+    UpdateGameEntities(deltaTime);
 
     // Swap the front and back buffers
     glfwSwapBuffers(window);
@@ -64,7 +63,7 @@ GameEntity* Viewport::CreateEntity()
 
     if (gameEntity)
     {
-        renderObjects.push_back(gameEntity);
+        gameEntitites.push_back(gameEntity);
     }
     else
         Logger::LogError("Game Entity could not be created");
@@ -78,11 +77,11 @@ GameEntity* Viewport::CreateEntity(const char* objectName)
     
     if (gameEntity)
     {
-        renderObjects.push_back(gameEntity);
+        gameEntitites.push_back(gameEntity);
         gameEntity->SetViewport(this);
         gameEntity->RootComponent = &gameEntity->AddComponent<TransformComponent>();
 
-        Logger::LogInfo("Game entity " + std::string(gameEntity->objectName) + " creaded");
+        Logger::LogInfo("Game entity " + std::string(gameEntity->entityName) + " creaded");
     }
     else
         Logger::LogError("Game entity could NOT be created");
@@ -100,33 +99,11 @@ GameEntity* Viewport::CreateEntity(const char* objectName, Shader& shader)
     return entity;
 }
 
-void Viewport::DrawGameEntitys()
+void Viewport::DrawGameEntities(float deltaTime)
 {
-    for (const auto &renderObject : renderObjects)
+    for (const auto &renderObject : gameEntitites)
     {
-        //Set MVP matrix 
-        Shader& shader = renderObject->GetShader();
-        shader.Bind();
-        /*
-        auto m = renderObject->GetModel();
-        auto v = renderCamera->GetView();
-        auto p = renderCamera->GetProjection();
-        std::string modelPrint = "Model - X: " + std::to_string(m[3].x) + " - Y: " + std::to_string(m[3].y) + " - Z: " + std::to_string(m[3].z);
-        std::string viewPrint = "View - X: " + std::to_string(v[3].x) + " - Y: " + std::to_string(v[3].y) + " - Z: " + std::to_string(v[3].z);
-        std::string projectPrint = "Projection - X: " + std::to_string(p[3].x) + " - Y: " + std::to_string(p[3].y) + " - Z: " + std::to_string(p[3].z);
-
-        Logger::LogInfo(modelPrint);
-        Logger::LogInfo(viewPrint);
-        Logger::LogInfo(projectPrint);
-        */
-        std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
-
-        shader.SetUniformMat4("model", renderObject->GetModel());
-        shader.SetUniformMat4("view", renderCamera->GetView());
-        shader.SetUniformMat4("projection", renderCamera->GetProjection());
-
-        //Draw
-        renderObject->PostUpdate();
+        Renderer::DrawEntity(*renderCamera, *renderObject);
     }
 }
 
@@ -155,7 +132,7 @@ void Viewport::ProcessInput()
     if (input.IsKeyPressed(EKeyboardKeys::KEY_D))
         renderCamera->position += renderCamera->cameraRight * cameraSpeed;
 
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if (input.IsKeyPressed(EKeyboardKeys::KEY_ESCAPE))
     {
         if (isEscapeAvailable)
         {
@@ -187,22 +164,6 @@ void Viewport::ProcessInput()
     glm::mat4 camView = glm::lookAt(renderCamera->position, renderCamera->position + renderCamera->cameraFront, renderCamera->cameraUp);
     renderCamera->SetViewMatrix(camView);
     renderCamera->SetProjectionMatrix(GetAspectRatio());
-    
-    //auto m = renderObject->GetModel();
-    auto v = renderCamera->GetView();
-    auto p = renderCamera->GetProjection();
-    //std::string modelPrint = "Model - X: " + std::to_string(m[3].x) + " - Y: " + std::to_string(m[3].y) + " - Z: " + std::to_string(m[3].z);
-    std::string viewPrint = "View - X: " + std::to_string(v[3].x) + " - Y: " + std::to_string(v[3].y) + " - Z: " + std::to_string(v[3].z);
-    std::string projectPrint = "Projection - X: " + std::to_string(p[3].x) + " - Y: " + std::to_string(p[3].y) + " - Z: " + std::to_string(p[3].z);
-    if (v[3].y > 5)
-        int i = 0; 
-
-    //Logger::LogInfo(modelPrint);
-
-    Logger::LogInfo("Camera Front: X- " + std::to_string(renderCamera->cameraFront.x) + " Y- " + std::to_string(renderCamera->cameraFront.x) + " Z: " + std::to_string(renderCamera->cameraFront.z));
-    Logger::LogInfo("Camera Up: X- " + std::to_string(renderCamera->cameraUp.x) + " Y- " + std::to_string(renderCamera->cameraUp.x) + " Z: " + std::to_string(renderCamera->cameraUp.z));
-    Logger::LogInfo(viewPrint);
-    Logger::LogInfo(projectPrint);
 }
 
 void Viewport::InitViewportCamera()
@@ -215,9 +176,12 @@ void Viewport::InitViewportCamera()
 void Viewport::InitMouse()
 {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-}
+    lastX = GetWindowWidth() / 2;
+    lastY = GetWindowHeight() / 2;
+    glfwSetCursorPos(window, lastX, lastY);
 
+}
+//-1535 298
 void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposIn)
 {    
     if (isInGame)
@@ -270,23 +234,15 @@ void Viewport::SetGameEntityMatrices(GameEntity& renderObj)
 
 void Viewport::InitGameEntites()
 {
-    for (const auto& renderObject : renderObjects)
+    for (const auto& renderObject : gameEntitites)
     {
         renderObject->Init();
     }
 }
 
-void Viewport::UpdateEntitiesComponents()
-{
-    for (const auto& renderObject : renderObjects)
-    {
-        //renderObject
-    }
-}
-
 void Viewport::UpdateGameEntities(float deltaTime)
 {
-    for (const auto& renderObject : renderObjects)
+    for (const auto& renderObject : gameEntitites)
     {
         renderObject->Update(deltaTime);
     }
@@ -310,13 +266,13 @@ void Viewport::DrawViewportUI()
     GameEntity* ro = nullptr;
     if (ImGui::BeginListBox("##listbox 2", ImVec2(-FLT_MIN, 5 * ImGui::GetTextLineHeightWithSpacing())))
     {
-        for (int n = 0; n < renderObjects.size(); n++)
+        for (int n = 0; n < gameEntitites.size(); n++)
         {
             const bool is_selected = (item_current_idx == n);
-            if (ImGui::Selectable(renderObjects[n]->objectName.c_str(), is_selected))
+            if (ImGui::Selectable(gameEntitites[n]->entityName.c_str(), is_selected))
             {
                 item_current_idx = n;
-                ro = renderObjects[n];
+                ro = gameEntitites[n];
                 ImGui::SetItemDefaultFocus();
                 break;
             }
@@ -324,7 +280,7 @@ void Viewport::DrawViewportUI()
             // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
             if (is_selected)
             {
-                ro = renderObjects[n];
+                ro = gameEntitites[n];
                 ImGui::SetItemDefaultFocus();
             }
         }

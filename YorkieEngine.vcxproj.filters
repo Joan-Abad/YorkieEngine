@@ -46,9 +46,6 @@
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Graphics\Shaders\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Input\Controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Input\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -154,9 +151,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Shaders\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Input\Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Input\Input.h">

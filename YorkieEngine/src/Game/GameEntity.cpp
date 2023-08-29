@@ -16,7 +16,7 @@ GameEntity::GameEntity(Viewport* viewport) : mViewport(viewport)
 	entity = viewport->registry.create();
 	model = glm::mat4(1.0f);
 	position = glm::vec3(0, 0, 0);
-	objectName = "GameEntity_ " + std::to_string(entityID);
+	entityName = "GameEntity_ " + std::to_string(entityID);
 	entityID++;
 	shader = nullptr;
 	
@@ -30,7 +30,7 @@ GameEntity::GameEntity(const char* objectName)
 	shader = nullptr;
 	mViewport = nullptr;
 	
-	this->objectName = objectName;
+	this->entityName = objectName;
 }
 
 GameEntity::GameEntity(const char* objectName, Shader &shader) : GameEntity(objectName)

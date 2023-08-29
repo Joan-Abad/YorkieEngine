@@ -50,14 +50,14 @@ private:
 	void UpdateEntitiesComponents();
 	void UpdateGameEntities(float deltaTime);
 	void DrawViewportUI();
-	void DrawGameEntitys(); 
+	void DrawGameEntities(float deltaTime);
 	void InitImGUI();
 	void ProcessInput();
 	void InitViewportCamera();
 	void InitMouse();
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void SetGameEntityMatrices(GameEntity& renderObj);
-	std::vector<GameEntity*> renderObjects; 
+	std::vector<GameEntity*> gameEntitites; 
 	Input input;
 };
 
