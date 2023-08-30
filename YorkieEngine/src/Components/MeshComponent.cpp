@@ -12,6 +12,7 @@ MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned
 {
 	this->vertices = vertices;
 	this->indices = indices;
+	this->textureComponent = nullptr;
 	componentName = "MeshComponent";
 	SetupVertexData();
 	
@@ -34,6 +35,16 @@ void MeshComponent::Update(float deltaTime)
 void MeshComponent::DrawMesh()
 {
 	glBindVertexArray(VAO);
+
+	if (textureComponent)
+	{
+		// Activate the appropriate texture unit
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textureComponent->GetTextureID());
+
+		textureComponent->GetShader().SetUniform1i("texture1", 0);
+	}
+
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 

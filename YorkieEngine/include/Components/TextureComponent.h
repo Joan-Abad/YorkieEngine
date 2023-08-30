@@ -11,6 +11,8 @@ public:
 	TextureComponent(const std::string& imagePath);
 	void SetTextureData();
 	void AttachShader(Shader& shader);
+	Shader& GetShader() { return *shader; };
+	int GetTextureID() { return textureID; };
 private:
 	int width, height, nrChannels;
 	unsigned int textureID;

@@ -6,12 +6,17 @@
 
 glm::mat4 Renderer::projection = glm::mat4(1.0);
 
+void Renderer::Init()
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
 void Renderer::ClearColor(glm::vec4 color)
 {
-	glClearColor(color.x, color.y, color.z, color.w);
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glClearColor(color.x, color.y, color.z, color.w);
 
 	// Clear the screen
 }
@@ -31,7 +36,7 @@ void Renderer::DrawEntity(Camera& renderCamera, GameEntity& gameEntity)
 		shader.SetUniformMat4("projection", projection);
 
 		auto& Component = gameEntity.GetComponent<MeshComponent>();
-
+		
 		Component.DrawMesh();
 	}
 

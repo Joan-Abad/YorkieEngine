@@ -57,11 +57,10 @@ void TextureComponent::SetTextureData()
 
     // load and create a texture 
     // -------------------------
-    unsigned int texture1;
     // texture 1
     // ---------
-    glGenTextures(1, &texture1);
-    glBindTexture(GL_TEXTURE_2D, texture1);
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
 
     // set the texture wrapping parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -88,10 +87,8 @@ void TextureComponent::SetTextureData()
     Logger::LogInfo(imagePath + " loaded correctly");
 
     stbi_image_free(data);
+    glBindBuffer(GL_ARRAY_BUFFER, 0); // Texture coordinates buffer
 
-    shader->Bind();
-    shader->SetUniform1i("texture1", 0);
-    shader->Unbind();
 }
 
 void TextureComponent::AttachShader(Shader& shader)

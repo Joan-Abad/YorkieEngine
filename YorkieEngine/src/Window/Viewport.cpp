@@ -25,7 +25,8 @@ void Viewport::Init()
     glEnable(GL_DEPTH_TEST);
 
     grid = new Grid();
-
+    Renderer::Init();
+    
     InitGameEntites();
 
     glfwSetWindowUserPointer(window, this);

@@ -11,6 +11,7 @@
 class YorkieAPI Renderer
 {
 public:
+	static void Init(); 
 	static void ClearColor(glm::vec4 color);
 	static void DrawEntity(Camera& renderCamera, GameEntity& gameEntity);
 	static void DrawGrid(Camera& renderCamera, Grid& grid);
