@@ -22,6 +22,8 @@ Viewport::Viewport(int width, int height, const char* title, WindowMode windowMo
 
 void Viewport::Init()
 {
+    glEnable(GL_DEPTH_TEST);
+
     grid = new Grid();
 
     InitGameEntites();

@@ -1,6 +1,7 @@
 #pragma once
 #include <glm.hpp>
 #include "Components/BaseComponent.h"
+#include "Components/TextureComponent.h"
 #include "Engine/YorkieEngine.h"
 #include <vector>
 
@@ -17,7 +18,7 @@ struct YorkieAPI MeshComponent : public BaseComponent
 {
 public:
 	//MeshComponent(const std::vector<Vertex>& vertices);
-	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent = nullptr);
 	virtual void Start() override;
 	virtual void Update(float deltaTime) override;
 	void DrawMesh();
@@ -26,4 +27,5 @@ private:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int VAO, VBO, EBO;
+	TextureComponent* textureComponent;
 };

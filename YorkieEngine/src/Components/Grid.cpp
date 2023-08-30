@@ -64,15 +64,11 @@ void Grid::DrawGrid()
 {
     shader->Bind();
 
-    glEnable(GL_DEPTH_TEST);
-
     glBindVertexArray(vao);
 
     glDrawElements(GL_LINES, length, GL_UNSIGNED_INT, NULL);
 
     glBindVertexArray(0);
-
-    glDisable(GL_DEPTH_TEST);
 
     shader->Unbind();
 }

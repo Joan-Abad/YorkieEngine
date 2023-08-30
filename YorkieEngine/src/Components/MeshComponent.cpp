@@ -8,12 +8,19 @@ Vertex::Vertex(const glm::vec3& position)
 
 }
 
-MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
+MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent)
 {
 	this->vertices = vertices;
 	this->indices = indices;
 	componentName = "MeshComponent";
 	SetupVertexData();
+	
+	if (textureComponent)
+	{
+		textureComponent->SetTextureData();
+		this->textureComponent = textureComponent;
+	}
+	glBindVertexArray(0);
 }
 
 void MeshComponent::Start()
@@ -29,6 +36,8 @@ void MeshComponent::DrawMesh()
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
+
+
 
 void MeshComponent::SetupVertexData()
 {
@@ -57,5 +66,4 @@ void MeshComponent::SetupVertexData()
 	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
 	// Unbind VAO (optional but recommended)
-	glBindVertexArray(0);
 }

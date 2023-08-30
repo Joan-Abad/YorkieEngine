@@ -14,7 +14,7 @@ void TransformComponent::SetLocation(float x, float y, float z)
 
 void TransformComponent::SetScale(float x, float y, float z)
 {
-	transform = glm::mat4(1.0f);
+	//glm::mat4 identity = glm::mat4(1.0f);
 	transform = glm::scale(transform, glm::vec3(x, y, z));
 }
 
