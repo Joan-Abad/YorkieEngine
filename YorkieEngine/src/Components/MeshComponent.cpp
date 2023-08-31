@@ -32,6 +32,11 @@ void MeshComponent::Update(float deltaTime)
 {
 }
 
+void MeshComponent::PreUpdate(float deltaTime)
+{
+
+}
+
 void MeshComponent::DrawMesh()
 {
 	glBindVertexArray(VAO);

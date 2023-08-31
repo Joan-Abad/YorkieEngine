@@ -15,6 +15,7 @@ public:
 	void AddParentComponent(BaseComponent& parentComponent);
 	
 	virtual void Start();
+	virtual void PreUpdate(float deltaTime);
 	virtual void Update(float deltaTime);
 
 private:

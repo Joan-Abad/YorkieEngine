@@ -30,7 +30,7 @@ protected:
 	//Calls Init function on all windows
 	void InitializeWindows();
 	virtual void OnCreateApplicationCallback();
-	virtual void OnUpdate();
+	virtual void OnUpdate(float deltaTime);
 	virtual void OnPostUpdate();
 	virtual void OnTerimateApplication();
 

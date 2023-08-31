@@ -14,6 +14,10 @@ void BaseComponent::Start()
 {
 }
 
+void BaseComponent::PreUpdate(float deltaTime)
+{
+}
+
 void BaseComponent::Update(float deltaTime)
 {
 }

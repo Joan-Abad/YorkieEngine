@@ -21,6 +21,7 @@ public:
 	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent = nullptr);
 	virtual void Start() override;
 	virtual void Update(float deltaTime) override;
+	virtual void PreUpdate(float deltaTime) override;
 	void DrawMesh();
 private:
 	void SetupVertexData();

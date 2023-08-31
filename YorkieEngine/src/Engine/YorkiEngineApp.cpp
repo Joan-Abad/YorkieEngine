@@ -102,7 +102,8 @@ void YorkieEngineApp::CreateApplication()
 
 void YorkieEngineApp::CreateEngineViewport()
 {
-    WindowManager::CreateWindow<Viewport>(yorkiEngineAppConfig.screenWidth, yorkiEngineAppConfig.screenHeight, yorkiEngineAppConfig.title);
+    auto& viewport = *WindowManager::CreateWindow<Viewport>(yorkiEngineAppConfig.screenWidth, yorkiEngineAppConfig.screenHeight, yorkiEngineAppConfig.title);
+    int i = 0;
 }
 
 void YorkieEngineApp::InitializeWindows()
@@ -114,7 +115,7 @@ void YorkieEngineApp::Update()
 {
     while (bIsRunning)
     {
-        OnUpdate();
+        OnUpdate(deltaTime);
         OnPostUpdate();
         FPS++;
     }
@@ -130,7 +131,7 @@ void YorkieEngineApp::OnCreateApplicationCallback()
 {
 }
 
-void YorkieEngineApp::OnUpdate()
+void YorkieEngineApp::OnUpdate(float deltaTime)
 {
     SetDeltaTime();
     WindowManager::DrawWindows(deltaTime);

@@ -9,6 +9,7 @@
 #include "glm.hpp"
 #include "Input/Input.h"
 #include "Editor/Grid.h"
+#include "Logging/Logger.h"
 
 class GameEntity;
 class Camera;
@@ -19,9 +20,21 @@ class YorkieAPI Viewport : public Window
 	friend class WindowManager;
 
 public:
-	GameEntity* CreateEntity();
-	GameEntity* CreateEntity(const char* objectName);
-	GameEntity* CreateEntity(const char* objectName, Shader& shader);
+	//Function to call each time we want to create a game entity
+	template<typename T = GameEntity, typename... Args>
+	T* CreateEntity(Args&&... args)
+	{
+		T* gameEntity = new T(std::forward<Args>(args)...);
+		if (gameEntity)
+		{
+			gameEntity->SetupEntity(this);
+			gameEntitites.push_back(gameEntity);
+		}
+		else
+			Logger::LogError("Game Entity could not be created");
+
+		return gameEntity;
+	}
 
 	entt::registry registry;
 
@@ -56,6 +69,7 @@ private:
 	void DrawGameEntities(float deltaTime);
 	void InitImGUI();
 	void ProcessInput();
+	void Internal_CreateEntity();
 	void InitViewportCamera();
 	void InitMouse();
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);

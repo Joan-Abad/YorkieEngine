@@ -13,7 +13,8 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode)
+Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode),
+    lastX(0), lastY(0), WorldUp(glm::vec3(0, 1, 0)), grid(nullptr), renderCamera(nullptr)
 {
     bFirstMouse = true;
     isInGame = true;
@@ -26,23 +27,17 @@ void Viewport::Init()
 
     grid = new Grid();
     Renderer::Init();
-    
-    InitGameEntites();
 
     glfwSetWindowUserPointer(window, this);
-
-    glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
-        Viewport* instance = static_cast<Viewport*>(glfwGetWindowUserPointer(window));
-        if (instance) {
-            instance->mouse_callback(window, xpos, ypos);
-        }
-        });
-
+    
+    InitMouse();
     InitImGUI();
 
     // Main loop
     InitViewportCamera();
-    InitMouse();
+
+    InitGameEntites();
+
 }
 
 void Viewport::Update(float deltaTime)
@@ -51,58 +46,15 @@ void Viewport::Update(float deltaTime)
     glfwPollEvents();
 
     Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
-    
-    DrawViewportUI();
 
     ProcessInput();
+    UpdateGameEntities(deltaTime);
 
     DrawLevel(deltaTime);
-    UpdateGameEntities(deltaTime);
+    DrawViewportUI();
 
     // Swap the front and back buffers
     glfwSwapBuffers(window);
-}
-
-GameEntity* Viewport::CreateEntity()
-{
-    GameEntity* gameEntity = new GameEntity(this);
-
-    if (gameEntity)
-    {
-        gameEntitites.push_back(gameEntity);
-    }
-    else
-        Logger::LogError("Game Entity could not be created");
-
-    return gameEntity;
-}
-
-GameEntity* Viewport::CreateEntity(const char* objectName)
-{
-    GameEntity* gameEntity = new GameEntity(objectName);
-    
-    if (gameEntity)
-    {
-        gameEntitites.push_back(gameEntity);
-        gameEntity->SetViewport(this);
-        gameEntity->RootComponent = &gameEntity->AddComponent<TransformComponent>();
-
-        Logger::LogInfo("Game entity " + std::string(gameEntity->entityName) + " creaded");
-    }
-    else
-        Logger::LogError("Game entity could NOT be created");
-
-    return gameEntity;
-}
-
-GameEntity* Viewport::CreateEntity(const char* objectName, Shader& shader)
-{
-    auto entity = CreateEntity(objectName);
-    
-    if(entity)
-        entity->AttachShader(&shader);
-
-    return entity;
 }
 
 void Viewport::DrawGameEntities(float deltaTime)
@@ -130,13 +82,13 @@ void Viewport::ProcessInput()
     const float cameraSpeed = 0.25f; // adjust accordingly
 
     if (input.IsKeyPressed(EKeyboardKeys::KEY_W))
-        renderCamera->position += renderCamera->cameraFront * cameraSpeed;
+        renderCamera->AddOffstet(renderCamera->cameraFront * cameraSpeed);
     if (input.IsKeyPressed(EKeyboardKeys::KEY_S))
-        renderCamera->position -= renderCamera->cameraFront * cameraSpeed;
+        renderCamera->AddOffstet(-(renderCamera->cameraFront * cameraSpeed));
     if (input.IsKeyPressed(EKeyboardKeys::KEY_A))
-        renderCamera->position -= renderCamera->cameraRight * cameraSpeed;
+        renderCamera->AddOffstet(-(renderCamera->cameraRight * cameraSpeed));
     if (input.IsKeyPressed(EKeyboardKeys::KEY_D))
-        renderCamera->position += renderCamera->cameraRight * cameraSpeed;
+        renderCamera->AddOffstet(renderCamera->cameraRight * cameraSpeed);
 
     if (input.IsKeyPressed(EKeyboardKeys::KEY_ESCAPE))
     {
@@ -167,7 +119,7 @@ void Viewport::ProcessInput()
         isEscapeAvailable = true;
     }
 
-    glm::mat4 camView = glm::lookAt(renderCamera->position, renderCamera->position + renderCamera->cameraFront, renderCamera->cameraUp);
+    glm::mat4 camView = glm::lookAt(renderCamera->GetPosition(), renderCamera->GetPosition() + renderCamera->cameraFront, renderCamera->cameraUp);
     renderCamera->SetViewMatrix(camView);
     Renderer::SetProjectionMatrix(*renderCamera, GetAspectRatio());
 }
@@ -175,12 +127,19 @@ void Viewport::ProcessInput()
 void Viewport::InitViewportCamera()
 {
     //GameCamera
-    renderCamera = new Camera(this);
+    renderCamera = CreateEntity<Camera>(this);
     WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 void Viewport::InitMouse()
 {
+    glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
+        Viewport* instance = static_cast<Viewport*>(glfwGetWindowUserPointer(window));
+        if (instance) {
+            instance->mouse_callback(window, xpos, ypos);
+        }
+        });
+
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     lastX = GetWindowWidth() / 2;
     lastY = GetWindowHeight() / 2;
@@ -291,9 +250,9 @@ void Viewport::DrawViewportUI()
         ImGui::Text("Location:");
         ImGui::SameLine();
         // Convert the float to a string
-        std::string xLocation = " X: " + std::to_string((int)ro->GetEntityLocation().x);
-        std::string yLocation = " Y: " + std::to_string((int)ro->GetEntityLocation().y);
-        std::string zLocation = " Z: " + std::to_string((int)ro->GetEntityLocation().z);
+        std::string xLocation = " X: " + std::to_string((int)ro->GetPosition().x);
+        std::string yLocation = " Y: " + std::to_string((int)ro->GetPosition().y);
+        std::string zLocation = " Z: " + std::to_string((int)ro->GetPosition().z);
 
 
         ImGui::Text(xLocation.c_str());

@@ -3,9 +3,8 @@
 
 class Camera : public GameEntity
 {
+	friend class Viewport;
 public:
-	Camera(Viewport* viewport);
-
 	float FOV;
 	float pitch, yaw, roll;
 
@@ -21,7 +20,14 @@ public:
 	inline glm::mat4& GetView() { return view; };
 	inline float GetNearPlane() { return nearPlane; };
 	inline float GetFarPlane() { return farPlane; };
+
+protected: 
+	//Functions that you can implement on child actors of entity
+	virtual void Init() override;
+	//virtual void Update(float deltaTime);
+	//virtual void PostUpdate();
 private:
+	Camera(Viewport* viewport);
 	float nearPlane;
 	float farPlane;
 	glm::mat4 view;

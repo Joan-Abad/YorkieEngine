@@ -11,12 +11,12 @@ class YorkieAPI GameEntity
 {
 	friend class Viewport;
 public: 
-	GameEntity(Viewport* viewport);
-	GameEntity(const char* objectName);
-	GameEntity(const char* objectName, Shader& shader);
+	GameEntity();
 
 public:
 	~GameEntity();
+
+	std::string entityName;
 
 	//Functions that you can implement on child actors of entity
 	virtual void Init();
@@ -38,8 +38,8 @@ public:
 	void AddRotation(float Roll, float Pitch, float Yaw);
 
 	//Sets a new entity location 
-	void SetEntityLocation(float x, float y, float z);
-	void SetEntityLocation(const glm::vec3 &newPosition);
+	void SetLocation(float x, float y, float z);
+	void SetLocation(const glm::vec3 &newPosition);
 
 	//Sets a new entity rotation
 	void SetRotation(float Roll, float Pitch, float Yaw);
@@ -75,26 +75,27 @@ public:
 		return mViewport->registry.any_of<T>(entity);
 	}
 
+	/////////////////////////////
+	/// GETTERS
+	////////////////////////////
+
 	inline Shader& GetShader() { return *shader; };
+	inline glm::vec3& GetPosition() { return RootComponent->GetPosition(); };
+	inline glm::vec3& GetScale() { return RootComponent->GetScale(); };
+	inline glm::vec3& GetRotation() { return RootComponent->GetRotation(); };
 
-	std::string entityName;
-	//TODO: Remove from here, not public
-	glm::vec3 position;
-
-	glm::vec3 &GetEntityLocation();
 	inline glm::mat4& GetModel() { return *RootComponent; };
 
 protected:
 
-	//Transformations
-	glm::mat4 model;
-	Shader* shader;	
 private:
-	
+	Shader* shader;
 	entt::entity entity;
 	Viewport* mViewport;
 	//List of the components of an entity
 	std::vector<BaseComponent*> components;
 	//Entity ID, used for now to give a defualt name to each entity
 	static unsigned int entityID;
+	void SetupEntity(Viewport* viewport);
+
 };

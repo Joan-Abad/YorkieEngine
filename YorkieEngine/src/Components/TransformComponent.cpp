@@ -6,71 +6,62 @@ TransformComponent::TransformComponent()
 	componentName = "Transform Component";
 }
 
-void TransformComponent::SetLocation(float x, float y, float z)
+void TransformComponent::Update(float deltaTime)
 {
-	transform = glm::mat4(1.0f);
-	transform = glm::translate(transform, glm::vec3(x, y, z));
+	UpdateModelMatrix();
+}
+
+void TransformComponent::PostUpdate(float deltaTime)
+{
+
+}
+
+void TransformComponent::SetPosition(float x, float y, float z)
+{
+	position = glm::vec3(x,y,z);
 }
 
 void TransformComponent::SetScale(float x, float y, float z)
 {
-	//glm::mat4 identity = glm::mat4(1.0f);
-	transform = glm::scale(transform, glm::vec3(x, y, z));
+	scale = glm::vec3(x, y, z);
 }
 
 void TransformComponent::SetRotation(float roll, float pitch, float yaw)
 {
-	transform = glm::mat4(1.0f);
-	transform = glm::rotate(transform, glm::radians(roll), glm::vec3(1.0f, 0.0f, 0.0f));
-	transform = glm::rotate(transform, glm::radians(pitch), glm::vec3(0.0f, 1.0f, 0.0f));
-	transform = glm::rotate(transform, glm::radians(yaw), glm::vec3(0.0f, 0.0f, 1.0f));
+	rotation = glm::vec3(roll, pitch, yaw);
 }
 
 void TransformComponent::AddOffstet(float x, float y, float z)
 {
-	transform[3].x = x;
-	transform[3].y = y;
-	transform[3].z = z;
-	transform = glm::translate(transform, glm::vec3(x, y, z));
+	position += glm::vec3(x, y, z);
 }
 
 void TransformComponent::AddOffstet(const glm::vec3& newPosition)
 {
-	transform[3].x = newPosition.x;
-	transform[3].y = newPosition.y;
-	transform[3].z = newPosition.z;
-	transform = glm::translate(transform, glm::vec3(newPosition.x, newPosition.y, newPosition.z));
+	position += newPosition;
 }
 
 void TransformComponent::AddScale(float x, float y, float z)
 {
-	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(x, y, z));
-	transform *= scaleMatrix;
+	scale += glm::vec3(x,y,z);
 }
 
 void TransformComponent::AddScale(glm::vec3& newScale)
 {
-	glm::vec3 existingScale = glm::vec3(transform[0][0], transform[1][1], transform[2][2]);
-	glm::vec3 newIntScale = existingScale + newScale;
-
-	// Create a new scale matrix with the updated scaling factors
-	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), newIntScale);
-
-	// Multiply the existing model matrix by the new scale matrix
-	transform = transform * scaleMatrix;
+	scale += newScale;
 }
 
 void TransformComponent::AddRotation(float Roll, float Pitch, float Yaw)
 {
-	if (Roll != 0)
-		transform = glm::rotate(transform, glm::radians(Roll), glm::vec3(1.0f, 0.0f, 0.0f));
-	if (Pitch != 0)
-		transform = glm::rotate(transform, glm::radians(Pitch), glm::vec3(0.0f, 1.0f, 0.0f));
-	if (Yaw != 0)
-		transform = glm::rotate(transform, glm::radians(Yaw), glm::vec3(0.0f, 0.0f, 1.0f));
+	rotation += glm::vec3(Roll, Pitch, Yaw);
 }
 
-glm::vec3 &TransformComponent::GetLocation()
+void TransformComponent::UpdateModelMatrix()
 {
-	return glm::vec3(transform[3]);
+	modelMatrix = glm::mat4(1.0f);
+	modelMatrix = glm::translate(modelMatrix, position);
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	modelMatrix = glm::scale(modelMatrix, scale);
 }

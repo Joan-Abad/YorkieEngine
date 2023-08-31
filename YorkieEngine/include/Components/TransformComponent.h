@@ -7,7 +7,11 @@ struct YorkieAPI TransformComponent : BaseComponent
 {	
 public:
 	TransformComponent();
-	void SetLocation(float x, float y, float z);
+
+	virtual void Update(float deltaTime);
+	virtual void PostUpdate(float deltaTime);
+
+	void SetPosition(float x, float y, float z);
 	void SetScale(float x, float y, float z);
 	void SetRotation(float x, float y, float z);
 
@@ -17,14 +21,19 @@ public:
 	void AddScale(glm::vec3& newScale);
 	void AddRotation(float Roll, float Pitch, float Yaw);
 
-	glm::vec3 &GetLocation();
+	glm::vec3& GetPosition() { return position; };
+	glm::vec3& GetScale() { return scale; };
+	glm::vec3& GetRotation() { return rotation; };
+	glm::mat4& GetModelMat4() { return modelMatrix; };
 
-	glm::mat4& GetMat4() { return transform; };
-	operator glm::mat4& () { return transform; };
-	operator const glm::mat4& () const { return transform; };
+	operator glm::mat4& () { return modelMatrix; };
+	operator const glm::mat4& () const { return modelMatrix; };
 
 private:	
 	
-	glm::mat4 transform{ 1.0f };
-
+	glm::vec3 position { 0.0f };
+	glm::vec3 scale { 1.0f };
+	glm::vec3 rotation { 0.0f };
+	glm::mat4 modelMatrix { 1.0f };
+	void UpdateModelMatrix();
 };

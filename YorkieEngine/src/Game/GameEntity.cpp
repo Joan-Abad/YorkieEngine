@@ -11,31 +11,10 @@
 
 unsigned int GameEntity::entityID = 1;
 
-GameEntity::GameEntity(Viewport* viewport) : mViewport(viewport)
+GameEntity::GameEntity() : shader(nullptr), mViewport(nullptr), RootComponent(nullptr)
 {
-	entity = viewport->registry.create();
-	model = glm::mat4(1.0f);
-	position = glm::vec3(0, 0, 0);
 	entityName = "GameEntity_ " + std::to_string(entityID);
 	entityID++;
-	shader = nullptr;
-	
-	RootComponent = &AddComponent<TransformComponent>();
-}
-
-GameEntity::GameEntity(const char* objectName)
-{
-	model = glm::mat4(1.0f);
-	position = glm::vec3(0,0,0);
-	shader = nullptr;
-	mViewport = nullptr;
-	
-	this->entityName = objectName;
-}
-
-GameEntity::GameEntity(const char* objectName, Shader &shader) : GameEntity(objectName)
-{
-	this->shader = &shader;
 }
 
 GameEntity::~GameEntity()
@@ -61,13 +40,7 @@ void GameEntity::Update(float deltaTime)
 
 void GameEntity::PostUpdate()
 {	
-	//TODO: Remove from here
-	glm::vec3 position = RootComponent->GetMat4()[3];
 
-	// The 'position' vector now contains the x, y, and z coordinates of the object in world space
-	this->position.x = position.x;
-	this->position.y = position.y;
-	this->position.z = position.z;
 }
 
 void GameEntity::AttachShader(Shader* shader)
@@ -105,16 +78,17 @@ void GameEntity::AddRotation(float Roll, float Pitch, float Yaw)
 		RootComponent->AddRotation(Roll, Pitch, Yaw);
 }
 
-void GameEntity::SetEntityLocation(const glm::vec3& newPosition)
+void GameEntity::SetLocation(const glm::vec3& newPosition)
 {
+	entityName;
 	if (RootComponent)
-		RootComponent->SetLocation(newPosition.x, newPosition.y, newPosition.z);
+		RootComponent->SetPosition(newPosition.x, newPosition.y, newPosition.z);
 }
 
-void GameEntity::SetEntityLocation(float x, float y, float z)
+void GameEntity::SetLocation(float x, float y, float z)
 {
 	if (RootComponent)
-		RootComponent->SetLocation(x,y,z);
+		RootComponent->SetPosition(x,y,z);
 }
 
 void GameEntity::SetRotation(float Roll, float Pitch, float Yaw)
@@ -131,15 +105,19 @@ void GameEntity::SetScale(float x, float y, float z)
 
 void GameEntity::SetScale(glm::vec3& newScale)
 {
-	model = glm::scale(model, glm::vec3(newScale.x, newScale.y, newScale.z));
+	if (RootComponent)
+		RootComponent->SetScale(newScale.x, newScale.y, newScale.z);
 }
 
 void GameEntity::SetViewport(Viewport* viewport)
 {
 	this->mViewport = viewport;
+	entity = mViewport->registry.create();
 }
 
-glm::vec3 &GameEntity::GetEntityLocation() 
+void GameEntity::SetupEntity(Viewport* viewport)
 {
-	return RootComponent->GetLocation();
+	this->mViewport = viewport;
+	entity = mViewport->registry.create();
+	RootComponent = &AddComponent<TransformComponent>();
 }
