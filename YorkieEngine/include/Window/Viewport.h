@@ -64,6 +64,7 @@ private:
 	void UpdateEntitiesComponents();
 	void UpdateGameEntities(float deltaTime);
 	void DrawViewportUI();
+	void DrawImGUIDemoWindow();
 	void DrawLevel(float deltaTime);
 	void DrawGameEntities(float deltaTime);
 	void InitImGUI();

@@ -177,12 +177,14 @@ void Viewport::UpdateGameEntities(float deltaTime)
 
 void Viewport::DrawViewportUI()
 {
+
     // Start the ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     bool isWindowOpen = true;
     // Create a window
+    DrawImGUIDemoWindow();
 
     ImGui::Begin("Outliner", &isWindowOpen, ImGuiWindowFlags_None);
     ImGui::SetWindowFontScale(1.5f); // Larger font scale
@@ -280,6 +282,12 @@ void Viewport::DrawViewportUI()
     // Render ImGui
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void Viewport::DrawImGUIDemoWindow()
+{
+    // Create and render the ImGui demo window
+    ImGui::ShowDemoWindow();
 }
 
 void Viewport::DrawLevel(float deltaTime)
