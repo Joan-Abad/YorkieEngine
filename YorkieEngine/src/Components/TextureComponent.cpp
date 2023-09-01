@@ -52,8 +52,8 @@ void TextureComponent::SetTextureData()
     glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO); // Texture coordinates buffer
     glBufferData(GL_ARRAY_BUFFER, TextureCoords.size() * 2 *sizeof(float), TextureCoords.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+    glEnableVertexAttribArray(2);
 
     // load and create a texture 
     // -------------------------

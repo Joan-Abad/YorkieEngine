@@ -6,9 +6,12 @@
 class YorkieAPI BasicLight : public Cube
 {
 public:
-	BasicLight(Viewport* viewport);
+	BasicLight();
 
-	float ambientStrength;
-	glm::vec3 lightColor;
+    glm::vec3 m_lightColor; 
+    glm::vec3 m_ambient;
+    glm::vec3 m_diffuse;
+    glm::vec3 m_specular;
+    
 };
 

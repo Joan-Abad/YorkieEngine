@@ -7,10 +7,11 @@
 
 
 struct YorkieAPI Vertex {
-	glm::vec3 Position;
-	glm::vec3 Normal;
-
+	glm::vec3 m_Position;
+	glm::vec3 m_Normal;
+	
 	Vertex(const glm::vec3& position);
+	Vertex(const glm::vec3& position, glm::vec3 normal);
 	Vertex() = default;
 };
 

@@ -16,7 +16,6 @@
 Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode),
     lastX(0), lastY(0), WorldUp(glm::vec3(0, 1, 0)), grid(nullptr), renderCamera(nullptr)
 {
-    bFirstMouse = true;
     isInGame = true;
     input.SetWindow(*this);
 }
@@ -146,13 +145,6 @@ void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposI
         float xpos = static_cast<float>(xposIn);
         float ypos = static_cast<float>(yposIn);
 
-        if (bFirstMouse)
-        {
-            lastX = xpos;
-            lastY = ypos;
-            bFirstMouse = false;
-        }
-
         float xoffset = xpos - lastX;
         float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
         lastX = xpos;
@@ -195,7 +187,7 @@ void Viewport::DrawViewportUI()
     ImGui::Begin("Outliner", &isWindowOpen, ImGuiWindowFlags_None);
     ImGui::SetWindowFontScale(1.5f); // Larger font scale
 
-    ImGui::Text("GameEntitys:");
+    ImGui::Text("GameEntities:");
     
     static int item_current_idx = 0; // Here we store our selection data as an index.
     GameEntity* ro = nullptr;
@@ -224,6 +216,10 @@ void Viewport::DrawViewportUI()
     if (ro)
     {
         ImGui::Text("Details:");
+
+        ///////////////////////////////
+        ///// LOCATION
+        //////////////////////////////
         ImGui::Text("Location:");
         ImGui::SameLine();
         // Convert the float to a string
@@ -237,6 +233,10 @@ void Viewport::DrawViewportUI()
         ImGui::SameLine();
         ImGui::Text(zLocation.c_str());
 
+        ///////////////////////////////
+        ///// ROTATION
+        //////////////////////////////
+
         ImGui::Text("Rotation:");
         ImGui::SameLine();
         // Convert the float to a string
@@ -249,6 +249,23 @@ void Viewport::DrawViewportUI()
         ImGui::Text(yGetRotation.c_str());
         ImGui::SameLine();
         ImGui::Text(zGetRotation.c_str());
+
+        ///////////////////////////////
+        ///// SCALE
+        //////////////////////////////
+
+        ImGui::Text("Scale:");
+        ImGui::SameLine();
+        // Convert the float to a string
+        std::string xScale = " X: " + std::to_string((int)ro->GetScale().x);
+        std::string yScale = " Y: " + std::to_string((int)ro->GetScale().y);
+        std::string zScale = " Z: " + std::to_string((int)ro->GetScale().z);
+
+        ImGui::Text(xScale.c_str());
+        ImGui::SameLine();
+        ImGui::Text(yScale.c_str());
+        ImGui::SameLine();
+        ImGui::Text(zScale.c_str());
     }
     else
         Logger::LogError("RO NULL");

@@ -7,6 +7,8 @@
 #include "Window/Viewport.h"
 #include "Components/TransformComponent.h"
 
+class BasicLight;
+
 class YorkieAPI GameEntity
 {
 	friend class Viewport;
@@ -19,6 +21,7 @@ public:
 	std::string entityName;
 
 	//Functions that you can implement on child actors of entity
+	virtual void OnConstruct();
 	virtual void Init();
 	virtual void Update(float deltaTime);
 	virtual void PostUpdate();
@@ -52,6 +55,8 @@ public:
 	void SetViewport(Viewport* viewport);
 
 	TransformComponent* RootComponent;
+	//TODO: REMOVE
+	BasicLight* m_basicLight;
 
 	//ECS (ENTT) helper functions
 	//Adds a new component to the entity
@@ -87,11 +92,11 @@ public:
 	inline glm::mat4& GetModel() { return *RootComponent; };
 
 protected:
+	Viewport* mViewport;
 
 private:
 	Shader* shader;
 	entt::entity entity;
-	Viewport* mViewport;
 	//List of the components of an entity
 	std::vector<BaseComponent*> components;
 	//Entity ID, used for now to give a defualt name to each entity

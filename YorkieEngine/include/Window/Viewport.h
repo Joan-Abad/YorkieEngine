@@ -49,8 +49,7 @@ protected:
 	//Check mouse last frame positions
 	float lastX;
 	float lastY;
-	//Stores if its the first mouse input
-	bool bFirstMouse;
+
 	//Checks if it is navigating through the game editor
 	bool isInGame;	
 	bool isEscapeAvailable;

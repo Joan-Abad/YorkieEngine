@@ -17,6 +17,7 @@ public:
 	static void DrawGrid(Camera& renderCamera, Grid& grid);
 	static void SetProjectionMatrix(Camera& renderCamera, float aspectRatio);
 private: 
+	void SetLightColorOnShaders();
 	static void InitIm_GUI(GLFWwindow& window);
 	static glm::mat4 projectionMat;
 };

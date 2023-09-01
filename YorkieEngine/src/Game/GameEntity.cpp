@@ -11,7 +11,7 @@
 
 unsigned int GameEntity::entityID = 1;
 
-GameEntity::GameEntity() : shader(nullptr), mViewport(nullptr), RootComponent(nullptr)
+GameEntity::GameEntity() : shader(nullptr), mViewport(nullptr), RootComponent(nullptr), m_basicLight(nullptr)
 {
 	entityName = "GameEntity_ " + std::to_string(entityID);
 	entityID++;
@@ -21,6 +21,11 @@ GameEntity::~GameEntity()
 {
 }
 
+
+void GameEntity::OnConstruct()
+{
+
+}
 
 void GameEntity::Init()
 {
@@ -120,4 +125,5 @@ void GameEntity::SetupEntity(Viewport* viewport)
 	this->mViewport = viewport;
 	entity = mViewport->registry.create();
 	RootComponent = &AddComponent<TransformComponent>();
+	OnConstruct();
 }

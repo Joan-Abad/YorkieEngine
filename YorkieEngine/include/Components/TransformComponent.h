@@ -54,10 +54,10 @@ public:
 	void AddScale(glm::vec3& newScale);
 	void AddRotation(float Roll, float Pitch, float Yaw);
 
-	glm::vec3& GetPosition() { return position; };
-	glm::vec3& GetScale() { return scale; };
-	Rotator& GetRotation() { return rotation; };
-	glm::mat4& GetModelMat4() { return modelMatrix; };
+	inline glm::vec3& GetPosition() { return position; };
+    inline glm::vec3& GetScale() { return scale; };
+    inline Rotator& GetRotation() { return rotation; };
+    inline glm::mat4& GetModelMat4() { return modelMatrix; };
 
 	operator glm::mat4& () { return modelMatrix; };
 	operator const glm::mat4& () const { return modelMatrix; };

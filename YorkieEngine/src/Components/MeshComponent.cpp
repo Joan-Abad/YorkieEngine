@@ -3,9 +3,13 @@
 
 Vertex::Vertex(const glm::vec3& position)
 {
+	m_Position = position;
+}
 
-	Position = position;
-
+Vertex::Vertex(const glm::vec3& position, glm::vec3 normal)
+{
+	m_Position = position;
+	m_Normal = normal;
 }
 
 MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent)
@@ -75,11 +79,11 @@ void MeshComponent::SetupVertexData()
 	// Set up vertex attributes
 	// Vertex positions (assuming Vertex structure contains position and normal)
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Position));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Position));
 
 	// Vertex normals (assuming Vertex structure contains position and normal)
-	//glEnableVertexAttribArray(1);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Normal));
 
 	// Unbind VAO (optional but recommended)
 }

@@ -6,6 +6,7 @@
 #include "UI/imgui.h"
 #include "UI/imgui_impl_opengl3.h"
 #include "UI/imgui_impl_glfw.h"
+#include "Lighting/BasicLight.h"
 
 glm::mat4 Renderer::projectionMat = glm::mat4(1.0);
 
@@ -23,6 +24,11 @@ void Renderer::ClearColor(glm::vec4 color)
 	glClearColor(color.x, color.y, color.z, color.w);
 
 	// Clear the screen
+}
+
+void Renderer::SetLightColorOnShaders()
+{
+
 }
 
 void Renderer::InitIm_GUI(GLFWwindow& window)
@@ -44,6 +50,13 @@ void Renderer::DrawEntity(Camera& renderCamera, GameEntity& gameEntity)
 	{
 		Shader& shader = gameEntity.GetShader();
 		shader.Bind();
+		if (gameEntity.m_basicLight)
+		{
+			auto& light = gameEntity.m_basicLight;
+			glm::vec3 lightPos = light->GetPosition();
+			shader.SetUniform3f("lightColor", light->m_lightColor.x, light->m_lightColor.y, light->m_lightColor.z);
+			shader.SetUniform3f("lightPos", light->GetPosition().x, light->GetPosition().y, light->GetPosition().z);
+		}
 
 		//Set MVP matrix
 		shader.SetUniformMat4("model", gameEntity.GetModel());

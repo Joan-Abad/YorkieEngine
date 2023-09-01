@@ -6,6 +6,8 @@
 class YorkieAPI Cube : public GameEntity
 {
 public: 
-	Cube(Viewport* viewport);
+	Cube();
+
+	virtual void OnConstruct();
 };
 
