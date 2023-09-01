@@ -26,12 +26,18 @@ void Viewport::Init()
     glEnable(GL_DEPTH_TEST);
 
     grid = new Grid();
-    Renderer::Init();
-
+   
     glfwSetWindowUserPointer(window, this);
-    
+    glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
+        Viewport* instance = static_cast<Viewport*>(glfwGetWindowUserPointer(window));
+        if (instance) {
+            instance->mouse_callback(window, xpos, ypos);
+        }
+        });
+
+    Renderer::Init(*window);
+
     InitMouse();
-    InitImGUI();
 
     // Main loop
     InitViewportCamera();
@@ -67,14 +73,7 @@ void Viewport::DrawGameEntities(float deltaTime)
 
 void Viewport::InitImGUI()
 {
-    // Initialize ImGui
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
 
-    ImGui::StyleColorsDark();
-
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 void Viewport::ProcessInput()
@@ -133,13 +132,6 @@ void Viewport::InitViewportCamera()
 
 void Viewport::InitMouse()
 {
-    glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
-        Viewport* instance = static_cast<Viewport*>(glfwGetWindowUserPointer(window));
-        if (instance) {
-            instance->mouse_callback(window, xpos, ypos);
-        }
-        });
-
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     lastX = GetWindowWidth() / 2;
     lastY = GetWindowHeight() / 2;
@@ -164,29 +156,14 @@ void Viewport::mouse_callback(GLFWwindow* glfWindow, double xposIn, double yposI
         float xoffset = xpos - lastX;
         float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
         lastX = xpos;
-        lastY = ypos;
+        lastY = ypos; 
 
         float sensitivity = 0.1f; // change this value to your liking
         xoffset *= sensitivity;
         yoffset *= sensitivity;
-
-        renderCamera->yaw += xoffset;
-        renderCamera->pitch += yoffset;
-
-        // make sure that when pitch is out of bounds, screen doesn't get flipped
-        if (renderCamera->pitch > 89.0f)
-            renderCamera->pitch = 89.0f;
-        if (renderCamera->pitch < -89.0f)
-            renderCamera->pitch = -89.0f;
-
-        glm::vec3 front;
-        front.x = cos(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-        front.y = sin(glm::radians(renderCamera->pitch));
-        front.z = sin(glm::radians(renderCamera->yaw)) * cos(glm::radians(renderCamera->pitch));
-
-        renderCamera->cameraFront = glm::normalize(front);
-        renderCamera->cameraRight = glm::normalize(glm::cross(front, WorldUp));
-        renderCamera->cameraUp = glm::normalize(glm::cross(renderCamera->cameraRight, front));
+        renderCamera->AddRotation(0, yoffset, xoffset);
+        
+        renderCamera->SetCameraDirections();
     }
 }
 
@@ -254,13 +231,24 @@ void Viewport::DrawViewportUI()
         std::string yLocation = " Y: " + std::to_string((int)ro->GetPosition().y);
         std::string zLocation = " Z: " + std::to_string((int)ro->GetPosition().z);
 
-
         ImGui::Text(xLocation.c_str());
         ImGui::SameLine();
         ImGui::Text(yLocation.c_str());
         ImGui::SameLine();
         ImGui::Text(zLocation.c_str());
 
+        ImGui::Text("Rotation:");
+        ImGui::SameLine();
+        // Convert the float to a string
+        std::string xRotation = " X: " + std::to_string((int)ro->GetRotation().roll);
+        std::string yGetRotation = " Y: " + std::to_string((int)ro->GetRotation().pitch);
+        std::string zGetRotation = " Z: " + std::to_string((int)ro->GetRotation().yaw);
+
+        ImGui::Text(xRotation.c_str());
+        ImGui::SameLine();
+        ImGui::Text(yGetRotation.c_str());
+        ImGui::SameLine();
+        ImGui::Text(zGetRotation.c_str());
     }
     else
         Logger::LogError("RO NULL");

@@ -82,7 +82,7 @@ public:
 	inline Shader& GetShader() { return *shader; };
 	inline glm::vec3& GetPosition() { return RootComponent->GetPosition(); };
 	inline glm::vec3& GetScale() { return RootComponent->GetScale(); };
-	inline glm::vec3& GetRotation() { return RootComponent->GetRotation(); };
+	inline Rotator GetRotation() { return RootComponent->GetRotation(); };
 
 	inline glm::mat4& GetModel() { return *RootComponent; };
 

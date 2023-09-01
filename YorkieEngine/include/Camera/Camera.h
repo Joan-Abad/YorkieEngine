@@ -6,7 +6,6 @@ class Camera : public GameEntity
 	friend class Viewport;
 public:
 	float FOV;
-	float pitch, yaw, roll;
 
 	glm::vec3 cameraDirection;
 	glm::vec3 cameraTarget;
@@ -14,6 +13,7 @@ public:
 	glm::vec3 cameraUp;
 	glm::vec3 cameraRight;
 
+	void SetCameraDirections();
 	void SetViewMatrix(glm::mat4& matrix);
 	void SetProjectionMatrix(const float AspectRatio);
 	inline glm::mat4& GetProjection() { return projection; };
