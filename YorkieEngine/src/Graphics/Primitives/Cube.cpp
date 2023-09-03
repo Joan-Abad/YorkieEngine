@@ -72,5 +72,4 @@ void Cube::OnConstruct()
         22, 23, 20
     };
 
-    AddComponent<MeshComponent>(cubeVertices, cubeIndices);
 }

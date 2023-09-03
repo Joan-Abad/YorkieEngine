@@ -24,7 +24,6 @@ void Viewport::Init()
 {
     glEnable(GL_DEPTH_TEST);
 
-    grid = new Grid();
    
     glfwSetWindowUserPointer(window, this);
     glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
@@ -55,7 +54,7 @@ void Viewport::Update(float deltaTime)
     ProcessInput();
     UpdateGameEntities(deltaTime);
 
-    DrawLevel(deltaTime);
+    Renderer::DrawScene(*this);
     DrawViewportUI();
 
     // Swap the front and back buffers
@@ -66,7 +65,7 @@ void Viewport::DrawGameEntities(float deltaTime)
 {
     for (const auto &renderObject : gameEntitites)
     {
-        Renderer::DrawEntity(*renderCamera, *renderObject);
+        Renderer::RenderEntity(*renderCamera, *renderObject);
     }
 }
 
@@ -292,6 +291,5 @@ void Viewport::DrawImGUIDemoWindow()
 
 void Viewport::DrawLevel(float deltaTime)
 {
-    Renderer::DrawGrid(*renderCamera, *grid);
-    DrawGameEntities(deltaTime);
+
 }

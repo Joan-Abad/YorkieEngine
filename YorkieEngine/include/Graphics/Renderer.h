@@ -5,20 +5,30 @@
 #include <string>
 #include "glm.hpp"
 #include "entt/entt.hpp"
-#include "Game/GameEntity.h"
 #include "Camera/Camera.h"
+#include "Window/Viewport.h"
+
+#include "Game/Lights/DirectionalLight.h"
+#include "Game/GameEntity.h"
+
+class Grid;
 
 class YorkieAPI Renderer
 {
 public:
 	static void Init(GLFWwindow& window);
 	static void ClearColor(glm::vec4 color);
-	static void DrawEntity(Camera& renderCamera, GameEntity& gameEntity);
-	static void DrawGrid(Camera& renderCamera, Grid& grid);
+	static void RenderEntity(Camera& renderCamera, GameEntity& gameEntity);
+	static void DrawGrid(Camera& renderCamera);
+	static void DrawScene(Viewport& viewport);
 	static void SetProjectionMatrix(Camera& renderCamera, float aspectRatio);
 private: 
 	void SetLightColorOnShaders();
 	static void InitIm_GUI(GLFWwindow& window);
 	static glm::mat4 projectionMat;
+
+	//TODO: REMOVE TO LEVEL
+	static Grid* m_sceneGrid;
+	static DirectionalLight* m_DirectionalLight;
 };
 

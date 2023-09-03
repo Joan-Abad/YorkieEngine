@@ -1,10 +1,10 @@
 #pragma once
-#include <glm.hpp>
-#include "Components/BaseComponent.h"
-#include "Components/TextureComponent.h"
 #include "Engine/YorkieEngine.h"
+#include "Components/BaseComponent.h"
 #include <vector>
+#include <glm.hpp>
 
+class Material;
 
 struct YorkieAPI Vertex {
 	glm::vec3 m_Position;
@@ -19,19 +19,22 @@ struct YorkieAPI MeshComponent : public BaseComponent
 {
 public:
 	//MeshComponent(const std::vector<Vertex>& vertices);
-	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent = nullptr, TextureComponent* specularComponent = nullptr);
+	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Material& material);
 	virtual void Start() override;
 	virtual void Update(float deltaTime) override;
 	virtual void PreUpdate(float deltaTime) override;
-	void DrawMesh();
+	inline unsigned int GetVAO() { return VAO; };
+	inline std::vector<unsigned int>& GetIndices() { return indices; };
+	inline Material& GetMaterial() const { return *m_material; };
+	//void DrawMesh();
 
-	void SetTextureComponent(TextureComponent& textureComponent);
 protected:
+
 private:
 	void SetupVertexData();
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int VAO, VBO, EBO;
-	TextureComponent* textureComponent;
-	TextureComponent* specularComponent;
+	//Material that represents the mesh
+	Material* m_material;
 };

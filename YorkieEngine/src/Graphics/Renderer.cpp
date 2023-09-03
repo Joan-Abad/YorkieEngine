@@ -7,14 +7,22 @@
 #include "UI/imgui_impl_opengl3.h"
 #include "UI/imgui_impl_glfw.h"
 #include "Lighting/BasicLight.h"
+#include "Graphics/Materials/Material.h"
+#include "Graphics/Texture/Texture.h"
 
 glm::mat4 Renderer::projectionMat = glm::mat4(1.0);
+Grid* Renderer::m_sceneGrid = nullptr;
+DirectionalLight* Renderer::m_DirectionalLight = nullptr;
 
 void Renderer::Init(GLFWwindow& window)
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	InitIm_GUI(window);
+
+	//TODO: REMOVE FROM HERE TO LEVEL
+	m_sceneGrid = new Grid();
+	m_DirectionalLight = new DirectionalLight();
 }
 
 void Renderer::ClearColor(glm::vec4 color)
@@ -43,47 +51,67 @@ void Renderer::InitIm_GUI(GLFWwindow& window)
 	ImGui_ImplGlfw_InitForOpenGL(&window, true);	
 }
 
-void Renderer::DrawEntity(Camera& renderCamera, GameEntity& gameEntity)
+void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 {
 	//TODO: Instead of mesh component, it could be set to some more abstract component, like RenderComponent
 	if (gameEntity.HasComponent<MeshComponent>())
 	{
-		Shader& shader = gameEntity.GetShader();
+		auto& meshComponent = gameEntity.GetComponent<MeshComponent>();
+
+		Material& material = meshComponent.GetMaterial();
+		Shader& shader = material.GetShader();
 		shader.Bind();
-		if (gameEntity.m_basicLight)
+		glBindVertexArray(meshComponent.GetVAO());
+
+		if (m_DirectionalLight)
+		{
+			shader.SetUniform3f("viewPos", renderCamera.GetPosition().x, renderCamera.GetPosition().y, renderCamera.GetPosition().z);
+			shader.SetUniform3f("directionLight.direction", m_DirectionalLight->GetLightDirection().x, m_DirectionalLight->GetLightDirection().y, m_DirectionalLight->GetLightDirection().z);
+			shader.SetUniform3f("directionLight.ambient", m_DirectionalLight->m_ambientColor.x, m_DirectionalLight->m_ambientColor.y, m_DirectionalLight->m_ambientColor.z);
+			shader.SetUniform3f("directionLight.diffuse", m_DirectionalLight->m_diffuseColor.x, m_DirectionalLight->m_diffuseColor.y, m_DirectionalLight->m_diffuseColor.z);
+			shader.SetUniform3f("directionLight.specular", m_DirectionalLight->m_specularColor.x, m_DirectionalLight->m_specularColor.y, m_DirectionalLight->m_specularColor.z);
+			
+			if (material.GetAlbedoTexture())
+			{
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, material.GetAlbedoTexture()->GetTextureID());
+				shader.SetUniform1i("material.diffuse", 0);
+			}
+			if (material.GetSpecularTexture())
+			{
+				glActiveTexture(GL_TEXTURE1);
+				glBindTexture(GL_TEXTURE_2D, material.GetSpecularTexture()->GetTextureID());
+				shader.SetUniform1i("material.specular", 1);
+			}
+			shader.SetUniform1f("material.shininess", material.GetShininess());
+			
+			//TODO: Declare the draw function with flags so change draw parameters
+			glDrawElements(GL_TRIANGLES, meshComponent.GetIndices().size(), GL_UNSIGNED_INT, 0);
+		}
+
+		/*if (gameEntity.m_basicLight)
 		{
 			auto& light = gameEntity.m_basicLight;
 			glm::vec3 lightPos = light->GetPosition();
 
-			shader.SetUniform3f("viewPos", renderCamera.GetPosition().x, renderCamera.GetPosition().y, renderCamera.GetPosition().z);
 
-			shader.SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
-			shader.SetUniform1f("material.shininess", 64.f);
-
-			shader.SetUniform3f("light.position", lightPos.x, lightPos.y, lightPos.z);
-			shader.SetUniform3f("light.ambient", 0.1f, 0.1f, 0.1f);
-			shader.SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f);
-			shader.SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
-			//    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);)
-		}
+		}*/
 
 		//Set MVP matrix
 		shader.SetUniformMat4("model", gameEntity.GetModel());
 		shader.SetUniformMat4("view", renderCamera.GetView());
 		//Maybe the projection should come from the camera, as we could render in the screen multiple stuff from multiple cameras. 
-		shader.SetUniformMat4("projection", projectionMat);
+		shader.SetUniformMat4("projection", projectionMat);		
 
-		auto& Component = gameEntity.GetComponent<MeshComponent>();
-		
-		Component.DrawMesh();
+		meshComponent.GetVAO();
 	}
 
 	
 }
 
-void Renderer::DrawGrid(Camera& renderCamera, Grid& grid)
+void Renderer::DrawGrid(Camera& renderCamera)
 {
-	Shader& shader = grid.GetShader();
+	Shader& shader = m_sceneGrid->GetShader();
 	shader.Bind();
 	glm::mat4 model(1.0f);
 	//Set MVP matrix
@@ -92,7 +120,17 @@ void Renderer::DrawGrid(Camera& renderCamera, Grid& grid)
 	//Maybe the projection should come from the camera, as we could render in the screen multiple stuff from multiple cameras. 
 	shader.SetUniformMat4("projection", projectionMat);
 
-	grid.DrawGrid();
+	m_sceneGrid->DrawGrid();
+}
+
+void Renderer::DrawScene(Viewport& viewport)
+{
+	DrawGrid(viewport.GetGamera());
+
+	for (auto& gameEntity : viewport.GetGameEntities())
+	{
+		RenderEntity(viewport.GetGamera(), *gameEntity);
+	}
 }
 
 void Renderer::SetProjectionMatrix(Camera& renderCamera, float aspectRatio)

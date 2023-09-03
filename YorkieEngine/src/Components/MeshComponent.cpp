@@ -1,4 +1,5 @@
 #include "Components/MeshComponent.h"
+#include "Graphics/Materials/Material.h"
 #include "glad/glad.h"
 
 Vertex::Vertex(const glm::vec3& position)
@@ -12,25 +13,14 @@ Vertex::Vertex(const glm::vec3& position, glm::vec3 normal)
 	m_Normal = normal;
 }
 
-MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent, TextureComponent* specularComponent)
+MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Material& material) : BaseComponent()
 {
+	m_material = &material;
 	this->vertices = vertices;
 	this->indices = indices;
-	this->textureComponent = nullptr;
-	this->specularComponent = nullptr;
 	componentName = "MeshComponent";
+
 	SetupVertexData();
-	
-	if (textureComponent)
-	{
-		textureComponent->SetTextureData();
-		this->textureComponent = textureComponent;
-	}
-	if (specularComponent)
-	{
-		this->specularComponent = specularComponent;
-	}
-	glBindVertexArray(0);
 }
 
 void MeshComponent::Start()
@@ -45,26 +35,26 @@ void MeshComponent::PreUpdate(float deltaTime)
 {
 
 }
-
-void MeshComponent::DrawMesh()
-{
-	glBindVertexArray(VAO);
-
-	if (textureComponent)
-	{
-		// Activate the appropriate texture unit
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textureComponent->GetTextureID());
-		textureComponent->GetShader().SetUniform1i("material.diffuse", 0);
-	}
-	if (specularComponent)
-	{
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularComponent->GetTextureID());
-		textureComponent->GetShader().SetUniform1i("material.specular", 1);
-	}
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-}
+//
+//void MeshComponent::DrawMesh()
+//{
+//	glBindVertexArray(VAO);
+//
+//	if (textureComponent)
+//	{
+//		// Activate the appropriate texture unit
+//		glActiveTexture(GL_TEXTURE0);
+//		glBindTexture(GL_TEXTURE_2D, textureComponent->GetTextureID());
+//		textureComponent->GetShader().SetUniform1i("material.diffuse", 0);
+//	}
+//	if (specularComponent)
+//	{
+//		glActiveTexture(GL_TEXTURE1);
+//		glBindTexture(GL_TEXTURE_2D, specularComponent->GetTextureID());
+//		textureComponent->GetShader().SetUniform1i("material.specular", 1);
+//	}
+//	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+//}
 
 
 
@@ -94,5 +84,10 @@ void MeshComponent::SetupVertexData()
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Normal));
 
+	if (m_material)
+	{
+		//TODO: Harcoded for now, should be replaced when meses are loaded by a file.
+		m_material->SetUVsCoordinate();
+	}
 	// Unbind VAO (optional but recommended)
 }

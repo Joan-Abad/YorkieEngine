@@ -38,6 +38,8 @@ public:
 
 	entt::registry registry;
 
+	inline Camera& GetGamera() { return *renderCamera; };
+	inline std::vector<GameEntity*>& GetGameEntities() { return gameEntitites; };
 	//GETTERS
 	inline GLFWwindow* GetWindow() const { return window; };
 
