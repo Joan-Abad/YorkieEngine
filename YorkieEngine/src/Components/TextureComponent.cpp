@@ -6,6 +6,43 @@
 TextureComponent::TextureComponent(const std::string& imagePath)
 {
 	this->imagePath = imagePath;
+
+    // load and create a texture 
+    // -------------------------
+    // texture 1
+    // ---------
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    // set the texture wrapping parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // load image, create texture and generate mipmaps
+    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
+    unsigned char* data = stbi_load(imagePath.c_str(), &width, &height, &nrChannels, 0);
+
+    if (data)
+    {
+        // Check the number of channels and select the appropriate format
+        GLenum format = (nrChannels == 3) ? GL_RGB : GL_RGBA;
+
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        Logger::LogInfo(imagePath + " loaded correctly");
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+
+
+    stbi_image_free(data);
+    glBindBuffer(GL_ARRAY_BUFFER, 0); // Texture coordinates buffer
 }
 
 void TextureComponent::SetTextureData()
@@ -54,44 +91,6 @@ void TextureComponent::SetTextureData()
     glBufferData(GL_ARRAY_BUFFER, TextureCoords.size() * 2 *sizeof(float), TextureCoords.data(), GL_STATIC_DRAW);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
     glEnableVertexAttribArray(2);
-
-    // load and create a texture 
-    // -------------------------
-    // texture 1
-    // ---------
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // load image, create texture and generate mipmaps
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-    unsigned char* data = stbi_load(imagePath.c_str(), &width, &height, &nrChannels, 0);
-    
-    if (data)
-    {
-        // Check the number of channels and select the appropriate format
-        GLenum format = (nrChannels == 3) ? GL_RGB : GL_RGBA;
-
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }   
-
-    Logger::LogInfo(imagePath + " loaded correctly");
-
-    stbi_image_free(data);
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // Texture coordinates buffer
-
 }
 
 void TextureComponent::AttachShader(Shader& shader)

@@ -54,8 +54,17 @@ void Renderer::DrawEntity(Camera& renderCamera, GameEntity& gameEntity)
 		{
 			auto& light = gameEntity.m_basicLight;
 			glm::vec3 lightPos = light->GetPosition();
-			shader.SetUniform3f("lightColor", light->m_lightColor.x, light->m_lightColor.y, light->m_lightColor.z);
-			shader.SetUniform3f("lightPos", light->GetPosition().x, light->GetPosition().y, light->GetPosition().z);
+
+			shader.SetUniform3f("viewPos", renderCamera.GetPosition().x, renderCamera.GetPosition().y, renderCamera.GetPosition().z);
+
+			shader.SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
+			shader.SetUniform1f("material.shininess", 64.f);
+
+			shader.SetUniform3f("light.position", lightPos.x, lightPos.y, lightPos.z);
+			shader.SetUniform3f("light.ambient", 0.1f, 0.1f, 0.1f);
+			shader.SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f);
+			shader.SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+			//    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);)
 		}
 
 		//Set MVP matrix

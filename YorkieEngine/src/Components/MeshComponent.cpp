@@ -12,11 +12,12 @@ Vertex::Vertex(const glm::vec3& position, glm::vec3 normal)
 	m_Normal = normal;
 }
 
-MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent)
+MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent, TextureComponent* specularComponent)
 {
 	this->vertices = vertices;
 	this->indices = indices;
 	this->textureComponent = nullptr;
+	this->specularComponent = nullptr;
 	componentName = "MeshComponent";
 	SetupVertexData();
 	
@@ -24,6 +25,10 @@ MeshComponent::MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned
 	{
 		textureComponent->SetTextureData();
 		this->textureComponent = textureComponent;
+	}
+	if (specularComponent)
+	{
+		this->specularComponent = specularComponent;
 	}
 	glBindVertexArray(0);
 }
@@ -50,10 +55,14 @@ void MeshComponent::DrawMesh()
 		// Activate the appropriate texture unit
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureComponent->GetTextureID());
-
-		textureComponent->GetShader().SetUniform1i("texture1", 0);
+		textureComponent->GetShader().SetUniform1i("material.diffuse", 0);
 	}
-
+	if (specularComponent)
+	{
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularComponent->GetTextureID());
+		textureComponent->GetShader().SetUniform1i("material.specular", 1);
+	}
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
 

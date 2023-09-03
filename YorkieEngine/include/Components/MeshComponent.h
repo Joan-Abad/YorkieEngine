@@ -19,15 +19,19 @@ struct YorkieAPI MeshComponent : public BaseComponent
 {
 public:
 	//MeshComponent(const std::vector<Vertex>& vertices);
-	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent = nullptr);
+	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, TextureComponent* textureComponent = nullptr, TextureComponent* specularComponent = nullptr);
 	virtual void Start() override;
 	virtual void Update(float deltaTime) override;
 	virtual void PreUpdate(float deltaTime) override;
 	void DrawMesh();
+
+	void SetTextureComponent(TextureComponent& textureComponent);
+protected:
 private:
 	void SetupVertexData();
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int VAO, VBO, EBO;
 	TextureComponent* textureComponent;
+	TextureComponent* specularComponent;
 };
