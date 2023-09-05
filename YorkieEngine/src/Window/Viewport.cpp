@@ -49,7 +49,7 @@ void Viewport::Update(float deltaTime)
     // Poll for events
     glfwPollEvents();
 
-    Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
+    Renderer::ClearColor({ 0.0f, 0.0f, 0.0f, 1.f });
 
     ProcessInput();
     UpdateGameEntities(deltaTime);
@@ -76,8 +76,10 @@ void Viewport::InitImGUI()
 
 void Viewport::ProcessInput()
 {
-    const float cameraSpeed = 0.25f; // adjust accordingly
+    float cameraSpeed = 0.25f; // adjust accordingly
 
+    if (input.IsKeyPressed(EKeyboardKeys::KEY_LEFT_SHIFT))
+        cameraSpeed *= 4;
     if (input.IsKeyPressed(EKeyboardKeys::KEY_W))
         renderCamera->AddOffstet(renderCamera->cameraFront * cameraSpeed);
     if (input.IsKeyPressed(EKeyboardKeys::KEY_S))

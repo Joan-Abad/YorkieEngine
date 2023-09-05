@@ -325,6 +325,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="YorkieEngine\include\Graphics\Texture\PickingTexture.cpp" />
     <ClCompile Include="YorkieEngine\src\Game\Lights\BaseLight.cpp" />
     <ClCompile Include="YorkieEngine\src\Game\Lights\DirectionalLight.cpp" />
+    <ClCompile Include="YorkieEngine\src\Game\Lights\PointLight.cpp" />
     <ClCompile Include="YorkieEngine\src\Graphics\Materials\Material.cpp" />
     <ClCompile Include="YorkieEngine\src\Graphics\Texture\Texture.cpp" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h" />
@@ -367,6 +368,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\WindowManager.h" />
     <ClInclude Include="YorkieEngine\include\Game\Lights\BaseLight.h" />
     <ClInclude Include="YorkieEngine\include\Game\Lights\DirectionalLight.h" />
+    <ClInclude Include="YorkieEngine\include\Game\Lights\PointLight.h" />
     <ClInclude Include="YorkieEngine\include\Graphics\Materials\Material.h" />
     <ClInclude Include="YorkieEngine\include\Graphics\Texture\PickingTexture.h" />
     <ClInclude Include="YorkieEngine\include\Graphics\Texture\Texture.h" />

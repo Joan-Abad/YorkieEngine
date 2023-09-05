@@ -11,7 +11,7 @@
 
 unsigned int GameEntity::entityID = 1;
 
-GameEntity::GameEntity() : shader(nullptr), mViewport(nullptr), RootComponent(nullptr), m_basicLight(nullptr)
+GameEntity::GameEntity() : shader(nullptr), mViewport(nullptr), RootComponent(nullptr), m_PointLight(nullptr)
 {
 	entityName = "GameEntity_ " + std::to_string(entityID);
 	entityID++;
@@ -83,14 +83,14 @@ void GameEntity::AddRotation(float Roll, float Pitch, float Yaw)
 		RootComponent->AddRotation(Roll, Pitch, Yaw);
 }
 
-void GameEntity::SetLocation(const glm::vec3& newPosition)
+void GameEntity::SetPosition(const glm::vec3& newPosition)
 {
 	entityName;
 	if (RootComponent)
 		RootComponent->SetPosition(newPosition.x, newPosition.y, newPosition.z);
 }
 
-void GameEntity::SetLocation(float x, float y, float z)
+void GameEntity::SetPosition(float x, float y, float z)
 {
 	if (RootComponent)
 		RootComponent->SetPosition(x,y,z);

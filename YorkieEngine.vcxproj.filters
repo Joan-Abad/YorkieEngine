@@ -117,6 +117,7 @@
     <ClCompile Include="YorkieEngine\src\Game\Lights\DirectionalLight.cpp" />
     <ClCompile Include="YorkieEngine\src\Game\Lights\BaseLight.cpp" />
     <ClCompile Include="YorkieEngine\src\Graphics\Texture\Texture.cpp" />
+    <ClCompile Include="YorkieEngine\src\Game\Lights\PointLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h">
@@ -238,6 +239,7 @@
     <ClInclude Include="YorkieEngine\include\Game\Lights\DirectionalLight.h" />
     <ClInclude Include="YorkieEngine\include\Game\Lights\BaseLight.h" />
     <ClInclude Include="YorkieEngine\include\Graphics\Texture\Texture.h" />
+    <ClInclude Include="YorkieEngine\include\Game\Lights\PointLight.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="E:\Projects\YorkieEngine\CMakeLists.txt" />

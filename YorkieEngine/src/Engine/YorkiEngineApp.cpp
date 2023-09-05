@@ -22,6 +22,7 @@ void YorkieEngineApp::Run()
 {
     CreateApplication();
     InitializeWindows();
+    InitGame();
     Update();
 }
 
@@ -97,13 +98,17 @@ void YorkieEngineApp::CreateApplication()
     InitializeGLFW();
     CreateEngineViewport();
     InitializeGLAD();
-    OnCreateApplicationCallback();
 }
 
 void YorkieEngineApp::CreateEngineViewport()
 {
     auto& viewport = *WindowManager::CreateWindow<Viewport>(yorkiEngineAppConfig.screenWidth, yorkiEngineAppConfig.screenHeight, yorkiEngineAppConfig.title);
     int i = 0;
+}
+
+void YorkieEngineApp::InitGame()
+{
+    OnCreateApplicationCallback();
 }
 
 void YorkieEngineApp::InitializeWindows()

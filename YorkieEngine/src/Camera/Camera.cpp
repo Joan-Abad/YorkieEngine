@@ -20,7 +20,7 @@ Camera::Camera(Viewport* viewport) : GameEntity(),
 
 void Camera::Init()
 {
-	SetLocation(glm::vec3(0.0f, 10.0f, 25.0f));
+	SetPosition(glm::vec3(0.0f, 10.0f, 25.0f));
 	SetRotation(0, -25, -90);
 	SetCameraDirections();
 

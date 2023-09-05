@@ -9,6 +9,7 @@
 #include "Lighting/BasicLight.h"
 #include "Graphics/Materials/Material.h"
 #include "Graphics/Texture/Texture.h"
+#include "Game/Lights/PointLight.h"
 
 glm::mat4 Renderer::projectionMat = glm::mat4(1.0);
 Grid* Renderer::m_sceneGrid = nullptr;
@@ -23,7 +24,9 @@ void Renderer::Init(GLFWwindow& window)
 	//TODO: REMOVE FROM HERE TO LEVEL
 	m_sceneGrid = new Grid();
 	m_DirectionalLight = new DirectionalLight();
-	
+	m_DirectionalLight->m_specularColor = glm::vec3(1.0f, 1.0f, 0.1f);
+	m_DirectionalLight->m_ambientColor = glm::vec3(0.1f, 0.1f, 0.1f);
+	m_DirectionalLight->m_diffuseColor = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
 void Renderer::ClearColor(glm::vec4 color)
@@ -84,20 +87,22 @@ void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 				glBindTexture(GL_TEXTURE_2D, material.GetSpecularTexture()->GetTextureID());
 				shader.SetUniform1i("material.specular", 1);
 				shader.SetUniform1i("bUseSpecular", material.IsUsingSpecularTexture());
-				shader.SetUniform1f("material.shininess", 32);
+				shader.SetUniform1f("material.shininess", 64);
 			}
-			
-			//TODO: Declare the draw function with flags so change draw parameters
-			glDrawElements(GL_TRIANGLES, meshComponent.GetIndices().size(), GL_UNSIGNED_INT, 0);
 		}
 
-		/*if (gameEntity.m_basicLight)
+		if (gameEntity.m_PointLight)
 		{
-			auto& light = gameEntity.m_basicLight;
-			glm::vec3 lightPos = light->GetPosition();
+			const PointLight& pointLight = *gameEntity.m_PointLight;
 
-
-		}*/
+			shader.SetUniform3f("pLight.position", pointLight.RootComponent->GetPosition().x, pointLight.RootComponent->GetPosition().y, pointLight.RootComponent->GetPosition().z);
+			shader.SetUniform3f("pLight.ambient", pointLight.m_ambientColor.x, pointLight.m_ambientColor.y, pointLight.m_ambientColor.z);
+			shader.SetUniform3f("pLight.diffuse", pointLight.m_diffuseColor.x, pointLight.m_diffuseColor.y, pointLight.m_diffuseColor.z);
+			shader.SetUniform3f("pLight.specular", pointLight.m_specularColor.x, pointLight.m_specularColor.y, pointLight.m_specularColor.z);
+			shader.SetUniform1f("pLight.constant", pointLight.m_constant);
+			shader.SetUniform1f("pLight.linear", pointLight.m_linear);
+			shader.SetUniform1f("pLight.quadratic", pointLight.m_quadratic);
+		}
 
 		//Set MVP matrix
 		shader.SetUniformMat4("model", gameEntity.GetModel());
@@ -105,7 +110,8 @@ void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 		//Maybe the projection should come from the camera, as we could render in the screen multiple stuff from multiple cameras. 
 		shader.SetUniformMat4("projection", projectionMat);		
 
-		meshComponent.GetVAO();
+		//TODO: Declare the draw function with flags so change draw parameters
+		glDrawElements(GL_TRIANGLES, meshComponent.GetIndices().size(), GL_UNSIGNED_INT, 0);
 	}
 
 	

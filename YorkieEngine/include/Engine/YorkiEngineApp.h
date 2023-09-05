@@ -27,6 +27,8 @@ protected:
 	void CreateApplication();
 	//This function needs to be called after glfw initialization and before initializing glad
 	void CreateEngineViewport();
+	//Triggers the callback for any sandbos of YorkieEngineApp
+	void InitGame();
 	//Calls Init function on all windows
 	void InitializeWindows();
 	virtual void OnCreateApplicationCallback();

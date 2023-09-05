@@ -7,7 +7,7 @@
 #include "Window/Viewport.h"
 #include "Components/TransformComponent.h"
 
-class BasicLight;
+class PointLight;
 
 class YorkieAPI GameEntity
 {
@@ -41,8 +41,8 @@ public:
 	void AddRotation(float Roll, float Pitch, float Yaw);
 
 	//Sets a new entity location 
-	void SetLocation(float x, float y, float z);
-	void SetLocation(const glm::vec3 &newPosition);
+	void SetPosition(float x, float y, float z);
+	void SetPosition(const glm::vec3 &newPosition);
 
 	//Sets a new entity rotation
 	void SetRotation(float Roll, float Pitch, float Yaw);
@@ -56,7 +56,7 @@ public:
 
 	TransformComponent* RootComponent;
 	//TODO: REMOVE
-	BasicLight* m_basicLight;
+	PointLight* m_PointLight;
 
 	//ECS (ENTT) helper functions
 	//Adds a new component to the entity
