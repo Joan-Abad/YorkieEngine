@@ -23,6 +23,7 @@ void Renderer::Init(GLFWwindow& window)
 	//TODO: REMOVE FROM HERE TO LEVEL
 	m_sceneGrid = new Grid();
 	m_DirectionalLight = new DirectionalLight();
+	
 }
 
 void Renderer::ClearColor(glm::vec4 color)
@@ -82,8 +83,9 @@ void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 				glActiveTexture(GL_TEXTURE1);
 				glBindTexture(GL_TEXTURE_2D, material.GetSpecularTexture()->GetTextureID());
 				shader.SetUniform1i("material.specular", 1);
+				shader.SetUniform1i("bUseSpecular", material.IsUsingSpecularTexture());
+				shader.SetUniform1f("material.shininess", 32);
 			}
-			shader.SetUniform1f("material.shininess", material.GetShininess());
 			
 			//TODO: Declare the draw function with flags so change draw parameters
 			glDrawElements(GL_TRIANGLES, meshComponent.GetIndices().size(), GL_UNSIGNED_INT, 0);

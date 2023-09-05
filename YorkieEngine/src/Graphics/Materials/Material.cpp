@@ -9,6 +9,7 @@ Material::Material(Shader* shader, Texture* albedo, Texture* specular, float shi
 {
 	Diffuse = glm::vec3(0.1f);
 	
+    isUsingSpecular = m_Specular == nullptr ? false : true;
 }
 
 void Material::SetUVsCoordinate()
@@ -23,10 +24,10 @@ void Material::SetUVsCoordinate()
             glm::vec2(0.0f, 1.0f), // Top-left
 
             // Back face
-            glm::vec2(1.0f, 0.0f), // Bottom-left
-            glm::vec2(0.0f, 0.0f), // Bottom-right
-            glm::vec2(0.0f, 1.0f), // Top-right
-            glm::vec2(1.0f, 1.0f), // Top-left
+           glm::vec2(0.0f, 0.0f), // Bottom-left
+            glm::vec2(1.0f, 0.0f), // Bottom-right
+            glm::vec2(1.0f, 1.0f), // Top-right
+            glm::vec2(0.0f, 1.0f), // Top-left
 
             // Right face
             glm::vec2(0.0f, 0.0f), // Bottom-left
@@ -35,22 +36,22 @@ void Material::SetUVsCoordinate()
             glm::vec2(0.0f, 1.0f), // Top-left
 
             // Left face
-            glm::vec2(1.0f, 0.0f), // Bottom-left
-            glm::vec2(0.0f, 0.0f), // Bottom-right
-            glm::vec2(0.0f, 1.0f), // Top-right
-            glm::vec2(1.0f, 1.0f), // Top-left
+           glm::vec2(0.0f, 0.0f), // Bottom-left
+            glm::vec2(1.0f, 0.0f), // Bottom-right
+            glm::vec2(1.0f, 1.0f), // Top-right
+            glm::vec2(0.0f, 1.0f), // Top-left
 
             // Top face
-            glm::vec2(0.0f, 1.0f), // Bottom-left
-            glm::vec2(1.0f, 1.0f), // Bottom-right
-            glm::vec2(1.0f, 0.0f), // Top-right
-            glm::vec2(0.0f, 0.0f), // Top-left
+            glm::vec2(0.0f, 0.0f), // Bottom-left
+            glm::vec2(1.0f, 0.0f), // Bottom-right
+            glm::vec2(1.0f, 1.0f), // Top-right
+            glm::vec2(0.0f, 1.0f), // Top-left
 
             // Bottom face
             glm::vec2(0.0f, 0.0f), // Bottom-left
             glm::vec2(1.0f, 0.0f), // Bottom-right
             glm::vec2(1.0f, 1.0f), // Top-right
-            glm::vec2(0.0f, 1.0f)  // Top-left
+            glm::vec2(0.0f, 1.0f), // Top-left
         };
 
         //Set the data to the gpu

@@ -14,6 +14,7 @@ public:
 
 	inline float GetShininess() const { return m_Shininess; };
 	inline Shader& GetShader() const { return *m_Shader; };
+	inline bool IsUsingSpecularTexture() const { return isUsingSpecular; };
 	inline Texture* GetAlbedoTexture() const { return m_Albedo; };
 	inline Texture* GetSpecularTexture() const { return m_Specular; };
 private: 
@@ -29,6 +30,8 @@ private:
 	Shader* m_Shader;
 	
 	unsigned textureCoordsVBO;
+
+	bool isUsingSpecular;
 
 	void SetUVsCoordinate();
 };
