@@ -6,7 +6,7 @@ class GLFWwindow;
 
 struct YorkieAPI YorkieEngineAppConfig
 {
-	const char* title = "Yorki Engine";
+	const char* title = "Yorkie Engine";
 	unsigned int screenWidth = 2560;
 	unsigned int screenHeight = 1440;
 };

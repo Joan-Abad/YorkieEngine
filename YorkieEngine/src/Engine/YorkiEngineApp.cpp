@@ -1,3 +1,5 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 #include "Engine/YorkiEngineApp.h"
 #include "Graphics/Shaders/Shader.h"
 #include "Game/GameEntity.h"
@@ -10,6 +12,7 @@
 #include "UI/imgui.h"
 #include "UI/imgui_impl_opengl3.h"
 #include "UI/imgui_impl_glfw.h"
+#include "Editor/LevelEditor.h"
 
 double YorkieEngineApp::deltaTime = 0;
 
@@ -103,7 +106,6 @@ void YorkieEngineApp::CreateApplication()
 void YorkieEngineApp::CreateEngineViewport()
 {
     auto& viewport = *WindowManager::CreateWindow<Viewport>(yorkiEngineAppConfig.screenWidth, yorkiEngineAppConfig.screenHeight, yorkiEngineAppConfig.title);
-    int i = 0;
 }
 
 void YorkieEngineApp::InitGame()

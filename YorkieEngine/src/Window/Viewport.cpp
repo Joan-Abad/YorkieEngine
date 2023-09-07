@@ -12,6 +12,8 @@
 #include "gtc/matrix_transform.hpp"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#include "ImGuizmo.h"
+#include "gtc/type_ptr.hpp"
 
 Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode),
     lastX(0), lastY(0), WorldUp(glm::vec3(0, 1, 0)), grid(nullptr), renderCamera(nullptr)
@@ -183,8 +185,11 @@ void Viewport::DrawViewportUI()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+
     bool isWindowOpen = true;
     // Create a window
+
+    
     DrawImGUIDemoWindow();
 
     ImGui::Begin("Outliner", &isWindowOpen, ImGuiWindowFlags_None);
@@ -269,6 +274,22 @@ void Viewport::DrawViewportUI()
         ImGui::Text(yScale.c_str());
         ImGui::SameLine();
         ImGui::Text(zScale.c_str());
+        auto projMat = &Renderer::GetProjectionMat()[0][0];
+
+        ImGuizmo::BeginFrame();
+        ImGuizmo::Enable(true);
+        ImGuizmo::SetOrthographic(false);
+        ImGuizmo::SetDrawlist();
+
+        ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, GetWindowWidth(), GetWindowHeight());
+        
+        ImGuizmo::Manipulate(
+            glm::value_ptr(renderCamera->GetView()),
+            glm::value_ptr(Renderer::GetProjectionMat()),
+            ImGuizmo::OPERATION::TRANSLATE,
+            ImGuizmo::MODE::WORLD,
+            glm::value_ptr(ro->RootComponent->GetModelMat4())
+        );
     }
     else
         Logger::LogError("RO NULL");

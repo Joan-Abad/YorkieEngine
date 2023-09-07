@@ -29,16 +29,22 @@ target_include_directories(YorkieEngine
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glm
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glfw/include			
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/stb
+    ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/assimp/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/ImGuizmo
+
 )
 
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glfw/lib)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/assimp/lib)
+
 # Link your game engine target with GLFW
-target_link_libraries(YorkieEngine ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glfw/lib/glfw3.lib)
+target_link_libraries(YorkieEngine ${CMAKE_CURRENT_SOURCE_DIR} glfw3.lib assimp-vc143-mtd.lib)
 
 # Find and link OpenGL
 find_package(OpenGL REQUIRED)
 target_link_libraries(YorkieEngine OpenGL::GL)
 
-target_compile_definitions(YorkieEngine PRIVATE YENGINE_EXPORT STB_IMAGE_IMPLEMENTATION)
+target_compile_definitions(YorkieEngine PRIVATE YENGINE_EXPORT)
 
 # Add a custom command to copy the GLFW DLL to the binary directory
 add_custom_command(TARGET YorkieEngine POST_BUILD

@@ -1,10 +1,12 @@
 #include "Graphics/Texture/Texture.h"
 #include "glad/glad.h"
-#include "stb_image.h"
 #include "Logging/Logger.h"
- 
+
+
+
 Texture::Texture(const std::string& texturePath)
 {
+    /*
 	this->m_texturePath = texturePath;
 
     glGenTextures(1, &textureID);
@@ -38,5 +40,10 @@ Texture::Texture(const std::string& texturePath)
 
 
     stbi_image_free(data);
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // Texture coordinates buffer
+    glBindBuffer(GL_ARRAY_BUFFER, 0); // Texture coordinates buffer*/
+}
+
+void Texture::SetTextureID(unsigned int textureID)
+{
+    this->textureID = textureID;
 }
