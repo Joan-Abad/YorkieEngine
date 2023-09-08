@@ -58,6 +58,60 @@ void Renderer::InitIm_GUI(GLFWwindow& window)
 void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 {
 	//TODO: Instead of mesh component, it could be set to some more abstract component, like RenderComponent
+
+	if (gameEntity.HasComponent<MeshComponent>())
+	{
+		auto& meshComponent = gameEntity.GetComponent<MeshComponent>();
+
+		for (int i = 0; i < meshComponent.GetMeshes().size(); i++)
+		{
+			auto& Mesh = meshComponent.GetMeshes()[i];
+			//Material is not set. Using assimp material for now. We should change this. 
+			const Material& material = Mesh.GetMaterial();
+			Shader& shader = material.GetShader();
+			shader.Bind();
+
+			shader.SetUniformMat4("model", gameEntity.GetModel());
+			shader.SetUniformMat4("view", renderCamera.GetView());
+			shader.SetUniformMat4("projection", projectionMat);
+
+			Mesh.Draw();
+
+			//Prob  shader is not set
+			/*
+			if (m_DirectionalLight)
+			{
+				//shader.SetUniform3f("viewPos", renderCamera.GetPosition().x, renderCamera.GetPosition().y, renderCamera.GetPosition().z);
+				//shader.SetUniform3f("directionLight.direction", m_DirectionalLight->GetLightDirection().x, m_DirectionalLight->GetLightDirection().y, m_DirectionalLight->GetLightDirection().z);
+				//shader.SetUniform3f("directionLight.ambient", m_DirectionalLight->m_ambientColor.x, m_DirectionalLight->m_ambientColor.y, m_DirectionalLight->m_ambientColor.z);
+				//shader.SetUniform3f("directionLight.diffuse", m_DirectionalLight->m_diffuseColor.x, m_DirectionalLight->m_diffuseColor.y, m_DirectionalLight->m_diffuseColor.z);
+				//shader.SetUniform3f("directionLight.specular", m_DirectionalLight->m_specularColor.x, m_DirectionalLight->m_specularColor.y, m_DirectionalLight->m_specularColor.z);
+				shader.SetUniformMat4("model", gameEntity.GetModel());
+				shader.SetUniformMat4("view", renderCamera.GetView());
+				//Maybe the projection should come from the camera, as we could render in the screen multiple stuff from multiple cameras. 
+				shader.SetUniformMat4("projection", projectionMat);
+
+				//if (gameEntity.m_PointLight)
+				//{
+				//	const PointLight& pointLight = *gameEntity.m_PointLight;
+				//
+				//	shader.SetUniform3f("pLight.position", pointLight.RootComponent->GetPosition().x, pointLight.RootComponent->GetPosition().y, pointLight.RootComponent->GetPosition().z);
+				//	shader.SetUniform3f("pLight.ambient", pointLight.m_ambientColor.x, pointLight.m_ambientColor.y, pointLight.m_ambientColor.z);
+				//	shader.SetUniform3f("pLight.diffuse", pointLight.m_diffuseColor.x, pointLight.m_diffuseColor.y, pointLight.m_diffuseColor.z);
+				//	shader.SetUniform3f("pLight.specular", pointLight.m_specularColor.x, pointLight.m_specularColor.y, pointLight.m_specularColor.z);
+				//	shader.SetUniform1f("pLight.constant", pointLight.m_constant);
+				//	shader.SetUniform1f("pLight.linear", pointLight.m_linear);
+				//	shader.SetUniform1f("pLight.quadratic", pointLight.m_quadratic);
+				//}
+
+
+				
+				//shader.SetUniform1i("bUseSpecular", material.IsUsingSpecularTexture());
+			}*/
+		}
+	}
+
+	/*
 	if (gameEntity.HasComponent<MeshComponent>())
 	{
 		auto& meshComponent = gameEntity.GetComponent<MeshComponent>();
@@ -113,8 +167,7 @@ void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 		//TODO: Declare the draw function with flags so change draw parameters
 		glDrawElements(GL_TRIANGLES, meshComponent.GetIndices().size(), GL_UNSIGNED_INT, 0);
 	}
-
-	
+	*/
 }
 
 void Renderer::DrawGrid(Camera& renderCamera)

@@ -1,50 +1,32 @@
 #pragma once
 #include "Engine/YorkieEngine.h"
-#include "Components/BaseComponent.h"
 #include "Graphics/Shaders/Shader.h"
 #include "Graphics/Texture/Texture.h"
+#include "Graphics/Mesh/Mesh.h"
+#include "Components/BaseComponent.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <string>
 #include <vector>
-#include <glm.hpp>
-
-class Material;
-
-struct YorkieAPI Vertex {
-	glm::vec3 m_Position;
-	glm::vec3 m_Normal;
-	glm::vec2 m_TextCoordinates;
-	
-	Vertex(const glm::vec3& position);
-	Vertex(const glm::vec3& position, glm::vec3 normal);
-	Vertex(const glm::vec3& position, glm::vec3 normal, glm::vec2 textureCoordinates);
-	Vertex() = default;
-};
 
 struct YorkieAPI MeshComponent : public BaseComponent
 {
 public:
-	MeshComponent() = default;
-	//MeshComponent(const std::vector<Vertex>& vertices);
-	MeshComponent(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, Material& material);
-	MeshComponent(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-	virtual void Start() override;
-	virtual void Update(float deltaTime) override;
-	virtual void PreUpdate(float deltaTime) override;
-	void DrawMesh(Shader& shader);
-	inline unsigned int GetVAO() { return VAO; };
-	inline std::vector<unsigned int>& GetIndices() { return indices; };
-	inline Material& GetMaterial() const { return *m_material; };
-	void Draw(Shader& shader);
-
-protected:
-
+    MeshComponent(const char* path);
+    void Draw();
+    std::vector<Mesh>& GetMeshes() { return meshes; };
 private:
-	void SetupMesh();
-	void SetupVertexData();
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	std::vector<Texture> textures;
-	unsigned int VAO, VBO, EBO;
-	unsigned int m_TextureCoordsBO;
-	//Material that represents the mesh
-	Material* m_material;
+    // model data
+    std::vector<Mesh> meshes;
+    std::string directory;
+
+    std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+
+    void loadModel(std::string path);
+    void processNode(aiNode* node, const aiScene* scene);
+    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+    
+    std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+    unsigned int TextureFromFile(const char* path, const std::string& directory);
 };

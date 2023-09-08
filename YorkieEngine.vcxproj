@@ -287,7 +287,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Camera\Camera.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\BaseComponent.cpp" />
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\MeshComponent.cpp" />
+    <ClCompile Include="YorkieEngine\src\Mesh\Mesh.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\TextureComponent.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\TransformComponent.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Editor\Grid.cpp" />
@@ -315,7 +315,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\MathHelpers.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Vector2D.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Vector3D.cpp" />
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Mesh\Model.cpp" />
+    <ClCompile Include="YorkieEngine\src\Components\MeshComponent.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\CameraModule.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\ShaderModule.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\GraphEditor.cpp" />
@@ -336,7 +336,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\glad.cpp" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\BaseComponent.h" />
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\MeshComponent.h" />
+    <ClInclude Include="YorkieEngine\include\Graphics\Mesh\Mesh.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\TextureComponent.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\TransformComponent.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Editor\Grid.h" />
@@ -353,7 +353,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\VAO.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\VBO.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Materials\Material.h" />
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Mesh\Model.h" />
+    <ClInclude Include="YorkieEngine\include\Components\MeshComponent.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Primitives\Cube.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Renderer.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Shaders\Shader.h" />

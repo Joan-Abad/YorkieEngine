@@ -7,7 +7,7 @@
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\BaseComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\MeshComponent.cpp">
+    <ClCompile Include="YorkieEngine\src\Mesh\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\TextureComponent.cpp">
@@ -91,7 +91,7 @@
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Vector3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Mesh\Model.cpp">
+    <ClCompile Include="YorkieEngine\src\Components\MeshComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\CameraModule.cpp">
@@ -156,7 +156,7 @@
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\BaseComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\MeshComponent.h">
+    <ClInclude Include="YorkieEngine\include\Graphics\Mesh\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\TextureComponent.h">
@@ -207,7 +207,7 @@
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Materials\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Mesh\Model.h">
+    <ClInclude Include="YorkieEngine\include\Components\MeshComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Primitives\Cube.h">

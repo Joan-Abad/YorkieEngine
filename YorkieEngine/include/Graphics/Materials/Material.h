@@ -8,8 +8,9 @@ class Texture;
 
 class YorkieAPI Material
 {
-	friend class MeshComponent;
+	friend class Mesh;
 public: 
+	Material() = default;
 	Material(Shader* shader, Texture* albedo = nullptr, Texture* specular = nullptr, float shininess = 32.f);
 
 	inline float GetShininess() const { return m_Shininess; };
@@ -32,6 +33,4 @@ private:
 	unsigned textureCoordsVBO;
 
 	bool isUsingSpecular;
-
-	void SetUVsCoordinate();
 };
