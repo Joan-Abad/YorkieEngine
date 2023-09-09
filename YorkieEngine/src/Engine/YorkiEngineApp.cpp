@@ -13,6 +13,7 @@
 #include "UI/imgui_impl_opengl3.h"
 #include "UI/imgui_impl_glfw.h"
 #include "Editor/LevelEditor.h"
+#include "Graphics/Renderer.h"
 
 double YorkieEngineApp::deltaTime = 0;
 
@@ -105,7 +106,11 @@ void YorkieEngineApp::CreateApplication()
 
 void YorkieEngineApp::CreateEngineViewport()
 {
-    auto& viewport = *WindowManager::CreateWindow<Viewport>(yorkiEngineAppConfig.screenWidth, yorkiEngineAppConfig.screenHeight, yorkiEngineAppConfig.title);
+    //TODO: Check if there was a level created and saved. Saved system not created for now. 
+    //Creating a default level for now
+    Level* level = new Level("Default Level");
+    auto& levelEditor = *WindowManager::CreateWindow<LevelEditor>(yorkiEngineAppConfig.levelEditorWindowProps, level);
+
 }
 
 void YorkieEngineApp::InitGame()

@@ -10,10 +10,9 @@
 #include "UI/imgui_impl_glfw.h" // Include the proper ImGui backend for GLFW
 #include "UI/imgui_impl_opengl3.h" // Include the proper ImGui backend for OpenGL
 
-Window::Window(int width, int height, const char* title, WindowMode windowMode) //: width(width), height(height), title(title), windowMode(windowMode)
+Window::Window(const WindowProperties windowProperties)
 {
-    // Create a GLFW window
-    window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+    window = glfwCreateWindow(windowProperties.m_Width, windowProperties.m_Height, windowProperties.m_Title, nullptr, nullptr);
     if (!window)
     {
         Logger::LogError("WINDOW COULD NOT BE CREATED");

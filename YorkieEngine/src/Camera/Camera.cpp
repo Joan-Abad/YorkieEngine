@@ -4,7 +4,7 @@
 #include "Modules/CameraModule.h"
 #include "Graphics/Renderer.h"
 
-Camera::Camera(Viewport* viewport) : GameEntity(),
+Camera::Camera() : GameEntity(),
 	cameraTarget(glm::vec3(0.f, 0.f, 0.f)),
 	cameraDirection(glm::vec3(0.f, 0.f, 0.f)),
 	cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),

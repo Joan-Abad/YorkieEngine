@@ -1,14 +1,13 @@
 #pragma once
 #include "YorkieEngine.h"
 #include "Modules/ShaderModule.h"
+#include "Window/Window.h"
 
 class GLFWwindow; 
 
 struct YorkieAPI YorkieEngineAppConfig
 {
-	const char* title = "Yorkie Engine";
-	unsigned int screenWidth = 1920;
-	unsigned int screenHeight = 1080;
+	WindowProperties levelEditorWindowProps;
 };
 
 class YorkieAPI YorkieEngineApp

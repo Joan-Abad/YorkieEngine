@@ -19,7 +19,7 @@ void Renderer::Init(GLFWwindow& window)
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	InitIm_GUI(window);
+	//InitIm_GUI(window);
 
 	//TODO: REMOVE FROM HERE TO LEVEL
 	m_sceneGrid = new Grid();
@@ -177,13 +177,13 @@ void Renderer::DrawGrid(Camera& renderCamera)
 	m_sceneGrid->DrawGrid();
 }
 
-void Renderer::DrawScene(Viewport& viewport)
+void Renderer::DrawScene(Level& level)
 {
-	DrawGrid(viewport.GetGamera());
+	DrawGrid(level.GetGamera());
 
-	for (auto& gameEntity : viewport.GetGameEntities())
+	for (auto& gameEntity : level.GetGameEntities())
 	{
-		RenderEntity(viewport.GetGamera(), *gameEntity);
+		RenderEntity(level.GetGamera(), *gameEntity);
 	}
 }
 

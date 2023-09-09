@@ -1,11 +1,13 @@
 #pragma once
 
 #include "Game/GameEntity.h"
+#include "glm.hpp"
 
-class Camera : public GameEntity
+class YorkieAPI Camera : public GameEntity
 {
-	friend class Viewport;
 public:
+	Camera();
+
 	float FOV;
 
 	glm::vec3 cameraDirection;
@@ -28,7 +30,6 @@ protected:
 	//virtual void Update(float deltaTime);
 	//virtual void PostUpdate();
 private:
-	Camera(Viewport* viewport);
 	float nearPlane;
 	float farPlane;
 	glm::mat4 view;

@@ -14,7 +14,7 @@
 #include "GLFW/glfw3.h"
 #include "ImGuizmo.h"
 #include "gtc/type_ptr.hpp"
-
+/*
 Viewport::Viewport(int width, int height, const char* title, WindowMode windowMode) : Window(width, height, title, windowMode),
     lastX(0), lastY(0), WorldUp(glm::vec3(0, 1, 0)), grid(nullptr), renderCamera(nullptr)
 {
@@ -25,6 +25,7 @@ Viewport::Viewport(int width, int height, const char* title, WindowMode windowMo
 void Viewport::Init()
 {
     glEnable(GL_DEPTH_TEST);
+    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
    
     glfwSetWindowUserPointer(window, this);
@@ -56,7 +57,7 @@ void Viewport::Update(float deltaTime)
     ProcessInput();
     UpdateGameEntities(deltaTime);
 
-    Renderer::DrawScene(*this);
+    //Renderer::DrawScene(*this);
     DrawViewportUI();
 
     // Swap the front and back buffers
@@ -128,7 +129,7 @@ void Viewport::ProcessInput()
 void Viewport::InitViewportCamera()
 {
     //GameCamera
-    renderCamera = CreateEntity<Camera>(this);
+    //renderCamera = CreateEntity<Camera>(this);
     WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
@@ -316,3 +317,4 @@ void Viewport::DrawLevel(float deltaTime)
 {
 
 }
+*/

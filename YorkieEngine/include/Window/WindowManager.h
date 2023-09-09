@@ -7,10 +7,10 @@ class YorkieAPI WindowManager
 {
 	friend class Window;
 public:
-	template <typename WindowType = Window>
-	static Window* CreateWindow(int width = 800, int height = 600, const char* title = "YorkiEngine", WindowMode windowMode = WindowMode::Windowed)
+	template <typename WindowType = Window, typename... Args>
+	static WindowType* CreateWindow(Args&&... args)
 	{
-		Window* window = new WindowType(width, height, title, windowMode);
+		WindowType* window = new WindowType(std::forward<Args>(args)...);
 		windows.push_back(window);
 
 		if (!activeWindow)

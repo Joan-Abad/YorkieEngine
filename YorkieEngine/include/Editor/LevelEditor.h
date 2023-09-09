@@ -2,11 +2,16 @@
 #include "Window/Window.h"
 #include "Game/GameEntity.h"
 #include "Engine/YorkieEngine.h"
+#include "Game/Level.h"
+#include "Camera/Camera.h"
+
 #include <vector>
-class LevelEditor : public Window
+
+
+class YorkieAPI LevelEditor : public Window
 {
 	friend class WindowManager;
-public:
+	friend class Level;
 
 protected: 
 	virtual void Init();
@@ -14,18 +19,22 @@ protected:
 	virtual void Update(float deltaTime);
 
 private:
-	LevelEditor(int width, int height, const char* title, WindowMode windowMode);
+	LevelEditor(WindowProperties windowProps, Level* level);
 
-	void StartFrame();
-	void EndFrame();
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void EditorInput();
+	void SetLevelEditorFlags();
 
-	void CreateLevelEditor();
+	//TODO: Maybe could be set in another class
+	void InitUI();
 
-	void DrawLevelEditor();
 
-	void DrawOutliner();
+	bool bIsInGame;
+	bool bIsEscapeAvailable;
 
-	
+	float m_mouseLastX;
+	float m_mouseLastY;
 
-	std::vector<GameEntity*> gameEntities;
+	Level* m_CurrentLevel;
+	Input* input;
 };

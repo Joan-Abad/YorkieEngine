@@ -6,12 +6,14 @@
 #include "entt/entt.hpp"
 #include "Window/Viewport.h"
 #include "Components/TransformComponent.h"
+#include "Game/Level.h"
 
 class PointLight;
 
 class YorkieAPI GameEntity
 {
 	friend class Viewport;
+	friend class Level;
 public: 
 	GameEntity();
 
@@ -52,7 +54,7 @@ public:
 	void SetScale(glm::vec3 &newScale);
 
 	//Pointer that stores in which level this entity is in
-	void SetViewport(Viewport* viewport);
+	void SetViewport(Level& level);
 
 	TransformComponent* RootComponent;
 	//TODO: REMOVE
@@ -63,7 +65,7 @@ public:
 	template <typename T, typename... Args>
 	T& AddComponent(Args&&... args)
 	{
-		auto& newComponent =  mViewport->registry.emplace<T>(entity, std::forward<Args>(args)...);
+		auto& newComponent = m_Level->GetRegistry().emplace<T>(entity, std::forward<Args>(args)...);
 		components.push_back(&newComponent);
 		return newComponent;
 	}
@@ -71,13 +73,13 @@ public:
 	template <typename T>
 	T& GetComponent()
 	{
-		return mViewport->registry.get<T>(entity);
+		return m_Level->GetRegistry().get<T>(entity);
 	}
 	//Check if an entity has a component
 	template <typename T>
 	bool HasComponent()
 	{
-		return mViewport->registry.any_of<T>(entity);
+		return m_Level->GetRegistry().any_of<T>(entity);
 	}
 
 	/////////////////////////////
@@ -92,7 +94,7 @@ public:
 	inline glm::mat4& GetModel() { return *RootComponent; };
 
 protected:
-	Viewport* mViewport;
+	Level* m_Level;
 
 private:
 	Shader* shader;
@@ -101,6 +103,6 @@ private:
 	std::vector<BaseComponent*> components;
 	//Entity ID, used for now to give a defualt name to each entity
 	static unsigned int entityID;
-	void SetupEntity(Viewport* viewport);
+	void SetupEntity(Level& level);
 
 };

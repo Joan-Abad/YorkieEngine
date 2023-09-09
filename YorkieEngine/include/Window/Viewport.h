@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
 #include "Window.h"
@@ -20,21 +20,7 @@ class YorkieAPI Viewport : public Window
 	friend class WindowManager;
 
 public:
-	//Function to call each time we want to create a game entity
-	template<typename T = GameEntity, typename... Args>
-	T* CreateEntity(Args&&... args)
-	{
-		T* gameEntity = new T(std::forward<Args>(args)...);
-		if (gameEntity)
-		{
-			gameEntity->SetupEntity(this);
-			gameEntitites.push_back(gameEntity);
-		}
-		else
-			Logger::LogError("Game Entity could not be created");
-
-		return gameEntity;
-	}
+	
 
 	entt::registry registry;
 
@@ -79,3 +65,4 @@ private:
 	Input input;
 };
 
+*/

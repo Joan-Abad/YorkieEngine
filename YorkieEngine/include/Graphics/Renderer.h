@@ -10,6 +10,7 @@
 
 #include "Game/Lights/DirectionalLight.h"
 #include "Game/GameEntity.h"
+#include "Game/Level.h"
 
 class Grid;
 
@@ -20,7 +21,7 @@ public:
 	static void ClearColor(glm::vec4 color);
 	static void RenderEntity(Camera& renderCamera, GameEntity& gameEntity);
 	static void DrawGrid(Camera& renderCamera);
-	static void DrawScene(Viewport& viewport);
+	static void DrawScene(Level & level);
 	static void SetProjectionMatrix(Camera& renderCamera, float aspectRatio);
 	inline static glm::mat4 &GetProjectionMat() { return projectionMat; };
 	static DirectionalLight* m_DirectionalLight;

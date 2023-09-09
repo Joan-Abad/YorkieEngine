@@ -11,7 +11,7 @@
 
 unsigned int GameEntity::entityID = 1;
 
-GameEntity::GameEntity() : shader(nullptr), mViewport(nullptr), RootComponent(nullptr), m_PointLight(nullptr)
+GameEntity::GameEntity() : shader(nullptr), m_Level(nullptr), RootComponent(nullptr), m_PointLight(nullptr)
 {
 	entityName = "GameEntity_ " + std::to_string(entityID);
 	entityID++;
@@ -114,16 +114,16 @@ void GameEntity::SetScale(glm::vec3& newScale)
 		RootComponent->SetScale(newScale.x, newScale.y, newScale.z);
 }
 
-void GameEntity::SetViewport(Viewport* viewport)
+void GameEntity::SetViewport(Level& level)
 {
-	this->mViewport = viewport;
-	entity = mViewport->registry.create();
+	m_Level = &level;
+	entity = m_Level->GetRegistry().create();
 }
 
-void GameEntity::SetupEntity(Viewport* viewport)
+void GameEntity::SetupEntity(Level& level)
 {
-	this->mViewport = viewport;
-	entity = mViewport->registry.create();
+	m_Level = &level;
+	entity = m_Level->GetRegistry().create();
 	RootComponent = &AddComponent<TransformComponent>();
 	OnConstruct();
 }
