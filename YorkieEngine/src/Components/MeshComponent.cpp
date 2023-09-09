@@ -5,9 +5,9 @@
 #include <iostream>
 
 
-MeshComponent::MeshComponent(const char* path) : BaseComponent()
+MeshComponent::MeshComponent(const char* path, bool FlipUvs) : BaseComponent()
 {
-	loadModel(path);
+	loadModel(path, FlipUvs);
 }
 
 void MeshComponent::Draw()
@@ -16,10 +16,16 @@ void MeshComponent::Draw()
 		meshes[i].Draw();
 }
 
-void MeshComponent::loadModel(std::string path)
+void MeshComponent::loadModel(std::string path, bool FlipUvs)
 {
     Assimp::Importer import;
-    const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate /*| aiProcess_FlipUVs*/);
+    
+    unsigned int modelImportFlags = aiProcess_Triangulate;
+
+    if (FlipUvs)
+        modelImportFlags |= aiProcess_FlipUVs;
+
+    const aiScene* scene = import.ReadFile(path, modelImportFlags);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
@@ -123,10 +129,12 @@ Mesh MeshComponent::processMesh(aiMesh* mesh, const aiScene* scene)
 std::vector<Texture> MeshComponent::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
     std::vector<Texture> textures;
-    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+    unsigned int textureCount = mat->GetTextureCount(type);
+    for (unsigned int i = 0; i < textureCount; i++)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
+
         bool skip = false;
         for (unsigned int j = 0; j < textures_loaded.size(); j++)
         {
@@ -142,7 +150,7 @@ std::vector<Texture> MeshComponent::loadMaterialTextures(aiMaterial* mat, aiText
             Texture texture;
             texture.SetTextureID(TextureFromFile(str.C_Str(), directory));
             texture.type = typeName;
-            texture.GetTexturePath() = str.C_Str();
+            texture.SetTexturePath(str.C_Str());
             textures.push_back(texture);
             textures_loaded.push_back(texture); // add to loaded textures
         }

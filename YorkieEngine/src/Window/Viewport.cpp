@@ -51,7 +51,7 @@ void Viewport::Update(float deltaTime)
     // Poll for events
     glfwPollEvents();
 
-    Renderer::ClearColor({ 0.0f, 0.0f, 0.0f, 1.f });
+    Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.f });
 
     ProcessInput();
     UpdateGameEntities(deltaTime);

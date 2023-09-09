@@ -61,13 +61,11 @@ void Mesh::Draw()
 			number = std::to_string(diffuseNr++);
 			textureTypeSupported = true;
 		}
-		/*
 		else if (name == "texture_specular")
 		{
 			number = std::to_string(specularNr++);
 			textureTypeSupported = true;
 		}
-		*/
 		if (textureTypeSupported)
 		{
 			std::string uniformName = "material." + name + number;
@@ -76,6 +74,8 @@ void Mesh::Draw()
 		}
 	}
 	glActiveTexture(GL_TEXTURE0);
+
+	m_material->m_Shader->SetUniform1f("material.shininess", m_material->GetShininess());
 
 	// draw mesh
 	glBindVertexArray(VAO);

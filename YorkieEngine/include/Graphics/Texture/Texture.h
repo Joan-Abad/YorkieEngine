@@ -10,6 +10,7 @@ public:
 	Texture(const std::string& texturePath);
 	void SetTextureID(unsigned int textureID);
 	inline unsigned int GetTextureID() { return textureID; };
+	void SetTexturePath(const std::string& texturePath);
 	inline std::string& GetTexturePath() { return m_texturePath; };
 private: 
 	std::string m_texturePath;

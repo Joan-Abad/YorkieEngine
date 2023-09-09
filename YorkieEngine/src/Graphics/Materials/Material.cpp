@@ -10,4 +10,5 @@ Material::Material(Shader* shader, Texture* albedo, Texture* specular, float shi
 	Diffuse = glm::vec3(0.1f);
 	
     isUsingSpecular = m_Specular == nullptr ? false : true;
+	
 }

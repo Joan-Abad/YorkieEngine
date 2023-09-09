@@ -23,6 +23,8 @@ public:
 	static void DrawScene(Viewport& viewport);
 	static void SetProjectionMatrix(Camera& renderCamera, float aspectRatio);
 	inline static glm::mat4 &GetProjectionMat() { return projectionMat; };
+	static DirectionalLight* m_DirectionalLight;
+
 private: 
 	void SetLightColorOnShaders();
 	static void InitIm_GUI(GLFWwindow& window);
@@ -30,6 +32,5 @@ private:
 
 	//TODO: REMOVE TO LEVEL
 	static Grid* m_sceneGrid;
-	static DirectionalLight* m_DirectionalLight;
 };
 

@@ -47,3 +47,8 @@ void Texture::SetTextureID(unsigned int textureID)
 {
     this->textureID = textureID;
 }
+
+void Texture::SetTexturePath(const std::string& texturePath)
+{
+    this->m_texturePath = texturePath;
+}

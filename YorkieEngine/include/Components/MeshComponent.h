@@ -13,7 +13,7 @@
 struct YorkieAPI MeshComponent : public BaseComponent
 {
 public:
-    MeshComponent(const char* path);
+    MeshComponent(const char* path, bool FlipUvs = false);
     void Draw();
     std::vector<Mesh>& GetMeshes() { return meshes; };
 private:
@@ -23,7 +23,7 @@ private:
 
     std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 
-    void loadModel(std::string path);
+    void loadModel(std::string path, bool FlipUvs);
     void processNode(aiNode* node, const aiScene* scene);
     Mesh processMesh(aiMesh* mesh, const aiScene* scene);
     
