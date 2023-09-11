@@ -100,42 +100,6 @@
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\ShaderModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\GraphEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImCurveEdit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGradient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGuizmo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImSequencer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_impl_glfw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_impl_opengl3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_tables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\Viewport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -148,6 +112,15 @@
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\glad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="YorkieEngine\src\Game\Level.cpp" />
+    <ClCompile Include="YorkieEngine\src\Editor\EditorWindow.cpp" />
+    <ClCompile Include="YorkieEngine\src\UI\imgui.cpp" />
+    <ClCompile Include="YorkieEngine\src\UI\imgui_demo.cpp" />
+    <ClCompile Include="YorkieEngine\src\UI\imgui_draw.cpp" />
+    <ClCompile Include="YorkieEngine\src\UI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="YorkieEngine\src\UI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="YorkieEngine\src\UI\imgui_tables.cpp" />
+    <ClCompile Include="YorkieEngine\src\UI\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h">
@@ -252,33 +225,6 @@
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Modules\ShaderModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_impl_glfw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_impl_opengl3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_impl_opengl3_loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imgui_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imstb_rectpack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imstb_textedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\imstb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\Viewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -292,6 +238,17 @@
     <ClInclude Include="YorkieEngine\include\Game\Lights\DirectionalLight.h" />
     <ClInclude Include="YorkieEngine\include\Game\Lights\PointLight.h" />
     <ClInclude Include="YorkieEngine\include\Game\GameEntity.h" />
+    <ClInclude Include="YorkieEngine\include\Game\Level.h" />
+    <ClInclude Include="YorkieEngine\include\Editor\EditorWindow.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imconfig.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imgui.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imgui_impl_glfw.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imgui_impl_opengl3.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imgui_internal.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imstb_rectpack.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imstb_textedit.h" />
+    <ClInclude Include="YorkieEngine\include\UI\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="E:\Projects\YorkieEngine\CMakeLists.txt" />

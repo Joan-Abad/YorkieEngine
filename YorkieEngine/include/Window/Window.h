@@ -13,7 +13,10 @@ enum class YorkieAPI WindowMode
 
 struct YorkieAPI WindowProperties
 {
-	WindowProperties(int width = 3840, int height = 2160, WindowMode windowMode = WindowMode::Windowed) 
+	//3840 x 2160
+	//2560 x 1600
+	//1920 x 1080
+	WindowProperties(int width = 2560, int height = 1600, WindowMode windowMode = WindowMode::Windowed)
 		: m_Width(width), m_Height(height), m_WindowMode(windowMode)
 	{
 
