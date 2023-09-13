@@ -4,7 +4,7 @@
 #include "Engine/YorkieEngine.h"
 #include "Game/Level.h"
 #include "Camera/Camera.h"
-#include "UI/imgui.h"
+#include "UI/ImGUI/imgui.h"
 
 #include <vector>
 
@@ -23,6 +23,8 @@ protected:
 
 	virtual void Update(float deltaTime);
 
+public: 
+	inline Level* GetCurrentLevel() const { return m_CurrentLevel; };
 
 private:
 	LevelEditor(WindowProperties windowProps, Level* level);
@@ -33,6 +35,7 @@ private:
 	void SetLevelEditorFlags();
 	void RenderUI();
 	void Render3DScene();
+	void WriteLogToFile();
 	//TODO: Maybe could be set in another class
 	void InitUI();
 	float GetLevelSceneAspectRation();
@@ -62,6 +65,7 @@ private:
 		//The texture size of the current render scene texture
 
 	ImVec2 m_SceneTextureSize;
+	ImVec2 m_ScenePosition;
 
 	//////////////////////////////////////////////////////////////////
 	///////////////////// CONTENT BROWSER ////////////////////////////
@@ -79,6 +83,13 @@ private:
 	const ImVec2 m_ContentBrowerPortionOfTheScreenPosition = { 0, 0.8f };
 
 	//////////////////////////////////////////////////////////////////
+	///////////////////// CONSOLE LOG ////////////////////////////
+	//////////////////////////////////////////////////////////////////
+
+	//Used to check for setting the scroll to the bottom when messages are getting printed. 
+	size_t m_MessageNum = 0;
+	
+	//////////////////////////////////////////////////////////////////
 	///////////////////////  OUTLINER  ///////////////////////////////
 	//////////////////////////////////////////////////////////////////
 
@@ -87,6 +98,7 @@ private:
 	//The position of the content browser is stored here
 	ImVec2 m_OutlinerPosition;
 	ImGuiWindowFlags m_OutlinerFlags;
+	GameEntity* entitySelected;
 	//How much % of the screen is going to ocuppy 1 = 100%, 0 = 0% and where you want it to be
 	const ImVec2 m_OutlinerPortionOfTheScreenSize = { 0.15, 0.8f };
 

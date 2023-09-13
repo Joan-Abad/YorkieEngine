@@ -1,7 +1,7 @@
 #include "Window/Viewport.h"
-#include "UI/imgui.h"
-#include "UI/imgui_impl_glfw.h" // Include the proper ImGui backend for GLFW
-#include "UI/imgui_impl_opengl3.h" // Include the proper ImGui backend for OpenGL
+#include "UI/ImGUI/imgui.h"
+#include "UI/ImGUI/imgui_impl_glfw.h" // Include the proper ImGui backend for GLFW
+#include "UI/ImGUI/imgui_impl_opengl3.h" // Include the proper ImGui backend for OpenGL
 #include "Maths/Vector3D.h"
 #include "Logging/Logger.h"
 #include "Graphics/Primitives/Cube.h"

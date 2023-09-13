@@ -3,9 +3,9 @@
 #include "glad/glad.h"
 #include "Components/MeshComponent.h"
 #include <gtc/matrix_transform.hpp>
-#include "UI/imgui.h"
-#include "UI/imgui_impl_opengl3.h"
-#include "UI/imgui_impl_glfw.h"
+#include "UI/ImGUI/imgui.h"
+#include "UI/ImGUI/imgui_impl_opengl3.h"
+#include "UI/ImGUI/imgui_impl_glfw.h"
 #include "Lighting/BasicLight.h"
 #include "Graphics/Materials/Material.h"
 #include "Graphics/Texture/Texture.h"

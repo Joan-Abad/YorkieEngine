@@ -1,9 +1,15 @@
 #include "Editor/LevelEditor.h"
-#include "UI/imgui_impl_opengl3.h"
-#include "UI/imgui_impl_glfw.h"
+#include "UI/ImGUI/imgui_impl_opengl3.h"
+#include "UI/ImGUI/imgui_impl_glfw.h"
 #include "Graphics/Renderer.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp"
+#include "gtc/matrix_transform.hpp"
+#include <fstream>
+#include <filesystem>
+
+#include "ImGuizmo.h"
 
 LevelEditor::LevelEditor(WindowProperties windowProps, Level * level) : bIsInGame(false), Window(windowProps)
 {
@@ -82,8 +88,10 @@ void LevelEditor::InitUI()
     // Check for framebuffer completeness
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         // Handle framebuffer initialization error
-        Logger::LogError("Error");
+        Logger::LogError("Error setting the frame buffer for the scene rendering");
     }
+    else
+        Logger::LogInfo("Frame buffer for scene render set correctly");
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind the framebuffer
 
@@ -100,9 +108,13 @@ float LevelEditor::GetLevelSceneAspectRation()
 void LevelEditor::Update(float deltaTime)
 {
     NewLevelEditorFrame();
+    m_CurrentLevel->UpdateGameEntities(deltaTime);
     EditorInput();
     RenderUI();
     Render3DScene();
+    //glBindFramebuffer(GL_FRAMEBUFFER, sceneFrameBuffer);
+    //Renderer::ClearColor({ 0.2, 0.2, 0.2, 0.1 });
+    //Renderer::DrawScene(*m_CurrentLevel);
     glfwSwapBuffers(window);
 }
 
@@ -154,6 +166,8 @@ void LevelEditor::EditorInput()
         renderCamera.AddOffstet(-(renderCamera.cameraRight * cameraSpeed));
     if (input->IsKeyPressed(EKeyboardKeys::KEY_D))
         renderCamera.AddOffstet(renderCamera.cameraRight * cameraSpeed);
+    if (input->IsKeyPressed(EKeyboardKeys::KEY_P))
+        WriteLogToFile();
 
     if (input->IsKeyPressed(EKeyboardKeys::KEY_ESCAPE))
     {
@@ -164,16 +178,16 @@ void LevelEditor::EditorInput()
             {
                 glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
                 glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-                m_mouseLastX = GetWindowWidth() / 2;
-                m_mouseLastY = GetWindowHeight() / 2;
+                m_mouseLastX = m_SceneTextureSize.x / 2;
+                m_mouseLastY = m_SceneTextureSize.y / 2;
                 glfwSetCursorPos(window, m_mouseLastX, m_mouseLastY);
             }
             else
             {
                 glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
                 glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-                m_mouseLastX = GetWindowWidth() / 2;
-                m_mouseLastY = GetWindowHeight() / 2;
+                m_mouseLastX = m_SceneTextureSize.x / 2;
+                m_mouseLastY = m_SceneTextureSize.y / 2;
                 glfwSetCursorPos(window, m_mouseLastX, m_mouseLastY);
             }
             bIsEscapeAvailable = false;
@@ -187,14 +201,25 @@ void LevelEditor::EditorInput()
 
     glm::mat4 camView = glm::lookAt(renderCamera.GetPosition(), renderCamera.GetPosition() + renderCamera.cameraFront, renderCamera.cameraUp);
     renderCamera.SetViewMatrix(camView);
-
     Renderer::SetProjectionMatrix(renderCamera, GetLevelSceneAspectRation());
+
+
+    if (bIsInGame)
+    {
+        std::string printMsg = "\nCamera Front: X: " + std::to_string(renderCamera.cameraFront.x)
+            + " - Y: " + std::to_string(renderCamera.cameraFront.y)
+            + " - Z: " + std::to_string(renderCamera.cameraFront.z) + "\n"
+            + " - Camera Up: X: " + std::to_string(renderCamera.cameraUp.x)
+            + " - Y: " + std::to_string(renderCamera.cameraUp.y) +
+            " - Z: " + std::to_string(renderCamera.cameraUp.z) + "\n";
+        Logger::LogInfo(printMsg);
+    }
 }
 
 void LevelEditor::SetLevelEditorFlags()
 {
-    glEnable(GL_DEPTH_TEST);
-
+    glEnable(GL_DEPTH_TEST );
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 
@@ -222,7 +247,7 @@ void LevelEditor::RenderUI()
     ImGui::SetNextWindowSize(m_ContentBrowserSize);
     ImGui::SetNextWindowPos(m_ContentBrowserPosition);
 
-    if (ImGui::Begin("Content Browser", NULL, contentBrowserFlags))
+    if (ImGui::Begin("BottomWindow", NULL, contentBrowserFlags))
     {
         ImGui::SetWindowFontScale(windowFontScale);
 
@@ -239,8 +264,20 @@ void LevelEditor::RenderUI()
             // Tab 2
             if (ImGui::BeginTabItem("Console Log")) {
 
-                ImGui::Text("Console Log");
+                if (ImGui::BeginChild("Red", ImVec2(m_ContentBrowserSize.x - m_ContentBrowserSize.x * 0.005f, m_ContentBrowserSize.y - m_ContentBrowserSize.y * 0.18f), false, 0))
+                {
 
+                    for (const auto& message : Logger::GetMessages())
+                    {
+                        ImGui::TextColored(message.color, message.message.c_str());
+                    }
+                    m_MessageNum = Logger::GetMessages().size();
+
+                    //if (Logger::GetMessages().size() > m_MessageNum)
+                        //ImGui::SetScrollHereY(1.0f);
+
+                    ImGui::EndChild();
+                }
                 ImGui::EndTabItem();
             }
 
@@ -268,7 +305,33 @@ void LevelEditor::RenderUI()
             // Tab 1
             if (ImGui::BeginTabItem("Outliner")) {
 
-                ImGui::Text("This is Tab Outliner content.");
+                ImGui::Text("GameEntities:");
+
+                static int item_current_idx = 0; // Here we store our selection data as an index.
+                if (ImGui::BeginListBox("##listbox 2", ImVec2(-FLT_MIN, 5 * ImGui::GetTextLineHeightWithSpacing())))
+                {
+                    const auto& GameEntitites = m_CurrentLevel->GetGameEntities();
+
+                    for (int n = 0; n < m_CurrentLevel->GetGameEntities().size(); n++)
+                    {
+                        const bool is_selected = (item_current_idx == n);
+                        if (ImGui::Selectable(GameEntitites[n]->entityName.c_str(), is_selected))
+                        {
+                            item_current_idx = n;
+                            entitySelected = GameEntitites[n];
+                            ImGui::SetItemDefaultFocus();
+                            break;
+                        }
+
+                        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                        if (is_selected)
+                        {
+                            entitySelected = GameEntitites[n];
+                            ImGui::SetItemDefaultFocus();
+                        }
+                    }
+                    ImGui::EndListBox();
+                }
 
                 ImGui::EndTabItem();
             }
@@ -298,8 +361,91 @@ void LevelEditor::RenderUI()
             // Tab 1
             if (ImGui::BeginTabItem("Details")) {
 
-                ImGui::Text("Details tab");
+                if (entitySelected)
+                {
+                    ///////////////////////////////
+                    ///// LOCATION
+                    //////////////////////////////
+                    ImGui::Text("Location:");
 
+                    ImGui::Dummy(ImVec2(0, m_DetailsSize.y * 0.01f));
+
+                    // Convert the float to a string
+                    float loc[3] = { entitySelected->GetPosition().x , entitySelected->GetPosition().y, entitySelected->GetPosition().z };
+
+                    ImGui::Text("X: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##LocationX", &loc[0], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    ImGui::Text("Y: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##LocationY", &loc[1], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    ImGui::Text("Z: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##LocationZ", &loc[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    entitySelected->SetPosition(loc[0], loc[1], loc[2]);
+
+
+
+                    ///////////////////////////////
+                    ///// ROTATION
+                    //////////////////////////////
+                    
+                    ImGui::Dummy(ImVec2(0, m_DetailsSize.y * 0.025f));
+
+                    ImGui::Text("Rotation:");
+
+                    ImGui::Dummy(ImVec2(0, m_DetailsSize.y * 0.01f));
+
+                    // Convert the float to a string
+                    float rot[3] = { entitySelected->GetRotation().roll , entitySelected->GetRotation().pitch, entitySelected->GetRotation().yaw };
+
+                    ImGui::Text("R: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##RotationR", &rot[0], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    ImGui::Text("P: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##RotationP", &rot[1], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    ImGui::Text("Y: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##RotationY", &rot[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    entitySelected->SetRotation(rot[0], rot[1], rot[2]);
+
+                    ///////////////////////////////
+                    ///// SCALE
+                    //////////////////////////////
+
+                    ImGui::Dummy(ImVec2(0, m_DetailsSize.y * 0.025f));
+
+                    ImGui::Text("Scale:");
+
+                    ImGui::Dummy(ImVec2(0, m_DetailsSize.y * 0.01f));
+
+                    // Convert the float to a string
+                    float scale[3] = { entitySelected->GetScale().x , entitySelected->GetScale().y, entitySelected->GetScale().z };
+
+                    ImGui::Text("X: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##ScaleX", &scale[0], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    ImGui::Text("Y: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##ScaleY", &scale[1], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    ImGui::Text("Z: ");
+                    ImGui::SameLine();
+                    ImGui::DragFloat("##ScaleZ", &scale[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    entitySelected->SetScale(scale[0], scale[1], scale[2]);
+
+                }
+                else
+                    Logger::LogError("RO NULL");
                 ImGui::EndTabItem();
             }
 
@@ -326,7 +472,8 @@ void LevelEditor::RenderUI()
 
 void LevelEditor::Render3DScene()
 {
-    ImGui::SetNextWindowPos({m_OutlinerSize.x, m_LevelButtonsLayoutSize.y});
+    m_ScenePosition = { m_OutlinerSize.x, m_LevelButtonsLayoutSize.y };
+    ImGui::SetNextWindowPos(m_ScenePosition);
     ImGui::SetNextWindowSize({ m_SceneTextureSize});
     if (ImGui::Begin("Render Scene", false, 
         ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize))
@@ -338,13 +485,62 @@ void LevelEditor::Render3DScene()
         // Create an ImGui image with the scene texture as the source
         ImGui::Image((void*)(intptr_t)sceneTextureBuffer, { m_SceneTextureSize.x, m_SceneTextureSize .y}, ImVec2(0, 1), ImVec2(1, 0));
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        /*
+        ImGuizmo::BeginFrame();
+        ImGuizmo::Enable(true);
+        ImGuizmo::SetOrthographic(false);
+        ImGuizmo::SetDrawlist();
+
+        ImGuizmo::SetRect(m_ScenePosition.x, m_ScenePosition.y, m_SceneTextureSize.x, m_SceneTextureSize.y);
+        auto& model = entitySelected->RootComponent->GetModelMat4();
+        ImGuizmo::Manipulate(
+            glm::value_ptr(m_CurrentLevel->m_renderCamera->GetView()),
+            glm::value_ptr(Renderer::GetProjectionMat()),
+            ImGuizmo::OPERATION::TRANSLATE,
+            ImGuizmo::MODE::WORLD,
+            glm::value_ptr(entitySelected->RootComponent->GetModelMat4())
+        );
+                */
 
         ImGui::End();
     }
+    ImGui::SetWindowFontScale(1.0f);
 
-    //ImGui::ShowDemoWindow();
+    ImGui::ShowDemoWindow();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void LevelEditor::WriteLogToFile()
+{
+    if (!std::filesystem::exists("Logs")) {
+        // Create the directory
+        if (std::filesystem::create_directory("Logs")) {
+            Logger::LogInfo("Directory Logs created");
+        }
+        else {
+            Logger::LogError("Directory Logs could not be created");
+        }
+    }
+    else {
+        Logger::LogInfo("Logs directory already exists.");
+    }
+
+    // Open a file for writing (creates the file if it doesn't exist)
+    std::ofstream outputFile("Logs/LoggingFile2.txt");
+
+    // Check if the file is open
+    if (!outputFile.is_open()) {
+        Logger::LogError("COULD NOT WRITE TO FILE LoggingFile.txt");
+    }
+
+    for (const auto& Message : Logger::GetMessages())
+        outputFile << Message.message;
+
+    // Close the file
+    outputFile.close();
+
+    Logger::LogInfo("Logging has been written to the Logs folder");
 }
 

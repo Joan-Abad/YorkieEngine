@@ -85,9 +85,10 @@ void GameEntity::AddRotation(float Roll, float Pitch, float Yaw)
 
 void GameEntity::SetPosition(const glm::vec3& newPosition)
 {
-	entityName;
 	if (RootComponent)
+	{
 		RootComponent->SetPosition(newPosition.x, newPosition.y, newPosition.z);
+	}
 }
 
 void GameEntity::SetPosition(float x, float y, float z)

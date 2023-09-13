@@ -9,9 +9,9 @@
 #include "Window/WindowManager.h"
 #include "Logging/Logger.h"
 #include "Window/Viewport.h"
-#include "UI/imgui.h"
-#include "UI/imgui_impl_opengl3.h"
-#include "UI/imgui_impl_glfw.h"
+#include "UI/ImGUI/imgui.h"
+#include "UI/ImGUI/imgui_impl_opengl3.h"
+#include "UI/ImGUI/imgui_impl_glfw.h"
 #include "Editor/LevelEditor.h"
 #include "Graphics/Renderer.h"
 

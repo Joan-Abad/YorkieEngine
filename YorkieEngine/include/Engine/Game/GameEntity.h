@@ -45,6 +45,11 @@ public:
 	void SetPosition(float x, float y, float z);
 	void SetPosition(const glm::vec3 &newPosition);
 
+	
+	//Callbacks that will be called when the position is set manually. 
+	using OnSetPositionCallback = int(*)(int, double);
+	std::vector<OnSetPositionCallback> m_SetPositionCallbacks;
+
 	//Sets a new entity rotation
 	void SetRotation(float Roll, float Pitch, float Yaw);
 
@@ -96,6 +101,7 @@ protected:
 	Level* m_Level;
 
 private:
+
 	Shader* shader;
 	entt::entity entity;
 	//List of the components of an entity

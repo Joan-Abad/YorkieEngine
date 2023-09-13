@@ -6,9 +6,9 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp> // Include this header for glm::value_ptr
 #include "Graphics/Shaders/Shader.h"
-#include "UI/imgui.h"
-#include "UI/imgui_impl_glfw.h" // Include the proper ImGui backend for GLFW
-#include "UI/imgui_impl_opengl3.h" // Include the proper ImGui backend for OpenGL
+#include "UI/ImGUI/imgui.h"
+#include "UI/ImGUI/imgui_impl_glfw.h" // Include the proper ImGui backend for GLFW
+#include "UI/ImGUI/imgui_impl_opengl3.h" // Include the proper ImGui backend for OpenGL
 
 Window::Window(const WindowProperties windowProperties)
 {
