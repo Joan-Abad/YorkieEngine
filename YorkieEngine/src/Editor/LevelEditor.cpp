@@ -8,7 +8,7 @@
 #include "gtc/matrix_transform.hpp"
 #include <fstream>
 #include <filesystem>
-
+#include <iostream>
 #include "ImGuizmo.h"
 
 LevelEditor::LevelEditor(WindowProperties windowProps, Level * level) : bIsInGame(false), Window(windowProps)
@@ -28,6 +28,14 @@ void LevelEditor::Init()
             LevelEditor* instance = static_cast<LevelEditor*>(glfwGetWindowUserPointer(window));
             if (instance) {
                 instance->mouse_callback(window, xpos, ypos);
+            }
+        });
+    glfwSetWindowCloseCallback(window, 
+        [](GLFWwindow* window) {
+            LevelEditor* instance = static_cast<LevelEditor*>(glfwGetWindowUserPointer(window));
+            if (instance)
+            {
+                instance->windowCloseCallback(window);
             }
         });
 
@@ -68,6 +76,7 @@ void LevelEditor::InitUI()
     m_DetailsPosition = { DisplaySize.x - m_DetailsSize.x, m_ContentBrowserPosition.y - m_OutlinerSize.y };
     m_LevelButtonsLayoutSize = { DisplaySize.x - m_OutlinerSize.x - m_DetailsSize.x, DisplaySize.y * m_LevelPortionOfTheScreenHeightSize };
     m_SceneTextureSize = { DisplaySize.x - m_OutlinerSize.x - m_DetailsSize.x, DisplaySize.y - m_ContentBrowserSize.y - m_LevelButtonsLayoutSize.y};
+    //m_SceneTextureSize = { DisplaySize.x, DisplaySize.y};
     //Set render Image texture 
 
     //1- Create an FBO for the Scene Viewport:
@@ -78,12 +87,15 @@ void LevelEditor::InitUI()
     glGenTextures(1, &sceneTextureBuffer);
     glBindTexture(GL_TEXTURE_2D, sceneTextureBuffer);
 
-
-
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_SceneTextureSize.x, m_SceneTextureSize.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, sceneTextureBuffer, 0);
+
+    glGenRenderbuffers(1, &customDepthBuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, customDepthBuffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, m_SceneTextureSize.x, m_SceneTextureSize.y);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, customDepthBuffer);
 
     // Check for framebuffer completeness
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
@@ -93,9 +105,16 @@ void LevelEditor::InitUI()
     else
         Logger::LogInfo("Frame buffer for scene render set correctly");
 
+    SetLevelEditorFlags();
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind the framebuffer
 
 
+}
+
+void LevelEditor::windowCloseCallback(GLFWwindow* window)
+{
+    bDrawWindow = false;
 }
 
 float LevelEditor::GetLevelSceneAspectRation()
@@ -112,7 +131,6 @@ void LevelEditor::Update(float deltaTime)
     EditorInput();
     RenderUI();
     Render3DScene();
-    //glBindFramebuffer(GL_FRAMEBUFFER, sceneFrameBuffer);
     //Renderer::ClearColor({ 0.2, 0.2, 0.2, 0.1 });
     //Renderer::DrawScene(*m_CurrentLevel);
     glfwSwapBuffers(window);
@@ -135,6 +153,7 @@ void LevelEditor::mouse_callback(GLFWwindow* window, double xposParam, double yp
 
         float xoffset = xpos - m_mouseLastX;
         float yoffset = m_mouseLastY - ypos; // reversed since y-coordinates go from bottom to top
+
         m_mouseLastX = xpos;
         m_mouseLastY = ypos;
 
@@ -142,8 +161,9 @@ void LevelEditor::mouse_callback(GLFWwindow* window, double xposParam, double yp
         xoffset *= sensitivity;
         yoffset *= sensitivity;
         m_CurrentLevel->GetGamera().AddRotation(0, yoffset, xoffset);
-
         m_CurrentLevel->GetGamera().SetCameraDirections();
+
+        
     }
 }
 
@@ -203,17 +223,17 @@ void LevelEditor::EditorInput()
     renderCamera.SetViewMatrix(camView);
     Renderer::SetProjectionMatrix(renderCamera, GetLevelSceneAspectRation());
 
-
+    /*
     if (bIsInGame)
     {
-        std::string printMsg = "\nCamera Front: X: " + std::to_string(renderCamera.cameraFront.x)
+        std::string printMsg = "Camera Front: X: " + std::to_string(renderCamera.cameraFront.x)
             + " - Y: " + std::to_string(renderCamera.cameraFront.y)
-            + " - Z: " + std::to_string(renderCamera.cameraFront.z) + "\n"
+            + " - Z: " + std::to_string(renderCamera.cameraFront.z) + 
             + " - Camera Up: X: " + std::to_string(renderCamera.cameraUp.x)
             + " - Y: " + std::to_string(renderCamera.cameraUp.y) +
             " - Z: " + std::to_string(renderCamera.cameraUp.z) + "\n";
         Logger::LogInfo(printMsg);
-    }
+    }*/
 }
 
 void LevelEditor::SetLevelEditorFlags()
@@ -271,10 +291,10 @@ void LevelEditor::RenderUI()
                     {
                         ImGui::TextColored(message.color, message.message.c_str());
                     }
-                    m_MessageNum = Logger::GetMessages().size();
+                    if (Logger::GetMessages().size() > m_MessageNum)
+                        ImGui::SetScrollHereY(1.0f);
 
-                    //if (Logger::GetMessages().size() > m_MessageNum)
-                        //ImGui::SetScrollHereY(1.0f);
+                    m_MessageNum = Logger::GetMessages().size();
 
                     ImGui::EndChild();
                 }
@@ -459,7 +479,6 @@ void LevelEditor::RenderUI()
 
     ImGui::SetNextWindowSize(m_LevelButtonsLayoutSize);
     ImGui::SetNextWindowPos(m_LevelButtonsLayoutPositions);
-    int* p_open; 
 
     if (ImGui::Begin("Level buttons bar", NULL, contentBrowserFlags))
     {
@@ -468,23 +487,36 @@ void LevelEditor::RenderUI()
 
         ImGui::End();
     }
+
+    //ImGui::Render();
+    //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void LevelEditor::Render3DScene()
 {
     m_ScenePosition = { m_OutlinerSize.x, m_LevelButtonsLayoutSize.y };
+    
     ImGui::SetNextWindowPos(m_ScenePosition);
     ImGui::SetNextWindowSize({ m_SceneTextureSize});
-    if (ImGui::Begin("Render Scene", false, 
-        ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_AlwaysAutoResize))
-    {
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, sceneFrameBuffer);
+    glViewport(0, 0, m_SceneTextureSize.x, m_SceneTextureSize.y);
+   
+   
 
-        glBindFramebuffer(GL_FRAMEBUFFER, sceneFrameBuffer);
-        Renderer::ClearColor({ 0.2, 0.2, 0.2, 0.1 });
-        Renderer::DrawScene(*m_CurrentLevel);
+    if (ImGui::Begin("Render Scene", false, 
+        ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoDocking))
+    {
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+        Renderer::ClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
         // Create an ImGui image with the scene texture as the source
-        ImGui::Image((void*)(intptr_t)sceneTextureBuffer, { m_SceneTextureSize.x, m_SceneTextureSize .y}, ImVec2(0, 1), ImVec2(1, 0));
+        Renderer::DrawScene(*m_CurrentLevel);
+       
+
+        ImGui::Image((void*)(intptr_t)sceneTextureBuffer, ImVec2(m_SceneTextureSize.x, m_SceneTextureSize.y), ImVec2(0, 1), ImVec2(1, 0));
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
         /*
         ImGuizmo::BeginFrame();
         ImGuizmo::Enable(true);
@@ -504,7 +536,7 @@ void LevelEditor::Render3DScene()
 
         ImGui::End();
     }
-    ImGui::SetWindowFontScale(1.0f);
+    //ImGui::SetWindowFontScale(1.0f);
 
     ImGui::ShowDemoWindow();
 

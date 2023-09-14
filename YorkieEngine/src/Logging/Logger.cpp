@@ -6,7 +6,7 @@ std::vector<MessageOutput> Logger::Messages;
 
 void Logger::LogInfo(const std::string& message)
 {
-    Log("[INFO]", message, ImVec4(1.0, 0.0, 0.0, 1.0));
+    Log("[INFO]", message, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 }
 
 void Logger::LogWarning(const std::string& message)
@@ -16,7 +16,7 @@ void Logger::LogWarning(const std::string& message)
 
 void Logger::LogError(const std::string& message)
 {
-    Log("[ERROR]", message, ImVec4(0.5, 0.5, 0.5, 1.0));
+    Log("[ERROR]", message, ImVec4(1.0, 0, 0, 1.0));
 }
 
 void Logger::Log(const std::string& tag, const std::string& message, const ImVec4 color)

@@ -28,7 +28,7 @@ void Window::Init()
 
 void Window::Update(float deltaTime)
 {
-    while (bDrawWindow && !glfwWindowShouldClose(window))
+    while (bDrawWindow)
     {
         // Clear the screen
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);

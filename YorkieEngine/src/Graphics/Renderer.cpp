@@ -82,11 +82,11 @@ void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 				shader.SetUniform3f("directionLight.diffuse", m_DirectionalLight->m_diffuseColor.x, m_DirectionalLight->m_diffuseColor.y, m_DirectionalLight->m_diffuseColor.z);
 				shader.SetUniform3f("directionLight.specular", m_DirectionalLight->m_specularColor.x, m_DirectionalLight->m_specularColor.y, m_DirectionalLight->m_specularColor.z);
 			}
-
+			
 			if (gameEntity.m_PointLight)
 			{
 				const PointLight& pointLight = *gameEntity.m_PointLight;
-			
+
 				shader.SetUniform3f("pLight.position", pointLight.RootComponent->GetPosition().x, pointLight.RootComponent->GetPosition().y, pointLight.RootComponent->GetPosition().z);
 				shader.SetUniform3f("pLight.ambient", pointLight.m_ambientColor.x, pointLight.m_ambientColor.y, pointLight.m_ambientColor.z);
 				shader.SetUniform3f("pLight.diffuse", pointLight.m_diffuseColor.x, pointLight.m_diffuseColor.y, pointLight.m_diffuseColor.z);
@@ -95,13 +95,13 @@ void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 				shader.SetUniform1f("pLight.linear", pointLight.m_linear);
 				shader.SetUniform1f("pLight.quadratic", pointLight.m_quadratic);
 			}
-
-			Mesh.Draw();
-
-				
-				//shader.SetUniform1i("bUseSpecular", material.IsUsingSpecularTexture());
 			
+			Mesh.Draw();
+			
+
+			//shader.SetUniform1i("bUseSpecular", material.IsUsingSpecularTexture());
 		}
+
 	}
 
 	/*

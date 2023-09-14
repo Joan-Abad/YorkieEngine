@@ -20,8 +20,8 @@ Camera::Camera() : GameEntity(),
 
 void Camera::Init()
 {
-	SetPosition(glm::vec3(0.0f, 10.0f, 25.0f));
-	SetRotation(0, -25, -90);
+	SetPosition(glm::vec3(0.0f, 0.f, 25.0f));
+	SetRotation(0, 0, -90);
 	SetCameraDirections();
 
 }

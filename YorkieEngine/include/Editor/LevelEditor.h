@@ -5,6 +5,7 @@
 #include "Game/Level.h"
 #include "Camera/Camera.h"
 #include "UI/ImGUI/imgui.h"
+#include "GLFW/glfw3.h"
 
 #include <vector>
 
@@ -38,6 +39,7 @@ private:
 	void WriteLogToFile();
 	//TODO: Maybe could be set in another class
 	void InitUI();
+	void windowCloseCallback(GLFWwindow* window);
 	float GetLevelSceneAspectRation();
 
 	unsigned int sceneFrameBuffer;
@@ -66,6 +68,8 @@ private:
 
 	ImVec2 m_SceneTextureSize;
 	ImVec2 m_ScenePosition;
+	// Create a depth buffer
+	GLuint customDepthBuffer;
 
 	//////////////////////////////////////////////////////////////////
 	///////////////////// CONTENT BROWSER ////////////////////////////

@@ -32,7 +32,7 @@ void YorkieEngineApp::Run()
 
 void YorkieEngineApp::Shutdown()
 {
-
+    bIsRunning = false; 
 }
 
 void YorkieEngineApp::InitializeGLFW()
