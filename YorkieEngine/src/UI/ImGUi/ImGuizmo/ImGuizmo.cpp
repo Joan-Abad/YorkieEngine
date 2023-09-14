@@ -2177,7 +2177,7 @@ namespace IMGUIZMO_NAMESPACE
          }
          if (CanActivate() && type != MT_NONE)
          {
-            gContext.mbUsing = true;
+            gContext.mbUsing = true;    
             gContext.mEditingID = gContext.mActualID;
             gContext.mCurrentOperation = type;
             vec_t movePlanNormal[] = { gContext.mModel.v.right, gContext.mModel.v.up, gContext.mModel.v.dir,

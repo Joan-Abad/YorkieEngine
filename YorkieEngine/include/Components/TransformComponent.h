@@ -67,8 +67,8 @@ private:
 	glm::vec3 position { 0.0f };
 	glm::vec3 scale { 1.0f };
 	Rotator rotation{ 0, 0, 0 };
+    glm::mat4 modelMatrix { 1.0f };
     void UpdateModelMatrix();
-public:
-	glm::mat4 modelMatrix { 1.0f };
+
 	
 };

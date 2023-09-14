@@ -493,6 +493,15 @@ void LevelEditor::RenderUI()
     //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
+void PrintMat4(const glm::mat4& matrix) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 void LevelEditor::Render3DScene()
 {
     m_ScenePosition = { m_OutlinerSize.x, m_LevelButtonsLayoutSize.y };
@@ -523,14 +532,16 @@ void LevelEditor::Render3DScene()
         ImGuizmo::SetDrawlist();
 
         ImGuizmo::SetRect(m_ScenePosition.x, m_ScenePosition.y, m_SceneTextureSize.x, m_SceneTextureSize.y);
-        auto& model = entitySelected->RootComponent->GetModelMat4();
+
         ImGuizmo::Manipulate(
             glm::value_ptr(m_CurrentLevel->m_renderCamera->GetView()),
             glm::value_ptr(Renderer::GetProjectionMat()),
             ImGuizmo::OPERATION::TRANSLATE,
             ImGuizmo::MODE::WORLD,
-            glm::value_ptr(entitySelected->RootComponent->modelMatrix)
+            glm::value_ptr(entitySelected->RootComponent->GetModelMat4())
         );
+
+        entitySelected->SetPosition(entitySelected->RootComponent->GetModelMat4()[3][0], entitySelected->RootComponent->GetModelMat4()[3][1], entitySelected->RootComponent->GetModelMat4()[3][2]);
 
         ImGui::End();
     }
