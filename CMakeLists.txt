@@ -30,8 +30,6 @@ target_include_directories(YorkieEngine
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glfw/include			
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/stb
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/assimp/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/ImGuizmo
-
 )
 
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glfw/lib)

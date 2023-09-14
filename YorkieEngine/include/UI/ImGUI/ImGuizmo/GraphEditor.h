@@ -29,7 +29,7 @@
 #include <stdint.h>
 #include <string>
 #include "UI/ImGUI/imgui.h"
-#include "UI/imgui_internal.h"
+#include "UI/ImGUI/imgui_internal.h"
 
 namespace GraphEditor {
 

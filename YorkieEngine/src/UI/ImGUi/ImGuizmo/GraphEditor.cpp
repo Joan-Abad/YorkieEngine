@@ -31,7 +31,7 @@
 #include <vector>
 #include <float.h>
 #include <array>
-#include "GraphEditor.h"
+#include "UI/ImGUI/ImGuizmo/GraphEditor.h"
 
 namespace GraphEditor {
 

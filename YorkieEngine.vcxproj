@@ -71,7 +71,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -89,10 +89,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;YENGINE_EXPORT;CMAKE_INTDIR=\"Debug\";YorkieEngine_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -129,7 +129,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -147,10 +147,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;YENGINE_EXPORT;CMAKE_INTDIR=\"Release\";YorkieEngine_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -187,7 +187,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Custom|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -202,10 +202,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;YENGINE_EXPORT;CMAKE_INTDIR=\"Custom\";YorkieEngine_EXPORTS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;E:\Projects\YorkieEngine\Dependencies\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Projects\YorkieEngine\YorkieEngine\include;E:\Projects\YorkieEngine\Dependencies\glad\include;E:\Projects\YorkieEngine\Dependencies\entt\src;E:\Projects\YorkieEngine\Dependencies\glm;E:\Projects\YorkieEngine\Dependencies\glfw\include;E:\Projects\YorkieEngine\Dependencies\stb;E:\Projects\YorkieEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -287,17 +287,17 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Camera\Camera.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\BaseComponent.cpp" />
-    <ClCompile Include="YorkieEngine\src\Editor\EditorWindow.cpp" />
-    <ClCompile Include="YorkieEngine\src\Game\Level.cpp" />
-    <ClCompile Include="YorkieEngine\src\Mesh\Mesh.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\MeshComponent.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\TextureComponent.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Components\TransformComponent.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Editor\EditorWindow.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Editor\Grid.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Editor\LevelEditor.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Engine\Event.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Engine\YorkiEngineApp.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Engine\YorkieEngine.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Game\GameEntity.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Game\Level.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Game\Lights\BaseLight.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Game\Lights\DirectionalLight.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Game\Lights\PointLight.cpp" />
@@ -317,42 +317,51 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\MathHelpers.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Vector2D.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Maths\Vector3D.cpp" />
-    <ClCompile Include="YorkieEngine\src\Components\MeshComponent.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Mesh\Mesh.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\CameraModule.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Modules\ShaderModule.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\ImGuizmo\GraphEditor.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\ImGuizmo\ImCurveEdit.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\ImGuizmo\ImGradient.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\ImGuizmo\ImSequencer.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\imgui.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\imgui_demo.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\imgui_draw.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\imgui_impl_glfw.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\imgui_tables.cpp" />
+    <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\UI\ImGUi\imgui_widgets.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\Viewport.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\Window.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\WindowManager.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\glad.cpp" />
-    <ClCompile Include="YorkieEngine\src\UI\imgui.cpp" />
-    <ClCompile Include="YorkieEngine\src\UI\imgui_demo.cpp" />
-    <ClCompile Include="YorkieEngine\src\UI\imgui_draw.cpp" />
-    <ClCompile Include="YorkieEngine\src\UI\imgui_impl_glfw.cpp" />
-    <ClCompile Include="YorkieEngine\src\UI\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="YorkieEngine\src\UI\imgui_tables.cpp" />
-    <ClCompile Include="YorkieEngine\src\UI\imgui_widgets.cpp" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\BaseComponent.h" />
-    <ClInclude Include="YorkieEngine\include\Editor\EditorWindow.h" />
-    <ClInclude Include="YorkieEngine\include\Game\Level.h" />
-    <ClInclude Include="YorkieEngine\include\Graphics\Mesh\Mesh.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\MeshComponent.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\TextureComponent.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\TransformComponent.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Editor\EditorWindow.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Editor\Grid.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Editor\LevelEditor.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\Event.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\Game\GameEntity.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\Game\Lights\BaseLight.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\Game\Lights\DirectionalLight.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\Game\Lights\PointLight.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\YorkiEngineApp.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Engine\YorkieEngine.h" />
-    <ClInclude Include="YorkieEngine\include\Engine\Game\GameEntity.h" />
-    <ClInclude Include="YorkieEngine\include\Engine\Game\Lights\BaseLight.h" />
-    <ClInclude Include="YorkieEngine\include\Engine\Game\Lights\DirectionalLight.h" />
-    <ClInclude Include="YorkieEngine\include\Engine\Game\Lights\PointLight.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Game\GameEntity.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Game\Level.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Game\Lights\BaseLight.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Game\Lights\DirectionalLight.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Game\Lights\PointLight.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\Buffer.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\IndexBuffer.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\VAO.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Buffers\VBO.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Materials\Material.h" />
-    <ClInclude Include="YorkieEngine\include\Components\MeshComponent.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Mesh\Mesh.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Primitives\Cube.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Renderer.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Graphics\Shaders\Shader.h" />
@@ -367,22 +376,24 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Maths\Vector3D.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Modules\CameraModule.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Modules\ShaderModule.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\ImGuizmo\GraphEditor.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\ImGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\ImGuizmo\ImGradient.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\ImGuizmo\ImGuizmo.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\ImGuizmo\ImSequencer.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\ImGuizmo\ImZoomSlider.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imconfig.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imgui.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imgui_internal.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imstb_rectpack.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imstb_textedit.h" />
+    <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\UI\ImGUI\imstb_truetype.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\Viewport.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\Window.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\WindowManager.h" />
-    <ClInclude Include="YorkieEngine\include\Game\GameEntity.h" />
-    <ClInclude Include="YorkieEngine\include\Game\Lights\BaseLight.h" />
-    <ClInclude Include="YorkieEngine\include\Game\Lights\DirectionalLight.h" />
-    <ClInclude Include="YorkieEngine\include\Game\Lights\PointLight.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imconfig.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imgui.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imgui_impl_glfw.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imgui_impl_opengl3.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imgui_internal.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imstb_rectpack.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imstb_textedit.h" />
-    <ClInclude Include="YorkieEngine\include\UI\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="E:\Projects\YorkieEngine\ZERO_CHECK.vcxproj">

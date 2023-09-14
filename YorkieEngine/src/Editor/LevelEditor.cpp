@@ -9,7 +9,7 @@
 #include <fstream>
 #include <filesystem>
 #include <iostream>
-#include "ImGuizmo.h"
+#include "UI/ImGUI/ImGuizmo/ImGuizmo.h"
 
 LevelEditor::LevelEditor(WindowProperties windowProps, Level * level) : bIsInGame(false), Window(windowProps)
 {
@@ -380,7 +380,7 @@ void LevelEditor::RenderUI()
 
             // Tab 1
             if (ImGui::BeginTabItem("Details")) {
-
+                /*
                 if (entitySelected)
                 {
                     ///////////////////////////////
@@ -462,10 +462,11 @@ void LevelEditor::RenderUI()
                     ImGui::DragFloat("##ScaleZ", &scale[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
                     entitySelected->SetScale(scale[0], scale[1], scale[2]);
-
+                   
                 }
                 else
                     Logger::LogError("RO NULL");
+                     */
                 ImGui::EndTabItem();
             }
 
@@ -515,9 +516,7 @@ void LevelEditor::Render3DScene()
        
 
         ImGui::Image((void*)(intptr_t)sceneTextureBuffer, ImVec2(m_SceneTextureSize.x, m_SceneTextureSize.y), ImVec2(0, 1), ImVec2(1, 0));
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-        /*
         ImGuizmo::BeginFrame();
         ImGuizmo::Enable(true);
         ImGuizmo::SetOrthographic(false);
@@ -530,12 +529,13 @@ void LevelEditor::Render3DScene()
             glm::value_ptr(Renderer::GetProjectionMat()),
             ImGuizmo::OPERATION::TRANSLATE,
             ImGuizmo::MODE::WORLD,
-            glm::value_ptr(entitySelected->RootComponent->GetModelMat4())
+            glm::value_ptr(entitySelected->RootComponent->modelMatrix)
         );
-                */
 
         ImGui::End();
     }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
     //ImGui::SetWindowFontScale(1.0f);
 
     ImGui::ShowDemoWindow();
