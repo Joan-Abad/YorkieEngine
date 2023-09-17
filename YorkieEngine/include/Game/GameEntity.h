@@ -32,26 +32,26 @@ public:
 	void AttachShader(Shader* shader);
 
 	//Adds an offset to the current entity location
-	void AddOffstet(float x, float y, float z);
-	void AddOffstet(const glm::vec3& newPosition);
+	void AddOffstet(float x = 0, float y = 0, float z = 0);
+	void AddOffstet(const glm::vec3& newPosition );
 
 	//Adds a scale to the current entity scale
-	void AddScale(float x, float y, float z);
+	void AddScale(float x = 0, float y = 0, float z = 0);
 	void AddScale(glm::vec3& newScale);
 
 	//Adds a rotation to the current entity rotation
-	void AddRotation(float Roll, float Pitch, float Yaw);
+	void AddRotation(float Pitch = 0, float Yaw = 0, float Roll = 0);
 
 	//Sets a new entity location 
-	void SetPosition(float x, float y, float z);
-	void SetPosition(const glm::vec3 &newPosition);
+	void SetPosition(float x = 0, float y = 0, float z = 0);
+	void SetPosition(const glm::vec3& newPosition);
 
 	//Sets a new entity rotation
-	void SetRotation(float Roll, float Pitch, float Yaw);
+	void SetRotation(float Pitch = 0, float Yaw = 0, float Roll = 0);
 
 	//Sets a new entity scale
-	void SetScale(float x, float y, float z);
-	void SetScale(glm::vec3 &newScale);
+	void SetScale(float x = 0, float y = 0, float z = 0);
+	void SetScale(glm::vec3& newScale);
 
 	//Pointer that stores in which level this entity is in
 	void SetViewport(Level& level);
@@ -90,12 +90,12 @@ public:
 	inline glm::vec3& GetPosition() { return RootComponent->GetPosition(); };
 	inline glm::vec3& GetScale() { return RootComponent->GetScale(); };
 	inline Rotator GetRotation() { return RootComponent->GetRotation(); };
-
+	inline bool GetCanDrawAxis() { return m_CanDrawAxis; };
 	inline glm::mat4& GetModel() { return *RootComponent; };
 
 protected:
 	Level* m_Level;
-
+	bool m_CanDrawAxis;
 private:
 	Shader* shader;
 	entt::entity entity;

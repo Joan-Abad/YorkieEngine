@@ -8,7 +8,7 @@ TransformComponent::TransformComponent()
 
 void TransformComponent::Update(float deltaTime)
 {
-	UpdateModelMatrix();
+	
 }
 
 void TransformComponent::PostUpdate(float deltaTime)
@@ -19,41 +19,49 @@ void TransformComponent::PostUpdate(float deltaTime)
 void TransformComponent::SetPosition(float x, float y, float z)
 {
 	position = glm::vec3(x,y,z);
+	UpdateModelMatrix();
 }
 
 void TransformComponent::SetScale(float x, float y, float z)
 {
 	scale = glm::vec3(x, y, z);
+	UpdateModelMatrix();
 }
 
 void TransformComponent::SetRotation(float Roll, float Pitch, float Yaw)
 {
 	rotation = Rotator(Roll, Pitch, Yaw);
+	UpdateModelMatrix();
 }
 
 void TransformComponent::AddOffstet(float x, float y, float z)
 {
 	position += glm::vec3(x, y, z);
+	UpdateModelMatrix();
 }
 
 void TransformComponent::AddOffstet(const glm::vec3& newPosition)
 {
 	position += newPosition;
+	UpdateModelMatrix();
 }
 
 void TransformComponent::AddScale(float x, float y, float z)
 {
 	scale += glm::vec3(x,y,z);
+	UpdateModelMatrix();
 }
 
 void TransformComponent::AddScale(glm::vec3& newScale)
 {
 	scale += newScale;
+	UpdateModelMatrix();
 }
 
 void TransformComponent::AddRotation(float Roll, float Pitch, float Yaw)
 {
 	rotation += Rotator(Roll, Pitch, Yaw);
+	UpdateModelMatrix();
 }
 
 void TransformComponent::UpdateModelMatrix()

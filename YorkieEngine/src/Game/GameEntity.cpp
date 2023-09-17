@@ -11,10 +11,11 @@
 
 unsigned int GameEntity::entityID = 1;
 
-GameEntity::GameEntity() : shader(nullptr), m_Level(nullptr), RootComponent(nullptr), m_PointLight(nullptr)
+GameEntity::GameEntity() : shader(nullptr), m_Level(nullptr), RootComponent(nullptr), m_PointLight(nullptr), m_CanDrawAxis(true)
 {
 	entityName = "GameEntity_ " + std::to_string(entityID);
 	entityID++;
+	m_CanDrawAxis = true;
 }
 
 GameEntity::~GameEntity()
@@ -77,10 +78,10 @@ void GameEntity::AddScale(glm::vec3& newScale)
 		RootComponent->AddScale(newScale);
 }
 
-void GameEntity::AddRotation(float Roll, float Pitch, float Yaw)
+void GameEntity::AddRotation(float Pitch, float Yaw, float Roll)
 {
 	if (RootComponent)
-		RootComponent->AddRotation(Roll, Pitch, Yaw);
+		RootComponent->AddRotation(Pitch, Yaw, Roll);
 }
 
 void GameEntity::SetPosition(const glm::vec3& newPosition)
@@ -97,10 +98,10 @@ void GameEntity::SetPosition(float x, float y, float z)
 		RootComponent->SetPosition(x,y,z);
 }
 
-void GameEntity::SetRotation(float Roll, float Pitch, float Yaw)
+void GameEntity::SetRotation(float Pitch, float Yaw, float Roll)
 {
 	if (RootComponent)
-		RootComponent->SetRotation(Roll, Pitch, Yaw);
+		RootComponent->SetRotation(Pitch, Yaw, Roll);
 }
 
 void GameEntity::SetScale(float x, float y, float z)

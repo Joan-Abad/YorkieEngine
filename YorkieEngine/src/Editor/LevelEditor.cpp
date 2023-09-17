@@ -9,12 +9,12 @@
 #include <fstream>
 #include <filesystem>
 #include <iostream>
-#include "UI/ImGUI/ImGuizmo/ImGuizmo.h"
 
 LevelEditor::LevelEditor(WindowProperties windowProps, Level * level) : bIsInGame(false), Window(windowProps)
 {
     m_CurrentLevel = level;
     input = new Input(*this);
+    gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
 }
 
 void LevelEditor::Init()
@@ -160,7 +160,7 @@ void LevelEditor::mouse_callback(GLFWwindow* window, double xposParam, double yp
         float sensitivity = 0.1f; // change this value to your liking
         xoffset *= sensitivity;
         yoffset *= sensitivity;
-        m_CurrentLevel->GetGamera().AddRotation(0, yoffset, xoffset);
+        m_CurrentLevel->GetGamera().AddRotation(yoffset, xoffset, 0);
         m_CurrentLevel->GetGamera().SetCameraDirections();
 
         
@@ -188,6 +188,18 @@ void LevelEditor::EditorInput()
         renderCamera.AddOffstet(renderCamera.cameraRight * cameraSpeed);
     if (input->IsKeyPressed(EKeyboardKeys::KEY_P))
         WriteLogToFile();
+    
+
+    if (entitySelected)
+    {
+        //Translate
+        if (input->IsKeyPressed(EKeyboardKeys::KEY_E))
+            gizmoOperation = ImGuizmo::OPERATION::TRANSLATE;
+        if (input->IsKeyPressed(EKeyboardKeys::KEY_R))
+            gizmoOperation = ImGuizmo::OPERATION::ROTATE;
+        if (input->IsKeyPressed(EKeyboardKeys::KEY_T))
+            gizmoOperation = ImGuizmo::OPERATION::SCALE;
+    }
 
     if (input->IsKeyPressed(EKeyboardKeys::KEY_ESCAPE))
     {
@@ -377,10 +389,10 @@ void LevelEditor::RenderUI()
         ImGui::SetWindowFontScale(windowFontScale);
 
         if (ImGui::BeginTabBar("Details", ImGuiTabBarFlags_Reorderable)) {
-
+            
             // Tab 1
             if (ImGui::BeginTabItem("Details")) {
-                /*
+                
                 if (entitySelected)
                 {
                     ///////////////////////////////
@@ -393,20 +405,23 @@ void LevelEditor::RenderUI()
                     // Convert the float to a string
                     float loc[3] = { entitySelected->GetPosition().x , entitySelected->GetPosition().y, entitySelected->GetPosition().z };
 
+                    bool modifiedX = false, modifiedY = false, modifiedZ = false;
+                    
                     ImGui::Text("X: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##LocationX", &loc[0], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedX = ImGui::DragFloat("##LocationX", &loc[0], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    
 
                     ImGui::Text("Y: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##LocationY", &loc[1], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedY = ImGui::DragFloat("##LocationY", &loc[1], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
                     ImGui::Text("Z: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##LocationZ", &loc[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedZ = ImGui::DragFloat("##LocationZ", &loc[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
-                    entitySelected->SetPosition(loc[0], loc[1], loc[2]);
-
+                    if (modifiedX || modifiedY || modifiedZ)
+                        entitySelected->SetPosition(loc[0], loc[1], loc[2]);
 
 
                     ///////////////////////////////
@@ -418,27 +433,38 @@ void LevelEditor::RenderUI()
                     ImGui::Text("Rotation:");
 
                     ImGui::Dummy(ImVec2(0, m_DetailsSize.y * 0.01f));
+                    
+                    
+                    modifiedX = false;
+                    modifiedY = false;
+                    modifiedZ = false;
+                    const float constrot[3] = { entitySelected->GetRotation().pitch , entitySelected->GetRotation().yaw, entitySelected->GetRotation().roll };
 
                     // Convert the float to a string
-                    float rot[3] = { entitySelected->GetRotation().roll , entitySelected->GetRotation().pitch, entitySelected->GetRotation().yaw };
-
-                    ImGui::Text("R: ");
-                    ImGui::SameLine();
-                    ImGui::DragFloat("##RotationR", &rot[0], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    float rot[3] = { entitySelected->GetRotation().pitch , entitySelected->GetRotation().yaw, entitySelected->GetRotation().roll };
 
                     ImGui::Text("P: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##RotationP", &rot[1], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedX = ImGui::DragFloat("##RotationP", &rot[0], 0.58f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
                     ImGui::Text("Y: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##RotationY", &rot[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedY = ImGui::DragFloat("##RotationY", &rot[1], 0.58f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
-                    entitySelected->SetRotation(rot[0], rot[1], rot[2]);
+                    ImGui::Text("R: ");
+                    ImGui::SameLine();
+                    modifiedZ = ImGui::DragFloat("##RotationR", &rot[2], 0.58f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+
+                    if(modifiedX || modifiedY || modifiedZ)
+                        entitySelected->SetRotation(rot[0], rot[1], rot[2]);
 
                     ///////////////////////////////
                     ///// SCALE
                     //////////////////////////////
+
+                    modifiedX = false;
+                    modifiedY = false;
+                    modifiedZ = false;
 
                     ImGui::Dummy(ImVec2(0, m_DetailsSize.y * 0.025f));
 
@@ -451,25 +477,26 @@ void LevelEditor::RenderUI()
 
                     ImGui::Text("X: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##ScaleX", &scale[0], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedX = ImGui::DragFloat("##ScaleX", &scale[0], 0.04f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
                     ImGui::Text("Y: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##ScaleY", &scale[1], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedY = ImGui::DragFloat("##ScaleY", &scale[1], 0.04f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
                     ImGui::Text("Z: ");
                     ImGui::SameLine();
-                    ImGui::DragFloat("##ScaleZ", &scale[2], 0.02f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
+                    modifiedZ = ImGui::DragFloat("##ScaleZ", &scale[2], 0.04f, -FLT_MAX, +FLT_MAX, " % .3f", 0);
 
-                    entitySelected->SetScale(scale[0], scale[1], scale[2]);
+                    if(modifiedX || modifiedY || modifiedZ)
+                        entitySelected->SetScale(scale[0], scale[1], scale[2]);
                    
                 }
                 else
                     Logger::LogError("RO NULL");
-                     */
+                     
                 ImGui::EndTabItem();
             }
-
+            
             ImGui::EndTabBar();
         }
         ImGui::End();
@@ -502,6 +529,31 @@ void PrintMat4(const glm::mat4& matrix) {
     }
 }
 
+// Function to extract Euler angles from a rotation matrix
+glm::vec3 ExtractEulerAngles(const glm::mat4& rotationMatrix) {
+    float pitch, yaw, roll;
+
+    // Extract pitch (rotation around X-axis)
+    pitch = glm::degrees(std::asin(rotationMatrix[1][2]));
+
+    // Check for singularities near the poles
+    if (std::abs(rotationMatrix[1][2]) < 0.99999) {
+        // Extract yaw (rotation around Y-axis)
+        yaw = glm::degrees(std::atan2(-rotationMatrix[0][2], rotationMatrix[2][2]));
+
+        // Extract roll (rotation around Z-axis)
+        roll = glm::degrees(std::atan2(-rotationMatrix[1][0], rotationMatrix[1][1]));
+    }
+    else {
+        // Gimbal lock: pitch is near 90 degrees
+        // Yaw and roll are not uniquely determined, so we set roll to 0 and calculate yaw
+        roll = 0.0f;
+        yaw = glm::degrees(std::atan2(rotationMatrix[0][1], rotationMatrix[0][0]));
+    }
+
+    return glm::vec3(pitch, yaw, roll);
+}
+
 void LevelEditor::Render3DScene()
 {
     m_ScenePosition = { m_OutlinerSize.x, m_LevelButtonsLayoutSize.y };
@@ -526,24 +578,37 @@ void LevelEditor::Render3DScene()
 
         ImGui::Image((void*)(intptr_t)sceneTextureBuffer, ImVec2(m_SceneTextureSize.x, m_SceneTextureSize.y), ImVec2(0, 1), ImVec2(1, 0));
 
-        ImGuizmo::BeginFrame();
-        ImGuizmo::Enable(true);
-        ImGuizmo::SetOrthographic(false);
-        ImGuizmo::SetDrawlist();
+        if (entitySelected && entitySelected->GetCanDrawAxis())
+        {
+            //Draw ImGuizmo axis
+            ImGuizmo::BeginFrame();
+            ImGuizmo::Enable(true);
+            ImGuizmo::SetOrthographic(false);
+            ImGuizmo::SetDrawlist();
 
-        ImGuizmo::SetRect(m_ScenePosition.x, m_ScenePosition.y, m_SceneTextureSize.x, m_SceneTextureSize.y);
+            ImGuizmo::SetRect(m_ScenePosition.x, m_ScenePosition.y, m_SceneTextureSize.x, m_SceneTextureSize.y);
+            
+            glm::mat4& modelMat = entitySelected->RootComponent->modelMatrix;
+            
+                bool manipulated = ImGuizmo::Manipulate(
+                    glm::value_ptr(m_CurrentLevel->m_renderCamera->GetView()),
+                    glm::value_ptr(Renderer::GetProjectionMat()),
+                    gizmoOperation,
+                    ImGuizmo::MODE::WORLD,
+                    glm::value_ptr(modelMat));
 
-        ImGuizmo::Manipulate(
-            glm::value_ptr(m_CurrentLevel->m_renderCamera->GetView()),
-            glm::value_ptr(Renderer::GetProjectionMat()),
-            ImGuizmo::OPERATION::TRANSLATE,
-            ImGuizmo::MODE::WORLD,
-            glm::value_ptr(entitySelected->RootComponent->GetModelMat4())
-        );
+                if (manipulated)
+                {
+                    
+                    ImGuizmo::DecomposeMatrixToComponents(glm::value_ptr(modelMat), 
+                        &entitySelected->RootComponent->position[0],
+                        &entitySelected->RootComponent->rotation.pitch,
+                        &entitySelected->RootComponent->scale[0]);
 
-        entitySelected->SetPosition(entitySelected->RootComponent->GetModelMat4()[3][0], entitySelected->RootComponent->GetModelMat4()[3][1], entitySelected->RootComponent->GetModelMat4()[3][2]);
-
+                }
+        }
         ImGui::End();
+
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 

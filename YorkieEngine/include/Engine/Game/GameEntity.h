@@ -94,18 +94,18 @@ public:
 	inline glm::vec3& GetPosition() { return RootComponent->GetPosition(); };
 	inline glm::vec3& GetScale() { return RootComponent->GetScale(); };
 	inline Rotator GetRotation() { return RootComponent->GetRotation(); };
-
+	inline bool GetCanDrawAxis() { return m_CanDrawAxisa; };
 	inline glm::mat4& GetModel() { return *RootComponent; };
 
 protected:
 	Level* m_Level;
-
 private:
 
 	Shader* shader;
 	entt::entity entity;
 	//List of the components of an entity
 	std::vector<BaseComponent*> components;
+	bool m_CanDrawAxisa;
 	//Entity ID, used for now to give a defualt name to each entity
 	static unsigned int entityID;
 	void SetupEntity(Level& level);

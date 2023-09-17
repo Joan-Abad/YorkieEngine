@@ -4,11 +4,14 @@
 #include "Engine/YorkieEngine.h"
 
 struct YorkieAPI Rotator {
-    float roll = 0;
+    //Rotation around X
     float pitch = 0;
+    //Rotation around Y
     float yaw = 0;
+    //Rotation around Z
+    float roll = 0;
 
-    Rotator(float roll, float pitch, float yaw)
+    Rotator(float pitch, float yaw, float roll)
         : roll(roll), pitch(pitch), yaw(yaw) {
     }
 
@@ -44,15 +47,15 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void PostUpdate(float deltaTime);
 
-	void SetPosition(float x, float y, float z);
-	void SetScale(float x, float y, float z);
-	void SetRotation(float Roll, float Pitch, float Yaw);
+	void SetPosition(float x = 0, float y = 0, float z = 0);
+	void SetScale(float x = 0, float y = 0, float z = 0);
+	void SetRotation(float Roll = 0, float Pitch = 0, float Yaw = 0);
 
-	void AddOffstet(float x, float y, float z);
-	void AddOffstet(const glm::vec3& newPosition);
-	void AddScale(float x, float y, float z);
-	void AddScale(glm::vec3& newScale);
-	void AddRotation(float Roll, float Pitch, float Yaw);
+	void AddOffstet(float x = 0, float y = 0, float z = 0);
+    void AddOffstet(const glm::vec3& newPosition);
+	void AddScale(float x = 0, float y = 0, float z = 0);
+    void AddScale(glm::vec3& newScale);
+	void AddRotation(float Pitch = 0, float Yaw = 0, float Roll = 0);
 
 	inline glm::vec3& GetPosition() { return position; };
     inline glm::vec3& GetScale() { return scale; };
@@ -61,13 +64,17 @@ public:
 
 	operator glm::mat4& () { return modelMatrix; };
 	operator const glm::mat4& () const { return modelMatrix; };
+    Rotator rotation{ 0, 0, 0 };
+    glm::vec3 position { 0.0f };
+    glm::vec3 scale { 1.0f };
 
+    glm::mat4 rotationMatrix { 1.0f };
+    glm::mat4 scaleMatrix { 1.0f };
+    glm::mat4 translationMatrix { 1.0f };
+    glm::mat4 modelMatrix { 1.0f };
 private:	
 	
-	glm::vec3 position { 0.0f };
-	glm::vec3 scale { 1.0f };
-	Rotator rotation{ 0, 0, 0 };
-    glm::mat4 modelMatrix { 1.0f };
+
     void UpdateModelMatrix();
 
 	
