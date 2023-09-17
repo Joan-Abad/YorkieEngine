@@ -28,9 +28,9 @@ void TransformComponent::SetScale(float x, float y, float z)
 	UpdateModelMatrix();
 }
 
-void TransformComponent::SetRotation(float Roll, float Pitch, float Yaw)
+void TransformComponent::SetRotation(float Pitch, float Yaw, float Roll)
 {
-	rotation = Rotator(Roll, Pitch, Yaw);
+	rotation = Rotator(Pitch, Yaw, Roll);
 	UpdateModelMatrix();
 }
 
@@ -58,9 +58,9 @@ void TransformComponent::AddScale(glm::vec3& newScale)
 	UpdateModelMatrix();
 }
 
-void TransformComponent::AddRotation(float Roll, float Pitch, float Yaw)
+void TransformComponent::AddRotation(float Pitch, float Yaw, float Roll)
 {
-	rotation += Rotator(Roll, Pitch, Yaw);
+	rotation += Rotator(Pitch, Yaw, Roll);
 	UpdateModelMatrix();
 }
 
@@ -68,8 +68,8 @@ void TransformComponent::UpdateModelMatrix()
 {
 	modelMatrix = glm::mat4(1.0f);
 	modelMatrix = glm::translate(modelMatrix, position);
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.roll), glm::vec3(1.0f, 0.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.pitch), glm::vec3(0.0f, 1.0f, 0.0f));
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.yaw), glm::vec3(0.0f, 0.0f, 1.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.pitch), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.yaw), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.roll), glm::vec3(0.0f, 0.0f, 1.0f));
 	modelMatrix = glm::scale(modelMatrix, scale);
 }
