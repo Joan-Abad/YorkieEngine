@@ -22,6 +22,10 @@ void BaseComponent::Update(float deltaTime)
 {
 }
 
+void BaseComponent::AddExtraWindowDetails()
+{
+}
+
 void BaseComponent::AddChildComponent(BaseComponent& childComponent)
 {
 	childComponents.push_back(&childComponent);

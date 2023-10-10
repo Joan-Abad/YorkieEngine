@@ -3,7 +3,7 @@
 #include "stb_image.h"
 #include <glad/glad.h>
 #include <iostream>
-
+#include "UI/ImGUI/imgui.h"
 
 MeshComponent::MeshComponent(const char* path, bool FlipUvs) : BaseComponent()
 {
@@ -14,6 +14,16 @@ void MeshComponent::Draw()
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 		meshes[i].Draw();
+}
+
+void MeshComponent::AddExtraWindowDetails()
+{
+    ImGui::SeparatorText("Mesh Properties");
+    ImGui::Text("Albedo:");
+    ImGui::Text("Metallic:");
+    ImGui::Text("Normal Map:");
+    ImGui::Text("Height Map:");
+    ImGui::Text("Occlusion Map:");
 }
 
 void MeshComponent::loadModel(std::string path, bool FlipUvs)

@@ -109,6 +109,7 @@ void LevelEditor::InitUI()
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0); // Unbind the framebuffer
 
+    fileTexture = new Texture("res/textures/Editor/Filee.png");
 
 }
 
@@ -252,7 +253,6 @@ void LevelEditor::SetLevelEditorFlags()
 {
     glEnable(GL_DEPTH_TEST );
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 }
 
 void LevelEditor::RenderUI()
@@ -288,8 +288,43 @@ void LevelEditor::RenderUI()
             // Tab 1
             if (ImGui::BeginTabItem("Content Browser")) {
 
-                ImGui::Text("Content Browser tab");
+                if (ImGui::BeginChild("Red", ImVec2(m_ContentBrowserSize.x - m_ContentBrowserSize.x * 0.005f, m_ContentBrowserSize.y - m_ContentBrowserSize.y * 0.15f), false, 0))
+                {
+                    static ImGuiTableFlags flags1 = ImGuiTableFlags_BordersV;
 
+                    if (ImGui::BeginTable("table_padding", 8, flags1))
+                    {
+
+                        for (int row = 0; row < 15; row++)
+                        {
+                            if(row == 0)
+                                ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, 25));
+
+                            ImGui::TableNextRow();
+                            for (int column = 0; column < 8; column++)
+                            {
+                                ImGui::TableSetColumnIndex(column);                              
+
+
+                                ImGui::ImageButton(
+                                    "",
+                                    (ImTextureID)fileTexture->GetTextureID(),     // Replace with your texture ID
+                                    ImVec2(150, 150)
+                                );
+                                ImGui::Text("text");
+
+                            }
+
+                            if (row == 0)
+                                ImGui::PopStyleVar();
+
+                        }
+
+                        ImGui::EndTable();
+                    }
+
+                    ImGui::EndChild();
+                }
                 ImGui::EndTabItem();
             }
 
@@ -337,7 +372,7 @@ void LevelEditor::RenderUI()
             // Tab 1
             if (ImGui::BeginTabItem("Outliner")) {
 
-                ImGui::Text("GameEntities:");
+                ImGui::Text("Game Entities:");
 
                 static int item_current_idx = 0; // Here we store our selection data as an index.
                 if (ImGui::BeginListBox("##listbox 2", ImVec2(-FLT_MIN, 5 * ImGui::GetTextLineHeightWithSpacing())))
@@ -494,6 +529,8 @@ void LevelEditor::RenderUI()
                 else
                     Logger::LogError("RO NULL");
                      
+                entitySelected->ExtraDetailsWindow();
+
                 ImGui::EndTabItem();
             }
             
@@ -527,31 +564,6 @@ void PrintMat4(const glm::mat4& matrix) {
         }
         std::cout << std::endl;
     }
-}
-
-// Function to extract Euler angles from a rotation matrix
-glm::vec3 ExtractEulerAngles(const glm::mat4& rotationMatrix) {
-    float pitch, yaw, roll;
-
-    // Extract pitch (rotation around X-axis)
-    pitch = glm::degrees(std::asin(rotationMatrix[1][2]));
-
-    // Check for singularities near the poles
-    if (std::abs(rotationMatrix[1][2]) < 0.99999) {
-        // Extract yaw (rotation around Y-axis)
-        yaw = glm::degrees(std::atan2(-rotationMatrix[0][2], rotationMatrix[2][2]));
-
-        // Extract roll (rotation around Z-axis)
-        roll = glm::degrees(std::atan2(-rotationMatrix[1][0], rotationMatrix[1][1]));
-    }
-    else {
-        // Gimbal lock: pitch is near 90 degrees
-        // Yaw and roll are not uniquely determined, so we set roll to 0 and calculate yaw
-        roll = 0.0f;
-        yaw = glm::degrees(std::atan2(rotationMatrix[0][1], rotationMatrix[0][0]));
-    }
-
-    return glm::vec3(pitch, yaw, roll);
 }
 
 void LevelEditor::Render3DScene()

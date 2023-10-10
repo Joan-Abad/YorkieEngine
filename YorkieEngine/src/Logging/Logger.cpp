@@ -2,7 +2,8 @@
 #include <iostream>
 #include <ctime>
 
-std::vector<MessageOutput> Logger::Messages;
+std::deque<MessageOutput> Logger::Messages;
+size_t Logger::maxSize = 150;
 
 void Logger::LogInfo(const std::string& message)
 {
@@ -29,5 +30,9 @@ void Logger::Log(const std::string& tag, const std::string& message, const ImVec
     messageOutput.tag = tag;
     messageOutput.message = message;
 
+    if (Messages.size() > maxSize)
+        Messages.pop_front();
+
     Messages.push_back(messageOutput);
+    
 }

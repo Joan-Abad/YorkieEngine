@@ -17,7 +17,7 @@ public:
 	virtual void Start();
 	virtual void PreUpdate(float deltaTime);
 	virtual void Update(float deltaTime);
-
+	virtual void AddExtraWindowDetails();
 private:
 	BaseComponent* parentComponent;
 	std::vector<BaseComponent*> childComponents;

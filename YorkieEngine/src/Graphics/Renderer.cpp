@@ -96,71 +96,9 @@ void Renderer::RenderEntity(Camera& renderCamera, GameEntity& gameEntity)
 				shader.SetUniform1f("pLight.quadratic", pointLight.m_quadratic);
 			}
 			
-			Mesh.Draw();
-			
-
-			//shader.SetUniform1i("bUseSpecular", material.IsUsingSpecularTexture());
+			Mesh.Draw();			
 		}
-
 	}
-
-	/*
-	if (gameEntity.HasComponent<MeshComponent>())
-	{
-		auto& meshComponent = gameEntity.GetComponent<MeshComponent>();
-
-		Material& material = meshComponent.GetMaterial();
-		Shader& shader = material.GetShader();
-		shader.Bind();
-		glBindVertexArray(meshComponent.GetVAO());
-
-		if (m_DirectionalLight)
-		{
-			shader.SetUniform3f("viewPos", renderCamera.GetPosition().x, renderCamera.GetPosition().y, renderCamera.GetPosition().z);
-			shader.SetUniform3f("directionLight.direction", m_DirectionalLight->GetLightDirection().x, m_DirectionalLight->GetLightDirection().y, m_DirectionalLight->GetLightDirection().z);
-			shader.SetUniform3f("directionLight.ambient", m_DirectionalLight->m_ambientColor.x, m_DirectionalLight->m_ambientColor.y, m_DirectionalLight->m_ambientColor.z);
-			shader.SetUniform3f("directionLight.diffuse", m_DirectionalLight->m_diffuseColor.x, m_DirectionalLight->m_diffuseColor.y, m_DirectionalLight->m_diffuseColor.z);
-			shader.SetUniform3f("directionLight.specular", m_DirectionalLight->m_specularColor.x, m_DirectionalLight->m_specularColor.y, m_DirectionalLight->m_specularColor.z);
-			
-			if (material.GetAlbedoTexture())
-			{
-				glActiveTexture(GL_TEXTURE0);
-				glBindTexture(GL_TEXTURE_2D, material.GetAlbedoTexture()->GetTextureID());
-				shader.SetUniform1i("material.diffuse", 0);
-			}
-			if (material.GetSpecularTexture())
-			{
-				glActiveTexture(GL_TEXTURE1);
-				glBindTexture(GL_TEXTURE_2D, material.GetSpecularTexture()->GetTextureID());
-				shader.SetUniform1i("material.specular", 1);
-				shader.SetUniform1i("bUseSpecular", material.IsUsingSpecularTexture());
-				shader.SetUniform1f("material.shininess", 64);
-			}
-		}
-
-		if (gameEntity.m_PointLight)
-		{
-			const PointLight& pointLight = *gameEntity.m_PointLight;
-
-			shader.SetUniform3f("pLight.position", pointLight.RootComponent->GetPosition().x, pointLight.RootComponent->GetPosition().y, pointLight.RootComponent->GetPosition().z);
-			shader.SetUniform3f("pLight.ambient", pointLight.m_ambientColor.x, pointLight.m_ambientColor.y, pointLight.m_ambientColor.z);
-			shader.SetUniform3f("pLight.diffuse", pointLight.m_diffuseColor.x, pointLight.m_diffuseColor.y, pointLight.m_diffuseColor.z);
-			shader.SetUniform3f("pLight.specular", pointLight.m_specularColor.x, pointLight.m_specularColor.y, pointLight.m_specularColor.z);
-			shader.SetUniform1f("pLight.constant", pointLight.m_constant);
-			shader.SetUniform1f("pLight.linear", pointLight.m_linear);
-			shader.SetUniform1f("pLight.quadratic", pointLight.m_quadratic);
-		}
-
-		//Set MVP matrix
-		shader.SetUniformMat4("model", gameEntity.GetModel());
-		shader.SetUniformMat4("view", renderCamera.GetView());
-		//Maybe the projection should come from the camera, as we could render in the screen multiple stuff from multiple cameras. 
-		shader.SetUniformMat4("projection", projectionMat);		
-
-		//TODO: Declare the draw function with flags so change draw parameters
-		glDrawElements(GL_TRIANGLES, meshComponent.GetIndices().size(), GL_UNSIGNED_INT, 0);
-	}
-	*/
 }
 
 void Renderer::DrawGrid(Camera& renderCamera)

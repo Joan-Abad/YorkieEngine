@@ -154,6 +154,7 @@
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\glad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="YorkieEngine\src\Editor\ContentBrowser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h">
@@ -330,6 +331,7 @@
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="YorkieEngine\include\Editor\ContentBrowser.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="E:\Projects\YorkieEngine\CMakeLists.txt" />

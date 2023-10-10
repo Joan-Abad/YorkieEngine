@@ -7,3 +7,13 @@ BaseLight::BaseLight(glm::vec3 lightColor, glm::vec3 ambientColor, glm::vec3 dif
 	m_diffuseColor = diffuseColor;
 	m_specularColor = specularColor;
 }
+
+void BaseLight::ExtraDetailsWindow()
+{
+	ImGui::SeparatorText("Light Properties");
+	ImGui::Text("LightColor:");
+	ImGui::SameLine();
+
+	ImGui::ColorEdit3("##LightColor", (float*)&m_diffuseColor, 0);
+
+}

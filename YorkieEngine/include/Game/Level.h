@@ -11,6 +11,7 @@ class Camera;
 class YorkieAPI Level
 {
 	friend class LevelEditor;
+	friend class GameEntity;
 public: 
 	Level(const char* levelName);
 

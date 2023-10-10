@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Window/Viewport.h"
 #include "entt/entity/registry.hpp"
+#include "Components/MeshComponent.h"
 
 unsigned int GameEntity::entityID = 1;
 
@@ -120,6 +121,14 @@ void GameEntity::SetViewport(Level& level)
 {
 	m_Level = &level;
 	entity = m_Level->GetRegistry().create();
+}
+
+void GameEntity::ExtraDetailsWindow()
+{
+	for (auto& component : components)
+	{
+		component->AddExtraWindowDetails();
+	}
 }
 
 void GameEntity::SetupEntity(Level& level)

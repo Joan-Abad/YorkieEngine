@@ -336,6 +336,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\Window.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\Window\WindowManager.cpp" />
     <ClCompile Include="E:\Projects\YorkieEngine\YorkieEngine\src\glad.cpp" />
+    <ClCompile Include="YorkieEngine\src\Editor\ContentBrowser.cpp" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Camera\Camera.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\BaseComponent.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Components\MeshComponent.h" />
@@ -394,6 +395,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\Viewport.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\Window.h" />
     <ClInclude Include="E:\Projects\YorkieEngine\YorkieEngine\include\Window\WindowManager.h" />
+    <ClInclude Include="YorkieEngine\include\Editor\ContentBrowser.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="E:\Projects\YorkieEngine\ZERO_CHECK.vcxproj">

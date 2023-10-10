@@ -16,6 +16,10 @@ public:
     MeshComponent(const char* path, bool FlipUvs = false);
     void Draw();
     std::vector<Mesh>& GetMeshes() { return meshes; };
+
+protected: 
+    virtual void AddExtraWindowDetails();
+
 private:
     // model data
     std::vector<Mesh> meshes;

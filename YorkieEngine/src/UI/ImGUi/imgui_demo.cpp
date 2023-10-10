@@ -4381,7 +4381,8 @@ static void ShowDemoWindowTables()
                     ImGui::TableSetColumnIndex(column);
                     if (row == 0)
                     {
-                        ImGui::Text("Avail %.2f", ImGui::GetContentRegionAvail().x);
+                        auto region = ImGui::GetContentRegionAvail().x;
+                        ImGui::Text("Avail %.2f", region);
                     }
                     else
                     {

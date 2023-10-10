@@ -7,7 +7,7 @@
 #include "UI/ImGUI/imgui.h"
 #include "GLFW/glfw3.h"
 #include "UI/ImGUI/ImGuizmo/ImGuizmo.h"
-
+#include "Graphics/Texture/Texture.h"
 #include <vector>
 
 struct YorkieAPI windowsLayoutInfo
@@ -92,6 +92,8 @@ private:
 	//How much % of the screen is going to ocuppy 1 = 100%, 0 = 0% and where you want it to be
 	const ImVec2 m_ContentBrowserPortionOfTheScreenSize = {1, 0.2f};
 	const ImVec2 m_ContentBrowerPortionOfTheScreenPosition = { 0, 0.8f };
+
+	Texture* fileTexture;
 
 	//////////////////////////////////////////////////////////////////
 	///////////////////// CONSOLE LOG ////////////////////////////
