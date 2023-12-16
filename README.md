@@ -4,7 +4,9 @@ Yorkie Engine source code
 
 Yorkie Engine is a Game Engine that I created to start learning how big Game Engines really work from the bottom to the top. Yorkie Engine is a dll that needs to be linked to an executable application. For now it is only available for windows. Used visual studio and c++17 for development. Graphics are entirely using opengl. Planning to implement DirectX in the future. 
 
-![ezgif com-video-to-gif-converted](https://github.com/Joan-Abad/YorkieEngine/assets/59310847/51fa4e1a-18a9-403c-840e-86975520daa6)
+<div style="text-align: center;">
+  <img src="https://github.com/Joan-Abad/YorkieEngine/assets/59310847/51fa4e1a-18a9-403c-840e-86975520daa6/ezgif.com-video-to-gif-converted.gif" alt="Your GIF" />
+</div>
 
 Features implemented in YorkieEngine:
 
